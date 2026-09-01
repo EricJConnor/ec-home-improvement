@@ -113,15 +113,52 @@ brokerage. Having built the work confers no rights in a photograph of it, and th
 the contractor, controls access to the finished space. **Do not use any of them without permission,
 and never strip or obscure the watermark.**
 
-- **Cleared:** Eric obtained verbal permission by phone for the painted-brick rowhouse set
-  (`IMG_2624-2636`). `IMG_2630` is now the Painting panel. He was asked to get it in writing.
-- **Not cleared:** the white-kitchen set (`IMG_2379-2383`, `IMG_2616-2623`) and the green-wall set
-  (`IMG_2637-2651`). Leave them alone until he says otherwise.
+- **All 39 are cleared.** Eric confirmed with the agent that every watermarked photo is of a
+  **painting** job he did, and the agent sent them to him for his use. He has also said explicitly
+  to leave the watermark visible. Use them; still never edit the watermark out.
+- Because they are painting work, they are filed under **Painting** in the gallery — the room in the
+  photo is not the job. Do not refile an MLS kitchen shot under Kitchens; that would imply he built it.
 
 The copies in the zip are downscales. When a permission comes in, ask for the photographer's
 original — those run 2000-3000px and would be the first genuinely full-bleed-capable photos in the
 project. Going forward Eric was advised to put a portfolio clause in his contracts so future jobs
 are his to shoot and publish.
+
+## The gallery (`/gallery`)
+
+Eric's call, and the right one: instead of six thin category pages, one gallery. Pooled, the archive
+is a real body of work; split six ways it is mostly gaps.
+
+- **Six chapters** in the landing reel's order plus Commercial: Kitchens, Bathrooms, Statement Walls,
+  Outdoors, Painting, Commercial. 49 plates, deliberately spread so no one project dominates —
+  he asked specifically not to lean on the black kitchen.
+- **No hero photograph.** He rejected a centrepiece image, so the page opens on type alone.
+- **Plates keep their true aspect ratio** and are laid out on a repeating rhythm of widths and
+  vertical offsets (`RHYTHM` in `app/gallery/page.tsx`), not a grid. Nothing is cropped.
+- **A ghosted chapter numeral** sits behind each chapter at 2.8% white — texture, not information.
+  A fixed rail on the right tracks the chapter and jumps between them.
+
+### The depth renderer (`public/gallery.js`)
+
+The one real 3D moment. Every plate is displaced per-pixel by a depth map as the cursor moves —
+near pixels travel further than far ones, so a flat photo reads as a room you lean into. Eric chose
+strength **50** from a side-by-side test rig.
+
+Three things about it that are load-bearing:
+
+- **One shared WebGL canvas, fixed and full-viewport, drawing every visible plate as a quad.**
+  Browsers cap WebGL contexts at roughly 16 and there are 49 plates, so a canvas per plate fails
+  partway down the page. Do not refactor to per-plate canvases.
+- **The `<img>` inside each plate is real**, carries the alt text, is the no-JS/no-WebGL rendering,
+  and is the texture source. It is faded out only once its texture is actually uploaded
+  (`.gp.drawn`), never optimistically — otherwise a WebGL failure leaves blank rectangles.
+- **Depth maps are approximated**, not from a model: interiors recede upward, so a vertical ramp
+  blended with large-scale luminance. Only a few pixels of displacement ride on this, so the eye
+  reads depth well before it notices the map is wrong. `huggingface.co` is blocked here; if it is
+  ever allowed, real monocular depth would sharpen the edges.
+
+Textures are loaded on approach and evicted behind you (`MAX_LIVE`), and touch devices drive the
+displacement from scroll position since there is no cursor.
 
 ## Interior pages — build ONE first, get approval, then template the rest
 

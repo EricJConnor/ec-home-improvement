@@ -243,3 +243,56 @@ img,video{display:block;max-width:100%}
 .form-error{margin-top:20px;font-size:15px;color:var(--mute)}
 .btn[disabled]{opacity:.5;cursor:default}
 .btn[disabled]:hover{background:none;color:#fff}
+
+/* ================= THE GALLERY =================
+   Plates are drawn by one fixed WebGL canvas (public/gallery.js) sitting behind the
+   type. The <img> inside each plate is the real, no-JS rendering and doubles as the
+   texture source, so it is faded out only once the renderer has actually uploaded it —
+   never optimistically, or a WebGL failure would leave blank rectangles.            */
+
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:none}
+body.has-gl #gl{display:block}
+
+.gal{position:relative;z-index:1}
+.gal-open{padding:clamp(120px,20vh,220px) var(--pad) clamp(60px,9vw,120px);
+  display:grid;grid-template-columns:1.5fr 1fr;gap:36px 40px;align-items:end}
+.gal-open-side{justify-self:end}
+.hint{margin-top:14px;font-size:13px;color:var(--mute-dark)}
+@media(max-width:820px){.gal-open{grid-template-columns:1fr}.gal-open-side{justify-self:start}}
+
+/* ---------- the chapter rail ---------- */
+.rail{position:fixed;right:calc(var(--pad) * .55);top:50%;transform:translateY(-50%);z-index:40;
+  display:grid;gap:9px;justify-items:end;text-align:right;pointer-events:auto}
+.rail-count{font-size:12px;color:var(--mute-dark);margin-bottom:8px;font-variant-numeric:tabular-nums}
+.rail-count b{color:var(--paper);font-weight:400}
+.rail a{font-size:12px;color:var(--mute-dark);transition:color .3s}
+.rail a:hover{color:var(--paper)}
+.rail a.on{color:var(--paper)}
+@media(max-width:1180px){.rail{display:none}}
+
+/* ---------- chapters ---------- */
+.chapter{position:relative;padding:clamp(60px,9vw,140px) var(--pad) clamp(40px,6vw,90px)}
+/* the numeral is texture, not information — it should be barely legible */
+.ghost{position:absolute;right:var(--pad);top:clamp(20px,4vw,60px);z-index:-1;
+  font-size:clamp(160px,34vw,520px);line-height:.72;font-weight:200;letter-spacing:-.06em;
+  font-variation-settings:'opsz' 96;color:rgba(255,255,255,.028);pointer-events:none;user-select:none}
+.chapter-head{display:grid;grid-template-columns:1.4fr 1fr;gap:28px 40px;align-items:end;
+  padding-top:clamp(24px,3vw,44px);margin-bottom:clamp(40px,6vw,96px)}
+.chapter-head>div{justify-self:end}
+@media(max-width:820px){.chapter-head{grid-template-columns:1fr}.chapter-head>div{justify-self:start}}
+
+/* ---------- plates ---------- */
+.gal-row{display:flex;gap:clamp(16px,2.4vw,44px);align-items:flex-start;
+  margin-bottom:clamp(28px,4.5vw,80px)}
+.gp{position:relative;margin:0;overflow:hidden;background:#1b1b1b}
+.gp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transition:opacity .45s ease}
+/* only once its texture is live does the DOM image step aside */
+body.has-gl .gp.drawn img{opacity:0}
+body.has-gl .gp.drawn{background:transparent}
+@media(max-width:820px){
+  .gal-row{flex-wrap:wrap;gap:14px;margin-bottom:26px;justify-content:flex-start!important}
+  .gp{width:100%!important;margin-top:0!important}
+  .gal-row .gp:not(:first-child){margin-top:14px!important}
+}
+@media(prefers-reduced-motion:reduce){.gp img{transition:none}}

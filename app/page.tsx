@@ -1,38 +1,11 @@
-import ContactForm from './components/ContactForm'
+import SiteHeader from './components/SiteHeader'
+import ContactBand from './components/ContactBand'
 import Script from 'next/script'
 
 export default function Home() {
   return (
     <>
-      <header className="hdr">
-        <a className="mark" href="#top" aria-label="EC Home Improvement, home">
-          EC<span>Home Improvement</span>
-        </a>
-        <nav className="nav" aria-label="Primary">
-          <a href="#kitchens">Kitchens</a>
-          <a href="#bathrooms">Bathrooms</a>
-          <a href="#flexmarble">Statement Walls</a>
-          <a href="#outdoors">Outdoors</a>
-          <a href="#painting">Painting</a>
-          <a href="#how">How we work</a>
-          <a href="#agents">Agents</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <button className="burger" aria-expanded="false" aria-controls="sheet">
-          Menu
-        </button>
-      </header>
-
-      <div className="sheet" id="sheet">
-        <button aria-label="Close menu">Close</button>
-        <a href="#kitchens">Kitchens</a>
-        <a href="#bathrooms">Bathrooms</a>
-        <a href="#flexmarble">Statement Walls</a>
-        <a href="#outdoors">Outdoors</a>
-        <a href="#painting">Painting</a>
-        <a href="#agents">Agents</a>
-        <a href="#contact">Contact</a>
-      </div>
+      <SiteHeader />
 
       <main id="top">
         {/* HERO */}
@@ -223,27 +196,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CONTACT */}
-        <section className="sec contact rule-draw" id="contact">
-          <h2 className="h-l">Book a walkthrough.</h2>
-          <a className="big-tel" href="tel:+12159026636">
-            215 902 6636
-          </a>
-          <p className="p" style={{ marginTop: 22 }}>
-            Or write to{' '}
-            <a href="mailto:eric@ec-homes.com" style={{ color: '#fff', borderBottom: '1px solid var(--line)' }}>
-              eric@ec-homes.com
-            </a>
-            . Tell us the room and the rough idea. We'll come see it.
-          </p>
-
-          <ContactForm />
-
-          <p className="area">
-            Serving Philadelphia, Bucks County, Montgomery County, Delaware County, New Hope, Doylestown
-            and the surrounding areas.
-          </p>
-        </section>
+        <ContactBand />
       </main>
 
       <footer className="ftr">

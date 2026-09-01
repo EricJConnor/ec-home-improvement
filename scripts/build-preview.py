@@ -13,9 +13,10 @@ import base64, pathlib, re, sys, urllib.request
 
 BASE = 'http://localhost:3000'
 OUT = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else 'preview.html')
+PATH = sys.argv[2] if len(sys.argv) > 2 else '/'
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-html = urllib.request.urlopen(BASE + '/').read().decode()
+html = urllib.request.urlopen(BASE + PATH).read().decode()
 
 hrefs = re.findall(r'<link rel="stylesheet" href="([^"]+\.css)"', html)
 assert hrefs, 'no stylesheet in the served HTML — is the server running?'
@@ -41,10 +42,31 @@ for pat in (r'<script\b.*?</script>', r'<template\b.*?</template>',
     body = re.sub(pat, '', body, flags=re.S)
 body = re.sub(r'<link\b[^>]*/?>', '', body)
 
+def _inline(rel, max_px=None, q=82):
+    f = ROOT / 'public' / rel.lstrip('/')
+    data = f.read_bytes()
+    if max_px:
+        from PIL import Image
+        import io
+        im = Image.open(io.BytesIO(data)).convert('RGB')
+        if max(im.size) > max_px:
+            im.thumbnail((max_px, max_px))
+        buf = io.BytesIO(); im.save(buf, 'JPEG', quality=q, optimize=True)
+        data = buf.getvalue()
+    return base64.b64encode(data).decode()
+
 def img(m):
-    return 'src="data:image/jpeg;base64,%s"' % base64.b64encode(
-        (ROOT / 'public' / m.group(1).lstrip('/')).read_bytes()).decode()
+    return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1))
 body, n = re.subn(r'src="(/assets/[^"]+)"', img, body)
+
+def gal(m):
+    return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1), 900, 78)
+body, g = re.subn(r'src="(/gallery/[^"]+\.jpg)"', gal, body)
+
+def dep(m):
+    return 'data-depth="data:image/jpeg;base64,%s"' % _inline(m.group(1))
+body, d = re.subn(r'data-depth="(/gallery/[^"]+\.jpg)"', dep, body)
+if g: n += g; print('gallery: %d plates, %d depth maps inlined' % (g, d))
 
 # The hero footage has to travel inside the file too, but a 1080p master would
 # make this a multi-megabyte download on a phone. Prefer a 720p preview cut when
@@ -52,7 +74,7 @@ body, n = re.subn(r'src="(/assets/[^"]+)"', img, body)
 vdir = ROOT / 'public' / 'video'
 mp4 = vdir / 'hero-preview.mp4' if (vdir / 'hero-preview.mp4').exists() else vdir / 'hero.mp4'
 srcs = [(vdir / 'hero.webm', 'video/webm'), (mp4, 'video/mp4')]
-srcs = [(f, t) for f, t in srcs if f.exists()]
+srcs = [(f, t) for f, t in srcs if f.exists()] if '</video>' in body else []
 if srcs:
     body = re.sub(r'<source[^>]*>', '', body)                 # the app's file-path sources
     tags = ''.join('<source src="data:%s;base64,%s" type="%s">'
@@ -66,7 +88,10 @@ if srcs:
                       % base64.b64encode(poster.read_bytes()).decode(), body)
     print('inlined hero video: %s (%.2f MB)' % (master.name, master.stat().st_size / 1048576))
 
-OUT.write_text(
-    "<title>EC Home Improvement</title>\n<style>\n%s\n</style>\n%s\n<script>\n%s\n</script>\n"
-    % (css, body, (ROOT / 'public' / 'motion.js').read_text()))
+title = re.search(r'<title>(.*?)</title>', html, re.S)
+scripts = ''.join('\n<script>\n%s\n</script>' % (ROOT / 'public' / s_).read_text()
+                  for s_ in ('gallery.js', 'motion.js')
+                  if ('/' + s_) in html and (ROOT / 'public' / s_).exists())
+OUT.write_text("<title>%s</title>\n<style>\n%s\n</style>\n%s%s\n"
+               % (title.group(1) if title else 'EC Home Improvement', css, body, scripts))
 print('%s  %d photos, %d webfonts, %.2f MB' % (OUT, n, len(fonts), OUT.stat().st_size / 1048576))
