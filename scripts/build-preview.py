@@ -46,6 +46,26 @@ def img(m):
         (ROOT / 'public' / m.group(1).lstrip('/')).read_bytes()).decode()
 body, n = re.subn(r'src="(/assets/[^"]+)"', img, body)
 
+# The hero footage has to travel inside the file too, but a 1080p master would
+# make this a multi-megabyte download on a phone. Prefer a 720p preview cut when
+# one exists; it is plenty for judging framing, and the repo keeps the master.
+vdir = ROOT / 'public' / 'video'
+mp4 = vdir / 'hero-preview.mp4' if (vdir / 'hero-preview.mp4').exists() else vdir / 'hero.mp4'
+srcs = [(vdir / 'hero.webm', 'video/webm'), (mp4, 'video/mp4')]
+srcs = [(f, t) for f, t in srcs if f.exists()]
+if srcs:
+    body = re.sub(r'<source[^>]*>', '', body)                 # the app's file-path sources
+    tags = ''.join('<source src="data:%s;base64,%s" type="%s">'
+                   % (t, base64.b64encode(f.read_bytes()).decode(), t) for f, t in srcs)
+    body = body.replace('</video>', tags + '</video>')
+    master = srcs[-1][0]
+    poster = vdir / 'hero-poster.jpg'
+    if poster.exists():
+        body = re.sub(r'poster="[^"]*"',
+                      'poster="data:image/jpeg;base64,%s"'
+                      % base64.b64encode(poster.read_bytes()).decode(), body)
+    print('inlined hero video: %s (%.2f MB)' % (master.name, master.stat().st_size / 1048576))
+
 OUT.write_text(
     "<title>EC Home Improvement</title>\n<style>\n%s\n</style>\n%s\n<script>\n%s\n</script>\n"
     % (css, body, (ROOT / 'public' / 'motion.js').read_text()))

@@ -12,7 +12,6 @@ npm-debug.log*
 next-env.d.ts
 tsconfig.tsbuildinfo
 
-# hero footage is rebuildable from scripts/build-hero-video.sh — keep it out of git
-public/video/*.mp4
-public/video/*.webm
-public/video/*.jpg
+# The hero footage IS committed: Pexels is unreachable from CI, so it cannot be
+# refetched, and Vercel builds from the repo. Only the preview cut is derived.
+public/video/hero-preview.mp4
