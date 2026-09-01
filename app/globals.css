@@ -362,20 +362,40 @@ main{position:relative;z-index:1}
 .sphere{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;
   will-change:transform}
 
+/* registered so the feather can be transitioned rather than snapping between states */
+@property --f{syntax:'<percentage>';inherits:false;initial-value:13%}
+
 .tile{position:absolute;margin:0;left:0;top:0;
   width:var(--s,96px);height:var(--s,96px);
   /* the back of the sphere culls itself — no depth sorting, no shader */
   backface-visibility:hidden;-webkit-backface-visibility:hidden;
   background:#1b1b1b;overflow:hidden;cursor:pointer;
-  transition:filter .3s ease}
+  /* Same feather as the closer look, so a photo does not change character when it flies
+     out of the globe. It masks the tile rather than the image inside it: the tile carries
+     its own dark background, and masking only the image would leave that showing through
+     the soft edge as the hard rectangle we are trying to lose. Two linear gradients
+     intersected, because a radial cuts the corners hard and leaves the sides straight. */
+  -webkit-mask-image:
+    linear-gradient(to right,transparent 0,#000 var(--f),#000 calc(100% - var(--f)),transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 var(--f),#000 calc(100% - var(--f)),transparent 100%);
+  mask-image:
+    linear-gradient(to right,transparent 0,#000 var(--f),#000 calc(100% - var(--f)),transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 var(--f),#000 calc(100% - var(--f)),transparent 100%);
+  -webkit-mask-composite:source-in;mask-composite:intersect;
+  --f:13%;
+  transition:filter .3s ease,--f .3s var(--ease-out)}
 .tile img{width:100%;height:100%;object-fit:cover;display:block;
   transition:transform .35s var(--ease-out)}
-/* Gated: a tap on a touch screen fires a false hover, and tapping a tile is exactly how
+/* The feather is the hover affordance now. A ring cannot sit on an edge that has no edge —
+   it fades out at the corners and reads as a smear — so instead the photo pulls into focus
+   out of the cloud: the mask tightens and the image brightens. Registering --f as a real
+   percentage is what makes it animate rather than jump; browsers without @property still
+   get the state change, just instantly.
+   Gated: a tap on a touch screen fires a false hover, and tapping a tile is exactly how
    the globe is used on a phone — ungated, every tap left a tile stuck bright. */
 @media(hover:hover) and (pointer:fine){
-  .tile:hover{filter:brightness(1.28) contrast(1.04);
-    box-shadow:0 0 0 1px rgba(255,255,255,.55),0 18px 50px rgba(0,0,0,.5);z-index:5}
-  .tile:hover img{transform:scale(1.1)}
+  .tile:hover{--f:3%;filter:brightness(1.32) contrast(1.05) saturate(1.06);z-index:5}
+  .tile:hover img{transform:scale(1.06)}
 }
 /* the photo takes the press, not the tile: scaling the tile would move it on the sphere */
 .tile:active img{transform:scale(.965);transition-duration:var(--t-press)}

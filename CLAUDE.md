@@ -323,6 +323,31 @@ renders as a 29px speck in the corner of its box. And the contact form returns 5
 `RESEND_API_KEY` is set in Vercel; it fails visibly with the phone number rather than faking a
 success, but no mail reaches Eric until that key exists.
 
+## The globe's feathered tiles
+
+The tiles carry the **same two-linear-gradient feather as the closer look**, so a photo does not
+change character when it flies out of the globe. Three things about it are load-bearing:
+
+- **The mask is on `.tile`, not on `.tile img`.** The tile has its own `#1b1b1b` background; masking
+  only the image leaves that showing through the soft edge as exactly the hard rectangle the feather
+  is there to lose.
+- **`--f:13%`.** Compared at 0 / 13 / 22 / 30 on a frozen sphere: 0 is hard tiles, 22 starts washing
+  the photos out, 30 is mush. 13 loses the rectangle and keeps every photo readable. It has to be a
+  percentage rather than pixels because tile size is computed from the viewport.
+- **Hover reduces the feather to 3% instead of drawing a ring.** A ring cannot sit on an edge that
+  has no edge — it fades at the corners and reads as a smear — so the photo pulls into focus out of
+  the cloud instead. `--f` is registered with `@property` so it animates rather than snaps.
+  `filter: drop-shadow` is not an option here: filters apply *before* masking, so the shadow would
+  be a rectangle that the mask then cuts.
+
+Measured before and after over 180 frames: median frame time unchanged (83.3 → 83.4ms in a
+GPU-less container). 137 masked layers cost nothing measurable.
+
+When testing hover or clicks on the globe, **find the tile with `elementFromPoint`, never with
+`getBoundingClientRect`** — a back-facing tile still reports a bounding rect but is culled by
+`backface-visibility` and cannot be hovered or clicked. That mistake has now produced a false
+negative twice.
+
 ## Motion and design craft
 
 Eric asked for Emil Kowalski's skills on this project and they are vendored, unmodified and MIT
