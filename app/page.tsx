@@ -157,10 +157,10 @@ export default function Home() {
 
         {/* THE BREATH: one full-bleed image between chapters */}
         <figure className="band">
-          <img src="/assets/band-kitchen.jpg" alt="Matte black kitchen with its hex-tile backsplash lit from under the cabinets" />
+          <img src="/assets/band-kitchen.jpg" alt="A matte black kitchen, its hex-tile backsplash lit from under the cabinets" />
           <div className="veil" />
           <div className="grain" />
-          <figcaption>Hex tile, matte black, acacia floors.</figcaption>
+          <figcaption>Matte black, hex tile, veined stone.</figcaption>
         </figure>
 
         {/* MANIFESTO */}
@@ -169,7 +169,7 @@ export default function Home() {
           <div className="mani">
             <div className="mani-row rule-draw">
               <div className="mani-plate">
-                <img src="/assets/how-build.jpg" alt="A mahogany booth panel built on site, still taped, on raw pine flooring" />
+                <img src="/assets/how-build.jpg" alt="A finished booth: green banquette, a round wood table and a brass lamp" />
               </div>
               <div className="mani-text">
                 <h3>If it doesn't exist, we build it.</h3>
@@ -178,25 +178,7 @@ export default function Home() {
             </div>
             <div className="mani-row rule-draw">
               <div className="mani-plate">
-                <img src="/assets/how-crew.jpg" alt="A kitchen mid-renovation, cabinets out and drop cloths down" />
-              </div>
-              <div className="mani-text">
-                <h3>No sales layer.</h3>
-                <p>You talk to the person who'll do the work. Same person on the estimate, the job site and the final walkthrough.</p>
-              </div>
-            </div>
-            <div className="mani-row rule-draw">
-              <div className="mani-plate">
-                <img src="/assets/how-finish.jpg" alt="A finished shower in white subway tile with a black frame and hex floor" />
-              </div>
-              <div className="mani-text">
-                <h3>We're not the cheapest.</h3>
-                <p>A real crew, real materials and a finish date that holds cost what they cost. Cheap work is the most expensive kind.</p>
-              </div>
-            </div>
-            <div className="mani-row rule-draw">
-              <div className="mani-plate">
-                <img src="/assets/how-done.jpg" alt="The finished bar, stools set and the floor clean" />
+                <img src="/assets/how-done.jpg" alt="A finished shower in white subway tile with a black frame and hex floor" />
               </div>
               <div className="mani-text">
                 <h3>Done means done.</h3>

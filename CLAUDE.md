@@ -42,14 +42,22 @@ rules those out and they would have made identical blocks more identical):
 
 - **Ground rhythm.** Agents moved to the plaster ground, so the page now alternates
   ink → light → ink → light → ink instead of running three darks together.
-- **The manifesto carries its proof.** The four claims are a sequence of rows, each paired with a
-  photo, alternating sides. The Yankee Chipper buildout bookends it — a booth being built under
-  "If it doesn't exist, we build it", the finished bar under "Done means done". Plates cap at 380px
+- **The manifesto carries its proof.** Rows of claim + photo, alternating sides. Plates cap at 380px
   so the 640px sources stay near native.
+  **Eric cut "No sales layer" and "We're not the cheapest" — do not reinstate them.** Two rows remain:
+  "If it doesn't exist, we build it" (the finished Yankee Chipper booth) and "Done means done" (a
+  finished shower — deliberately not a second restaurant shot, so two rows don't read as one job).
+  Show **finished** work here. Eric rejected an in-progress booth photo: the archive has better
+  finished ones, and process shots undercut the claim.
 - **The full-bleed band.** One image between FlexMarble and the manifesto, edge to edge. It works at
   that size *because* it is treated as ground, not subject: brightness .58, a veil, and the hero's
   grain over it, so the upscaling is invisible. Do not brighten it to "show the photo better" — that
   is what makes a 640px file look cheap. It drifts slowly against the scroll.
+  The photo is `IMG_3222`, the level, straight-on frame of the hex backsplash. An earlier pick
+  (`IMG_3181`) was the same kitchen shot on a tilt and Eric spotted it immediately — at full width a
+  crooked horizon is unmissable. Only **12** non-WEBP landscape photos exist in the archive and six
+  of those are watermarked MLS shots, so the pool for this band is very small until Eric supplies
+  originals.
 - **The hairlines draw.** Rules are the site's signature, so they carry the motion between sections:
   one left-to-right sweep on entry via IntersectionObserver, then they stay. The contact phone number
   gets a single beat. Nothing else animates on scroll.
