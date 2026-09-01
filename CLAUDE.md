@@ -30,6 +30,31 @@ more than the CSS:
 - The reel pins and travels on scroll **on every viewport now, phones included**. It is scroll-linked,
   not a timed carousel — the visitor sets the pace. Plates parallax inside their frames as they pass.
 
+## The second half
+
+Eric's second note: past the reel the page went "all kind of one note." It was three consecutive ink
+sections with the same shape — big headline left, small grey paragraph right, a grid of small text
+blocks — and no photography at all after FlexMarble. Fixed structurally, not with fade-ins (his brief
+rules those out and they would have made identical blocks more identical):
+
+- **Ground rhythm.** Agents moved to the plaster ground, so the page now alternates
+  ink → light → ink → light → ink instead of running three darks together.
+- **The manifesto carries its proof.** The four claims are a sequence of rows, each paired with a
+  photo, alternating sides. The Yankee Chipper buildout bookends it — a booth being built under
+  "If it doesn't exist, we build it", the finished bar under "Done means done". Plates cap at 380px
+  so the 640px sources stay near native.
+- **The full-bleed band.** One image between FlexMarble and the manifesto, edge to edge. It works at
+  that size *because* it is treated as ground, not subject: brightness .58, a veil, and the hero's
+  grain over it, so the upscaling is invisible. Do not brighten it to "show the photo better" — that
+  is what makes a 640px file look cheap. It drifts slowly against the scroll.
+- **The hairlines draw.** Rules are the site's signature, so they carry the motion between sections:
+  one left-to-right sweep on entry via IntersectionObserver, then they stay. The contact phone number
+  gets a single beat. Nothing else animates on scroll.
+
+`scripts/build-preview.py` renders the running server into one self-contained HTML file (fonts and
+photos inlined) for publishing as an Artifact, since there is still no Vercel preview. Generating it
+from the live server means the page Eric reviews is the page that ships.
+
 Page behaviour lives in `public/motion.js`, one plain file the app loads with `next/script` and the
 standalone preview inlines verbatim, so the two cannot drift.
 

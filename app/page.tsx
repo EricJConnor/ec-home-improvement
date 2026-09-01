@@ -155,52 +155,68 @@ export default function Home() {
           </div>
         </section>
 
+        {/* THE BREATH: one full-bleed image between chapters */}
+        <figure className="band">
+          <img src="/assets/band-kitchen.jpg" alt="Matte black kitchen with its hex-tile backsplash lit from under the cabinets" />
+          <div className="veil" />
+          <div className="grain" />
+          <figcaption>Hex tile, matte black, acacia floors.</figcaption>
+        </figure>
+
         {/* MANIFESTO */}
-        <section className="sec" id="how">
+        <section className="sec rule-draw" id="how">
           <h2 className="h-l">How we work.</h2>
           <div className="mani">
-            <div>
-              <h3>If it doesn't exist, we build it.</h3>
-              <p>
-                Custom booths, a bar from scratch, a marble wall with your photograph in it. "Off the
-                shelf" isn't a phrase we use much.
-              </p>
+            <div className="mani-row rule-draw">
+              <div className="mani-plate">
+                <img src="/assets/how-build.jpg" alt="A mahogany booth panel built on site, still taped, on raw pine flooring" />
+              </div>
+              <div className="mani-text">
+                <h3>If it doesn't exist, we build it.</h3>
+                <p>Custom booths, a bar from scratch, a marble wall with your photograph in it. "Off the shelf" isn't a phrase we use much.</p>
+              </div>
             </div>
-            <div>
-              <h3>No sales layer.</h3>
-              <p>
-                You talk to the person who'll do the work. Same person on the estimate, the job site and
-                the final walkthrough.
-              </p>
+            <div className="mani-row rule-draw">
+              <div className="mani-plate">
+                <img src="/assets/how-crew.jpg" alt="A kitchen mid-renovation, cabinets out and drop cloths down" />
+              </div>
+              <div className="mani-text">
+                <h3>No sales layer.</h3>
+                <p>You talk to the person who'll do the work. Same person on the estimate, the job site and the final walkthrough.</p>
+              </div>
             </div>
-            <div>
-              <h3>We're not the cheapest.</h3>
-              <p>
-                A real crew, real materials and a finish date that holds cost what they cost. Cheap work
-                is the most expensive kind.
-              </p>
+            <div className="mani-row rule-draw">
+              <div className="mani-plate">
+                <img src="/assets/how-finish.jpg" alt="A finished shower in white subway tile with a black frame and hex floor" />
+              </div>
+              <div className="mani-text">
+                <h3>We're not the cheapest.</h3>
+                <p>A real crew, real materials and a finish date that holds cost what they cost. Cheap work is the most expensive kind.</p>
+              </div>
             </div>
-            <div>
-              <h3>Done means done.</h3>
-              <p>
-                The punch list gets finished, the site gets cleaned, and you don't chase us for the last
-                ten percent.
-              </p>
+            <div className="mani-row rule-draw">
+              <div className="mani-plate">
+                <img src="/assets/how-done.jpg" alt="The finished bar, stools set and the floor clean" />
+              </div>
+              <div className="mani-text">
+                <h3>Done means done.</h3>
+                <p>The punch list gets finished, the site gets cleaned, and you don't chase us for the last ten percent.</p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* AGENTS */}
-        <section className="sec" id="agents">
+        <section className="sec light" id="agents">
           <div className="two">
             <h2 className="h-l">Agents, we've been in your corner for years.</h2>
-            <p className="p">
+            <p className="p on-light">
               Across Montgomery, Bucks, Delaware and Philadelphia, we've worked alongside agents and
               investors at every stage of a sale. We show up when you say, we finish when we said, and
               the house photographs the way you need it to.
             </p>
           </div>
-          <div className="cols">
+          <div className="cols rule-draw on-light">
             <div>
               <h3>Before the listing</h3>
               <p>
@@ -226,7 +242,7 @@ export default function Home() {
         </section>
 
         {/* CONTACT */}
-        <section className="sec contact" id="contact">
+        <section className="sec contact rule-draw" id="contact">
           <h2 className="h-l">Book a walkthrough.</h2>
           <a className="big-tel" href="tel:+12159026636">
             215 902 6636

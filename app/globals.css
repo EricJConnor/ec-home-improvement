@@ -71,7 +71,7 @@ img,video{display:block;max-width:100%}
 .hero .poster{background:radial-gradient(120% 90% at 50% 100%,#3b3f52 0%,#1a1c24 55%,#0d0f13 100%)}
 .hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,15,19,.32) 0%,rgba(13,15,19,0) 35%,rgba(13,15,19,.55) 100%)}
 .hero .dim{position:absolute;inset:0;background:var(--ink);opacity:0;pointer-events:none}
-.hero .grain{position:absolute;inset:-50%;opacity:.05;pointer-events:none;
+.hero .grain,.band .grain{position:absolute;inset:-50%;opacity:.05;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain 1.6s steps(6) infinite}
 @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-4%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(3%,3%)}}
@@ -87,8 +87,19 @@ img,video{display:block;max-width:100%}
 @media(max-width:820px){.hero-copy{grid-template-columns:1fr;gap:22px}.hero-copy .p{grid-column:1;justify-self:start}}
 
 /* ---------- generic section ---------- */
-.sec{padding:clamp(80px,12vw,160px) var(--pad);border-top:1px solid var(--line)}
-.sec.light{background:var(--plaster);color:var(--ink);border-top:0}
+.sec{position:relative;padding:clamp(80px,12vw,160px) var(--pad);border-top:0}
+.sec.light{background:var(--plaster);color:var(--ink)}
+
+/* ---------- the hairlines draw themselves ----------
+   The rules are the site's signature, so they carry the motion rather than a
+   fade bolted onto every element. One sweep per section, then it stays put. */
+.rule-draw{position:relative}
+.rule-draw::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  background:var(--line);transform:scaleX(0);transform-origin:left;
+  transition:transform 1.15s cubic-bezier(.22,1,.36,1)}
+.sec.light .rule-draw::before,.rule-draw.on-light::before{background:var(--line-dark)}
+.rule-draw.drawn::before{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){.rule-draw::before{transform:scaleX(1);transition:none}}
 .two{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end}
 .two .p{justify-self:end}
 @media(max-width:820px){.two{grid-template-columns:1fr}.two .p{justify-self:start}}
@@ -154,22 +165,49 @@ img,video{display:block;max-width:100%}
 .fm-more{margin-top:clamp(40px,6vw,80px);display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1000px}
 @media(max-width:820px){.fm-more{grid-template-columns:1fr}}
 
-/* ---------- manifesto ---------- */
-.mani{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(40px,6vw,96px);margin-top:clamp(48px,7vw,96px)}
-.mani>div{padding:32px 0;border-top:1px solid var(--line)}
-.mani h3{font-weight:300;font-size:clamp(24px,2.6vw,36px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
+/* ---------- manifesto: each claim gets its proof ----------
+   Plates stay small (380px max) so the 640px sources render close to native.  */
+.mani{margin-top:clamp(40px,6vw,80px)}
+.mani-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,64px);
+  align-items:center;padding:clamp(44px,6.5vw,104px) 0;max-width:1180px;margin-inline:auto}
+.mani-text{max-width:42ch}
+.mani-row:nth-child(even) .mani-text{justify-self:end}
+.mani-row:nth-child(even) .mani-plate{order:2;justify-self:end}
+.mani-plate{position:relative;width:min(100%,380px);aspect-ratio:4/5;overflow:hidden;background:#1b1b1b}
+.mani-plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mani h3{font-weight:300;font-size:clamp(24px,2.7vw,38px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
 .mani p{color:var(--mute);font-size:15px;max-width:40ch}
-@media(max-width:820px){.mani{grid-template-columns:1fr}}
+@media(max-width:820px){
+  .mani-row{grid-template-columns:1fr;gap:24px;padding:36px 0}
+  .mani-row:nth-child(even) .mani-plate{order:0;justify-self:start}
+  .mani-plate{width:min(100%,300px);aspect-ratio:1/1}
+}
+
+/* ---------- the full-bleed breath ----------
+   A 640px photo can't be a subject at this size, so it is used as ground:
+   darkened hard, veiled and grained, the way the hero treats its footage.
+   One image between the light FlexMarble section and the manifesto.  */
+.band{position:relative;height:clamp(360px,68vh,720px);overflow:hidden;background:#0d0f13}
+.band img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;
+  filter:brightness(.58) saturate(.94) contrast(1.04);will-change:transform}
+.band .veil{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(20,20,20,.5) 0%,rgba(20,20,20,.08) 42%,rgba(20,20,20,.62) 100%)}
+.band figcaption{position:absolute;left:var(--pad);bottom:clamp(24px,4vh,44px);
+  color:rgba(243,242,239,.72);font-size:13px;letter-spacing:.01em}
 
 /* ---------- agents ---------- */
-.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:clamp(48px,7vw,96px);padding-top:32px;border-top:1px solid var(--line)}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:clamp(48px,7vw,96px);padding-top:32px}
 .cols h3{font-weight:400;font-size:20px;letter-spacing:-.01em;margin-bottom:12px}
 .cols p{color:var(--mute);font-size:15px;max-width:34ch}
+.sec.light .cols p{color:var(--mute-dark)}
 @media(max-width:820px){.cols{grid-template-columns:1fr;gap:28px}}
 
 /* ---------- contact ---------- */
-.contact .big-tel{display:inline-block;font-size:clamp(34px,6vw,88px);font-weight:300;letter-spacing:-.03em;line-height:1;margin-top:28px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.contact .big-tel{display:inline-block;opacity:0;transform:translateY(14px);
+  transition:opacity .9s ease,transform 1s cubic-bezier(.22,1,.36,1);font-size:clamp(34px,6vw,88px);font-weight:300;letter-spacing:-.03em;line-height:1;margin-top:28px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.contact .big-tel.drawn{opacity:1;transform:none}
 .contact .big-tel:hover{border-color:#fff}
+@media(prefers-reduced-motion:reduce){.contact .big-tel{opacity:1;transform:none;transition:none}}
 .form{margin-top:clamp(48px,6vw,80px);max-width:720px}
 .field{display:grid;gap:8px;padding:22px 0;border-top:1px solid var(--line)}
 .field label{font-size:14px;color:var(--mute)}
@@ -191,7 +229,7 @@ img,video{display:block;max-width:100%}
 
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .hero .grain{animation:none}
+  .hero .grain,.band .grain{animation:none}
   .hero-wrap{height:100vh}
 }
 :focus-visible{outline:1px solid #fff;outline-offset:4px}

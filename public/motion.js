@@ -132,6 +132,39 @@
     });
   });
 
+  /* ---------- the hairlines draw ----------
+     The rules are already the site's signature, so they carry the motion between
+     sections instead of a fade on every element. Each sweeps once, then stays. */
+  var drawable = [].slice.call(document.querySelectorAll('.rule-draw, .contact .big-tel'));
+  if (drawable.length) {
+    if (!('IntersectionObserver' in window) || reduce) {
+      drawable.forEach(function (el) { el.classList.add('drawn'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('drawn');
+          io.unobserve(e.target);       /* one sweep, never again */
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.01 });
+      drawable.forEach(function (el) { io.observe(el); });
+    }
+  }
+
+  /* ---------- the full-bleed breath ----------
+     The photo drifts slowly against the scroll so the band reads as a held shot
+     rather than a static picture. Small shift — it should be felt, not watched. */
+  var band = document.querySelector('.band'), bandImg = band && band.querySelector('img');
+  function bandDrift() {
+    if (!band || !bandImg || reduce) return;
+    var r = band.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    var t = (innerHeight - r.top) / (innerHeight + r.height);   /* 0 entering, 1 leaving */
+    bandImg.style.transform = 'translate3d(0,' + ((t - 0.5) * 2 * -5.5) + '%,0)';
+  }
+  addEventListener('scroll', bandDrift, { passive: true });
+  bandDrift();
+
   /* ---------- mobile menu ---------- */
   var b = document.querySelector('.burger'), s = document.getElementById('sheet');
   if (b && s) {
