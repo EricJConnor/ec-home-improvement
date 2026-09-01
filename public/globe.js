@@ -23,12 +23,12 @@
   var VS =
     'attribute vec2 p;uniform vec3 uC,uR,uU;uniform mat4 uProj;uniform float uHS;varying vec2 vUv;' +
     'void main(){vec3 w=uC+uR*(p.x*uHS)+uU*(p.y*uHS);vUv=vec2(p.x*0.5+0.5,0.5-p.y*0.5);' +
-    'gl_Position=uProj*vec4(w.x,w.y,w.z-2.85,1.0);}';
+    'gl_Position=uProj*vec4(w.x,w.y,w.z-2.42,1.0);}';
   var FS =
     'precision mediump float;varying vec2 vUv;uniform sampler2D uTex;uniform float uA,uHi;' +
     'void main(){vec3 c=texture2D(uTex,vUv).rgb;' +
     /* tiles at the back sit down in the ink; the hovered one lifts to full */
-    'c*=mix(0.74,1.12,uHi);gl_FragColor=vec4(c,uA);}';
+    'c*=mix(0.96,1.20,uHi);gl_FragColor=vec4(c,uA);}';
 
   function sh(t, s) { var o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); return o; }
   var pr = gl.createProgram();
@@ -122,7 +122,7 @@
     open(tiles[hover]);
   });
 
-  var HS = 0.132, screenPos = [];
+  var HS = 0.152, screenPos = [];
   function pick(px, py) {
     var best = -1, bd = 1e9;
     for (var i = 0; i < screenPos.length; i++) {
@@ -154,7 +154,7 @@
     for (i = 0; i < tiles.length; i++) {
       var c = rot(tiles[i].n);
       order.push({ i: i, c: c, z: c[2] });
-      var w = 2.85 - c[2], f = 1 / Math.tan((38 * Math.PI / 180) / 2);
+      var w = 2.42 - c[2], f = 1 / Math.tan((38 * Math.PI / 180) / 2);
       screenPos[i] = { x: (c[0] * f / (W / H) / w * 0.5 + 0.5) * W,
                        y: (0.5 - c[1] * f / w * 0.5) * H,
                        z: c[2], r: (HS * f / w * 0.5) * H * 0.95 };
@@ -169,7 +169,7 @@
       gl.uniform3fv(uC, c);
       gl.uniform3fv(uR, rot(t.rt));
       gl.uniform3fv(uU, rot(t.up));
-      gl.uniform1f(uA, Math.min(1, Math.max(0, (c[2] - 0.02) / 0.34)));
+      gl.uniform1f(uA, Math.min(1, Math.max(0, (c[2] + 0.04) / 0.16)));
       gl.uniform1f(uHi, order[i].i === hover ? 1 : 0);
       gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, t.tex);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);

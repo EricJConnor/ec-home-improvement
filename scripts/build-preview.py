@@ -60,13 +60,14 @@ def img(m):
 body, n = re.subn(r'src="(/assets/[^"]+)"', img, body)
 
 def tile(m):
-    return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1))
+    # tiles render around 110px on screen, so 256 is still 2x on a retina display
+    return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1), 256, 80)
 body, t_ = re.subn(r'src="(/work/[^"]+\.jpg)"', tile, body)
 
 # the closer look loads on click, so downscale it hard — nothing here is displayed
 # above about 760px wide anyway
 def fullsize(m):
-    return 'data-full="data:image/jpeg;base64,%s"' % _inline(m.group(1), 600, 74)
+    return 'data-full="data:image/jpeg;base64,%s"' % _inline(m.group(1), 460, 72)
 body, f_ = re.subn(r'data-full="(/full/[^"]+\.jpg)"', fullsize, body)
 if t_: n += t_; print('work: %d tiles, %d full-size inlined' % (t_, f_))
 

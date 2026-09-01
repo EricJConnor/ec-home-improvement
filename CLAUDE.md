@@ -136,9 +136,15 @@ original idea of a rotating globe.
 files are oversampled and genuinely crisp. The globe also settles three of his complaints
 structurally: every photo is small, there are no sections, and nothing is the "main" thing.
 
-- **93 tiles**, square-cropped to 320px, spread by Fibonacci distribution so the sphere is even
-  rather than banded. Kitchens 24, Painting 19, Bathrooms 19, Commercial 16, Outdoors 13, Walls 2 —
+- **137 tiles**, square-cropped to 320px, spread by Fibonacci distribution so the sphere is even
+  rather than banded. Kitchens 39, Painting 28, Bathrooms 27, Commercial 26, Outdoors 15, Walls 2 —
   deliberately wide so no single project carries it.
+- **Density, brightness and scale are the whole design.** The first build had 93 tiles at 74%
+  brightness fading from z=0.36 inward, and Eric's verdict was that you couldn't see anything — it
+  read as a dark ball with specks on it, and he was right. Tiles are now near full brightness and
+  opaque across the visible face, fading only in the last sliver at the rim, with the camera pulled
+  in to 2.42 so the sphere fills the frame. If this ever looks weak again, the fix is more tiles and
+  more light, not smaller ones.
 - Turns on its own, drag to spin with inertia, hover names the photo underneath, click opens a
   closer look **capped so it never upscales past native** — a smaller sharp image beats a big soft one.
 - **Only the front hemisphere draws.** Tangent tiles seen from behind read as grey rectangles and
