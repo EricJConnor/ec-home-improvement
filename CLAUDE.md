@@ -323,12 +323,20 @@ renders as a 29px speck in the corner of its box. And the contact form returns 5
 `RESEND_API_KEY` is set in Vercel; it fails visibly with the phone number rather than faking a
 success, but no mail reaches Eric until that key exists.
 
+## Motion and design craft
+
+Eric asked for Emil Kowalski's skills on this project and they are vendored, unmodified and MIT
+licensed, in `.claude/skills/` — see the README there for what is installed, what was deliberately
+left out, and how to update them. They load automatically in any session on this repo.
+
+Use them. `animate` before building a new motion moment, `review-animations` on the motion in a
+diff, `improve-animations` to audit what is already here. But they assume React, Motion and Tailwind
+are in reach and this site is none of those: take the judgment — easing direction, duration
+ceilings, interruptibility, transform and opacity only, reduced-motion — and leave the tooling.
+**Where a skill and the brief disagree, the brief wins.** Never let one argue you into a dependency.
+
+Note his own site is blocked by this environment's egress proxy; the skills came from
+`github.com/emilkowalski/skills`, which is reachable. Update from there, not from the site.
+
 ## Standing asks (not yet done)
 
-- **Pull Emil Kowalski's UI and design skills so they are available to this project.** Eric asked
-  for this on 1 Sep 2026, for future use rather than for anything in flight. Kowalski's work is the
-  closest thing on the web to the standard this site is aiming at — Sonner, Vaul, and the
-  *Animations on the Web* material — and his interaction and motion craft is exactly the gap between
-  "well built" and the "wow" Eric keeps asking for. Worth confirming with him whether he means
-  installable skills for Claude to use, or the techniques themselves written up as house rules here.
-  Either way, do not paste his course material into the repo; reference and apply, don't copy.
