@@ -125,12 +125,16 @@
       if (!img) continue;
       var r = panels[i].getBoundingClientRect();
       var off = (r.left + r.width / 2) - mid;
-      /* never drift further than the photo actually overhangs its frame, or the plate's
-         own background shows at the trailing edge */
-      var slack = Math.max(0, (img.offsetWidth - img.parentNode.clientWidth) / 2);
-      var t = -off * 0.055;
+      /* Scaled to the slack rather than a fixed factor. A fixed 0.055 hit the clamp almost
+         at once on a wide screen — the photo sat pinned at maximum for the whole pass and
+         the depth vanished, while a narrow phone kept its offsets small and looked right.
+         Mapping the pin's half-width onto the overhang uses the full travel at every size. */
+      /* a pixel short of the true overhang: at exactly the limit, sub-pixel rounding
+         let a sliver of the plate show at the trailing edge */
+      var slack = Math.max(0, (img.offsetWidth - img.parentNode.clientWidth) / 2 - 1);
+      var t = -(off / mid) * slack;
       img.style.transform =
-        'translate3d(' + Math.max(-slack, Math.min(slack, t)) + 'px,0,0)';
+        'translate3d(' + Math.max(-slack, Math.min(slack, t)).toFixed(2) + 'px,0,0)';
     }
   }
 

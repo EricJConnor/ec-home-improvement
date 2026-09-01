@@ -432,6 +432,14 @@ different kitchens rather than the same one twice. `object-position: 50% 46%` wa
 34% and 58%: 46% keeps the sink the hero and the counter-to-sill relationship readable on both
 sides.
 
+**The plate drift is scaled to the slack, not a fixed factor.** A fixed `0.055 * off` reached the
+clamp almost immediately on a wide screen — the photo sat pinned at maximum for nearly the whole
+pass, so the depth vanished on a laptop while a phone, whose offsets stay small, looked right. Eric
+spotted exactly that asymmetry. Mapping the pin's half-width onto the available overhang uses the
+full travel at every width: the middle panels now move 59-155px on a laptop where they were frozen
+at 38. The clamp stays, a pixel short of the true overhang, because at exactly the limit sub-pixel
+rounding let a sliver of plate show.
+
 **The plate photos were silently un-parallaxed.** `.plate img` sets `width:118%; left:-9%` so the
 photo can drift inside its frame, but the global `img,video{max-width:100%}` reset at the top of the
 file capped it at exactly the frame width — so the drift slid a photo that had no overhang and
@@ -459,6 +467,17 @@ change character when it flies out of the globe. Three things about it are load-
 
 Measured before and after over 180 frames: median frame time unchanged (83.3 → 83.4ms in a
 GPU-less container). 137 masked layers cost nothing measurable.
+
+**An `<img>` is natively draggable, and that silently broke the globe on every desktop.** Pressing a
+tile and moving started the browser's own image drag, which ate the mousemove, so the sphere would
+not turn — while touch, which has no native drag, worked fine. That asymmetry is the tell. Fixed
+three ways because any one alone can be defeated: `draggable={false}` on the tiles, `user-drag:none`
+in CSS, and `preventDefault` on `dragstart` and `mousedown` at the stage.
+
+**Tiles are 200px on the long edge, progressive, quality 76 — 827KB for all 137.** They were 240px
+and 2066KB, and Eric said the globe took a minute to fill on a phone. They paint at 123px on a
+phone, 168px on a laptop and 200px on a large monitor, so 240 was never reaching the screen. Do not
+raise this without measuring what a tile actually paints at first.
 
 When testing hover or clicks on the globe, **find the tile with `elementFromPoint`, never with
 `getBoundingClientRect`** — a back-facing tile still reports a bounding rect but is culled by

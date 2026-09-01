@@ -77,7 +77,12 @@
     apply();
   }
   function up() { drag = false; stage.classList.remove('dragging'); }
-  stage.addEventListener('mousedown', down);
+  /* An <img> is natively draggable, so on a desktop a press-and-move on a tile starts the
+     browser's own image drag and eats the mousemove — the sphere simply would not turn.
+     Touch has no native drag, which is why the phone worked and the laptop did not. */
+  stage.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+  stage.addEventListener('mousedown', function (e) { e.preventDefault(); down(e); });
   addEventListener('mousemove', move, { passive: true });
   addEventListener('mouseup', up);
   stage.addEventListener('touchstart', down, { passive: true });

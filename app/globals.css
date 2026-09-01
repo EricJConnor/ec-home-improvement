@@ -169,7 +169,7 @@ img,video{display:block;max-width:100%}
    at 100%, so the plate photo was exactly as wide as its frame while the parallax still
    slid it sideways — which exposed the plate's own dark background at the trailing edge.
    The extra 18% is the travel the drift is allowed to use. */
-.plate img{position:absolute;top:0;left:-9%;width:118%;max-width:none;height:100%;object-fit:cover;
+.plate img{position:absolute;top:0;left:-13%;width:126%;max-width:none;height:100%;object-fit:cover;
   will-change:transform;filter:saturate(1.02)}
 .panel#kitchens img{object-position:50% 46%}
 .panel#bathrooms img{object-position:50% 42%}
@@ -412,6 +412,7 @@ main{position:relative;z-index:1}
   --f:13%;
   transition:filter .3s ease,--f .3s var(--ease-out)}
 .tile img{width:100%;height:100%;object-fit:cover;display:block;
+  -webkit-user-drag:none;user-drag:none;
   transition:transform .35s var(--ease-out)}
 /* The feather is the hover affordance now. A ring cannot sit on an edge that has no edge —
    it fades out at the corners and reads as a smear — so instead the photo pulls into focus

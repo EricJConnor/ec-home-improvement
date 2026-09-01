@@ -46,6 +46,7 @@ export default function Work() {
                   alt={t.alt}
                   loading="lazy"
                   decoding="async"
+                  draggable={false}
                 />
               </figure>
             ))}
