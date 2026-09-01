@@ -149,9 +149,17 @@ structurally: every photo is small, there are no sections, and nothing is the "m
   closer look **capped so it never upscales past native** — a smaller sharp image beats a big soft one.
 - **Only the front hemisphere draws.** Tangent tiles seen from behind read as grey rectangles and
   clutter the sphere; culling them is what makes it read as a globe.
-- Raw WebGL, no three.js, so the page carries no library and the standalone preview stays
-  self-contained. The `.tiles` grid behind it is the real no-JS/no-WebGL rendering, carries the alt
-  text, and is the texture source.
+- **CSS 3D transforms, not WebGL, and this is deliberate.** A WebGL build created a context, hid
+  the fallback grid on the strength of that, and then drew nothing inside the artifact sandbox —
+  Eric saw a completely blank page. There is no equivalent silent failure here: if the browser can
+  transform a div it can draw this. The tiles are ordinary `<img>` elements, hover and click are
+  native rather than raycast, and `backface-visibility:hidden` culls the far side for free.
+  **Do not port this back to WebGL.**
+- Only the parent `.sphere` transform changes per frame; each tile's transform is set once on
+  layout, so the browser composites the whole `preserve-3d` subtree on the GPU and 137 photographs
+  cost about the same as one.
+- Without `.live` (script not run) or without `preserve-3d` support, the same tiles fall back to a
+  plain scrolling grid of snapshots — the same idea, minus the sphere.
 
 `public/full/` holds the full-size images the closer look opens. The depth-displacement shader Eric
 liked (strength 50) is **not** on this page — the globe is the moment now. It is still worth

@@ -33,8 +33,7 @@ export default function Work() {
         {/* The images are real: they render without JS or WebGL, carry the alt text,
             and are the texture source for the globe. */}
         <div id="globe" aria-label="Photographs of our work">
-          <canvas aria-hidden="true" />
-          <div className="tiles">
+          <div className="sphere">
             {tiles.map((t) => (
               <figure className="tile" key={t.slug}>
                 <img
@@ -47,6 +46,7 @@ export default function Work() {
               </figure>
             ))}
           </div>
+          <div className="vignette" aria-hidden="true" />
         </div>
         <p className="globe-cap" id="globe-cap" aria-live="polite" />
 
