@@ -28,6 +28,10 @@ export default function Work() {
         <div className="bg-2">
           <img src="/full/p4082.jpg" alt="" />
         </div>
+        {/* A blurred wash has no edges, so motion inside it is invisible. This travelling
+            highlight is the thing the eye can actually track. */}
+        <div className="bg-sweep" />
+        <div className="bg-sweep bg-sweep-2" />
         <div className="bg-grain" />
       </div>
 
@@ -67,7 +71,12 @@ export default function Work() {
 
       <div id="ov" hidden>
         <figure>
-          <img alt="" />
+          <div className="shotwrap">
+            {/* the photo's own colours, blurred, so its edge melts into the page
+                instead of sitting there as a hard rectangle */}
+            <img className="bloom" alt="" aria-hidden="true" />
+            <img className="shot" alt="" />
+          </div>
           <p />
         </figure>
       </div>

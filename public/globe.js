@@ -139,11 +139,14 @@
      The overlay starts life at the exact position, size and lean of the tile that was
      clicked, then flies to the middle. That is what connects the two — without it the
      picture just appears, and reads as pasted on top of the page. */
-  var ov = document.getElementById('ov'), ovImg = ov && ov.querySelector('img'),
+  var ov = document.getElementById('ov'),
+      ovWrap = ov && ov.querySelector('.shotwrap'),
+      ovImg = ov && ov.querySelector('.shot'),
+      ovBloom = ov && ov.querySelector('.bloom'),
       ovCap = ov && ov.querySelector('p'), fromTile = null, busy = false;
 
   function tileTransform(tile) {
-    var t = tile.getBoundingClientRect(), f = ovImg.getBoundingClientRect(), g = stage.getBoundingClientRect();
+    var t = tile.getBoundingClientRect(), f = ovWrap.getBoundingClientRect(), g = stage.getBoundingClientRect();
     if (!t.width || !f.width) return null;
     var s = t.width / f.width;
     var dx = (t.left + t.width / 2) - (f.left + f.width / 2);
@@ -159,7 +162,9 @@
     if (!ov || busy) return;
     var img = tile.querySelector('img');
     fromTile = tile;
-    ovImg.src = img.getAttribute('data-full') || img.src;
+    var full = img.getAttribute('data-full') || img.src;
+    ovImg.src = full;
+    if (ovBloom) ovBloom.src = full;
     ovImg.alt = img.getAttribute('alt') || '';
     if (ovCap) ovCap.textContent = img.getAttribute('alt') || '';
     ov.hidden = false;
@@ -168,16 +173,16 @@
     var start = function () {
       var from = tileTransform(tile);
       if (from) {
-        ovImg.style.transition = 'none';
-        ovImg.style.transform = from;
-        ovImg.style.opacity = '0.6';
-        ovImg.getBoundingClientRect();                 /* force the start state to stick */
-        ovImg.style.transition = '';
+        ovWrap.style.transition = 'none';
+        ovWrap.style.transform = from;
+        ovWrap.style.opacity = '0.6';
+        ovWrap.getBoundingClientRect();                /* force the start state to stick */
+        ovWrap.style.transition = '';
       }
       requestAnimationFrame(function () {
         ov.classList.add('in');
-        ovImg.style.transform = '';
-        ovImg.style.opacity = '';
+        ovWrap.style.transform = '';
+        ovWrap.style.opacity = '';
       });
     };
     /* the full-size file may not be decoded yet; measuring before it is gives a wrong size */
@@ -191,11 +196,11 @@
     /* fly back into wherever that tile has turned to by now */
     var back = fromTile ? tileTransform(fromTile) : null;
     ov.classList.remove('in');
-    if (back) { ovImg.style.transform = back; ovImg.style.opacity = '0'; }
+    if (back) { ovWrap.style.transform = back; ovWrap.style.opacity = '0'; }
     setTimeout(function () {
       ov.hidden = true; busy = false; fromTile = null;
-      ovImg.style.transition = 'none'; ovImg.style.transform = ''; ovImg.style.opacity = '';
-      ovImg.getBoundingClientRect(); ovImg.style.transition = '';
+      ovWrap.style.transition = 'none'; ovWrap.style.transform = ''; ovWrap.style.opacity = '';
+      ovWrap.getBoundingClientRect(); ovWrap.style.transition = '';
     }, 460);
   }
 

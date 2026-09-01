@@ -179,8 +179,12 @@ animation and leaning against the cursor.
 
 - **Blur less than you think.** At 90px the teal and the gold average into a flat olive. It now sits
   at 30px, with a second, more heavily blurred plate (`p4082`) counter-moving behind it on `screen`
-  blend. The counter-motion between the two plates is what reads as depth — one drifting layer just
-  reads as a static wash.
+  blend.
+- **A blurred wash cannot show movement, and this cost two rounds to learn.** Eric said twice that
+  the background had no motion while it was in fact animating the whole time — a heavily blurred
+  field has no edges, so there is nothing for the eye to track no matter how far or fast it travels.
+  The motion he can actually see comes from `.bg-sweep`: two travelling highlights with a readable
+  shape, counter-timed on 23s and 31s. If more movement is ever wanted, add shape, not speed.
 
 ### Pulling a photograph off the globe
 
@@ -190,8 +194,14 @@ clicked — computed from that tile's live `getBoundingClientRect()` and its off
 centre — and transitions to the middle; closing sends it back to wherever that tile has turned to
 by then.
 
-- The backdrop is `backdrop-filter: blur(15px)` over a light scrim, **not** an opaque black. The
-  globe keeps turning and the colour field stays visible behind, which is what he asked for.
+- The backdrop is `backdrop-filter: blur(8px)` over a 20% scrim, **not** an opaque black. The globe
+  keeps turning and the colour field stays readable behind, which is what he asked for.
+- **No hard rectangle.** The photo's four edges are feathered evenly by two linear-gradient masks
+  intersected with `mask-composite` — a radial feather cuts the corners hard and leaves the sides
+  boxy, which was Eric's "blur the boxy lines" note. Behind it sits a `.bloom`: the same image
+  blurred to 62px and scaled past the frame, so the photo's own colour spills out and its boundary
+  dissolves. Where `mask-composite` is unsupported the layers simply union and the photo shows in
+  full, which is a safe way to fail.
 - The full-size file is prefetched on `mouseenter`. Without it the flight cannot start until the
   image arrives, and the first frame has no size to measure from.
 - Measure only once `ovImg.complete && naturalWidth` — measuring an undecoded image gives a zero

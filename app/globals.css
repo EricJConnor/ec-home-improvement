@@ -258,10 +258,31 @@ img,video{display:block;max-width:100%}
 .bg img{width:100%;height:100%;object-fit:cover;
   filter:blur(30px) saturate(1.9) brightness(.66);
   transform:scale(1.35);transform-origin:52% 46%;
-  animation:field 38s ease-in-out infinite alternate}
+  animation:field 30s ease-in-out infinite alternate}
 @keyframes field{
-  from{transform:scale(1.24) translate3d(-6%,-4%,0) rotate(-3deg)}
-  to  {transform:scale(1.54) translate3d(6%,5%,0) rotate(9deg)}
+  from{transform:scale(1.22) translate3d(-11%,-7%,0) rotate(-6deg)}
+  to  {transform:scale(1.62) translate3d(11%,9%,0) rotate(14deg)}
+}
+/* Two travelling highlights, counter-timed. A blurred field has no edges to track, so
+   the motion has to come from something with a readable shape moving across it. */
+.bg-sweep{position:absolute;inset:-35%;pointer-events:none;mix-blend-mode:screen;
+  will-change:transform;
+  background:radial-gradient(34% 26% at 50% 50%,
+    rgba(232,201,155,.52) 0%,rgba(150,196,214,.26) 42%,rgba(120,150,180,.08) 66%,transparent 76%);
+  animation:sweep 23s ease-in-out infinite}
+.bg-sweep-2{opacity:.62;
+  background:radial-gradient(30% 34% at 50% 50%,
+    rgba(140,206,224,.44) 0%,rgba(226,178,138,.22) 46%,transparent 74%);
+  animation:sweep2 31s ease-in-out infinite}
+@keyframes sweep{
+  0%  {transform:translate3d(-30%,-16%,0) scale(.92)}
+  50% {transform:translate3d(28%,18%,0)  scale(1.3)}
+  100%{transform:translate3d(-30%,-16%,0) scale(.92)}
+}
+@keyframes sweep2{
+  0%  {transform:translate3d(26%,20%,0)  scale(1.18)}
+  50% {transform:translate3d(-24%,-14%,0) scale(.88)}
+  100%{transform:translate3d(26%,20%,0)  scale(1.18)}
 }
 @keyframes field2{
   from{transform:scale(1.5) translate3d(7%,4%,0) rotate(6deg)}
@@ -280,6 +301,7 @@ img,video{display:block;max-width:100%}
   animation:grain 1.6s steps(6) infinite}
 @media(prefers-reduced-motion:reduce){
   .bg img{animation:none}.bg-grain{animation:none}
+  .bg-sweep{animation:none}
   #ov img{transition:opacity .2s}
 }
 .work-head{padding:clamp(88px,12vh,124px) var(--pad) clamp(8px,1.5vw,20px);
@@ -335,18 +357,30 @@ img,video{display:block;max-width:100%}
 /* ---------- the closer look ---------- */
 #ov{position:fixed;inset:0;z-index:80;display:grid;place-items:center;
   padding:clamp(24px,6vw,72px);cursor:zoom-out;
-  background:rgba(20,20,20,.46);
-  -webkit-backdrop-filter:blur(15px) saturate(1.15);backdrop-filter:blur(15px) saturate(1.15);
+  background:rgba(20,20,20,.20);
+  -webkit-backdrop-filter:blur(8px) saturate(1.25);backdrop-filter:blur(8px) saturate(1.25);
   opacity:0;transition:opacity .34s ease}
 #ov.in{opacity:1}
 #ov[hidden]{display:none}
 #ov figure{margin:0;display:grid;gap:14px;justify-items:center;max-height:100%;
   perspective:1400px}
 /* never upscale: a smaller sharp photo beats a big soft one */
-#ov img{max-width:min(100%,760px);max-height:78vh;width:auto;height:auto;display:block;
+.shotwrap{position:relative;display:inline-block;line-height:0;
   transform-origin:50% 50%;will-change:transform,opacity;
-  box-shadow:0 40px 120px rgba(0,0,0,.6);
   transition:transform .62s cubic-bezier(.22,1,.36,1),opacity .38s ease}
+#ov .shot{max-width:min(100%,760px);max-height:78vh;width:auto;height:auto;display:block;
+  position:relative;z-index:1;
+  /* feather all four edges evenly so there is no hard rectangle to read as a cut-out */
+  -webkit-mask-image:
+    linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 4%,#000 96%,transparent 100%);
+  mask-image:
+    linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 4%,#000 96%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-composite:intersect}
+#ov .bloom{position:absolute;left:0;top:0;width:100%;height:100%;z-index:0;
+  filter:blur(62px) saturate(1.6) brightness(1.1);opacity:.95;transform:scale(1.34);
+  pointer-events:none}
 #ov p{font-size:13px;color:var(--mute);text-align:center;max-width:46ch;
   opacity:0;transition:opacity .3s ease .22s}
 #ov.in p{opacity:1}
