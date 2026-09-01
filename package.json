@@ -1,0 +1,30 @@
+{
+  "name": "ec-homes",
+  "version": "0.1.0",
+  "description": "EC Home Improvement \u2014 ec-homes.com",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricJConnor/ec-home-improvement.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EricJConnor/ec-home-improvement/issues"
+  },
+  "homepage": "https://github.com/EricJConnor/ec-home-improvement#readme",
+  "dependencies": {
+    "next": "^16.3.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "typescript": "^7.0.2"
+  },
+  "private": true
+}

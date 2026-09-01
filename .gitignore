@@ -1,0 +1,18 @@
+node_modules/
+.next/
+out/
+build/
+.env
+.env*.local
+.vercel
+.DS_Store
+*.pem
+npm-debug.log*
+.work/
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# hero footage is rebuildable from scripts/build-hero-video.sh — keep it out of git
+public/video/*.mp4
+public/video/*.webm
+public/video/*.jpg
