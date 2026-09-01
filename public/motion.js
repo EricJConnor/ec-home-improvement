@@ -91,7 +91,12 @@
       if (!img) continue;
       var r = panels[i].getBoundingClientRect();
       var off = (r.left + r.width / 2) - mid;
-      img.style.transform = 'translate3d(' + (-off * 0.055) + 'px,0,0)';
+      /* never drift further than the photo actually overhangs its frame, or the plate's
+         own background shows at the trailing edge */
+      var slack = Math.max(0, (img.offsetWidth - img.parentNode.clientWidth) / 2);
+      var t = -off * 0.055;
+      img.style.transform =
+        'translate3d(' + Math.max(-slack, Math.min(slack, t)) + 'px,0,0)';
     }
   }
 

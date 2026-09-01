@@ -323,6 +323,23 @@ renders as a 29px speck in the corner of its box. And the contact form returns 5
 `RESEND_API_KEY` is set in Vercel; it fails visibly with the phone number rather than faking a
 success, but no mail reaches Eric until that key exists.
 
+## The reel's plates
+
+The kitchen panel is `p3634` — the farmhouse sink under the window, brass gooseneck, white counter
+running out to become the sill, navy cabinets below. Eric asked for it by description. It replaced
+the black kitchen, which still carries the full-bleed band further down, so the page shows two
+different kitchens rather than the same one twice. `object-position: 50% 46%` was compared against
+34% and 58%: 46% keeps the sink the hero and the counter-to-sill relationship readable on both
+sides.
+
+**The plate photos were silently un-parallaxed.** `.plate img` sets `width:118%; left:-9%` so the
+photo can drift inside its frame, but the global `img,video{max-width:100%}` reset at the top of the
+file capped it at exactly the frame width — so the drift slid a photo that had no overhang and
+exposed the plate's own `#1b1b1b` background at the trailing edge of every panel. Fixed with
+`max-width:none` on `.plate img`, plus a clamp in `parallax()` that never translates further than
+the photo actually overhangs. If a plate ever shows a dark band at one edge again, that reset is the
+first place to look.
+
 ## The globe's feathered tiles
 
 The tiles carry the **same two-linear-gradient feather as the closer look**, so a photo does not

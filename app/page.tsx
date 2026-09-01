@@ -42,7 +42,7 @@ export default function Home() {
             <div className="strip-track">
               <article className="panel" id="kitchens">
                 <div className="plate">
-                  <img src="/assets/kitchens.jpg" alt="Black kitchen with hex-tile backsplash and acacia floors" />
+                  <img src="/assets/kitchens.jpg" alt="Farmhouse sink under the kitchen window, brass faucet, white counter running out to the sill, navy cabinets below" />
                 </div>
                 <div className="cap">
                   <h2>Kitchens</h2>

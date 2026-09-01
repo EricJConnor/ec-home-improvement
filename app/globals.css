@@ -157,7 +157,11 @@ img,video{display:block;max-width:100%}
 .plate{position:relative;overflow:hidden;aspect-ratio:3/4;background:#1b1b1b}
 .panel.wide .plate{aspect-ratio:4/3}
 /* the image is wider than its frame so it can travel inside it as the reel moves */
-.plate img{position:absolute;top:0;left:-9%;width:118%;height:100%;object-fit:cover;
+/* max-width:none is load-bearing: the global img{max-width:100%} reset was capping this
+   at 100%, so the plate photo was exactly as wide as its frame while the parallax still
+   slid it sideways — which exposed the plate's own dark background at the trailing edge.
+   The extra 18% is the travel the drift is allowed to use. */
+.plate img{position:absolute;top:0;left:-9%;width:118%;max-width:none;height:100%;object-fit:cover;
   will-change:transform;filter:saturate(1.02)}
 .panel#kitchens img{object-position:50% 46%}
 .panel#bathrooms img{object-position:50% 42%}
