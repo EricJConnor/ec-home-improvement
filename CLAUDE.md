@@ -266,8 +266,26 @@ tracked-out label. Same in both footers.
 The logo is drawn **from the site's own language rather than dropped on top of it**: the whole
 layout is hairline rules, so the mark is one too — an open frame with a plumb line hanging off the
 top rail. The plumb bob is the oldest tool on a job site and means true, level, upright; it also
-nods to the pendant in Eric's own mark. It is `currentColor`, so it inverts correctly under the
-header's `mix-blend-mode: difference`.
+nods to the pendant in Eric's own mark. It is `currentColor`, so it takes the header's colour
+wherever the header happens to be.
+
+**The header does not blend, and must not go back to blending.** It rode on
+`mix-blend-mode: difference` and Eric said the mark was "getting lost in the clouds." That is not a
+tuning problem: difference can only ever return 255 minus the backdrop, so against the hero's
+mid-grey sky white came out a dull 200 — about 5.9:1 — and no amount of adjusting the mark could
+fix it, because the mark was never the variable. Two things replaced it:
+
+- `.hdr` states `color: var(--paper)` outright, and `motion.js` adds `.on-light` (ink) when a
+  `.sec.light` is crossing the header's centre line. Measured rects, not an IntersectionObserver:
+  the observer needs a hand-maintained sliver of root margin and still lies during momentum scroll.
+- `.hdr::before` is a scrim tinted to whatever is underneath — ink over the dark sections, plaster
+  over the light ones. Against a flat section it is the section's own colour and so invisible; over
+  the hero it drops the sky away behind the mark, and over a plaster section it fades body text out
+  before it can run through the nav. The mark now measures 242 against a sky of 55, about 9:1.
+
+A page-wide `position:fixed` veil was tried first and is the wrong shape: it sits above the flow,
+so it greys out the plaster sections, and no `z-index` on a section can climb over it without
+breaking the header too. Any darkening has to belong either to the hero or to the header.
 
 Eric's original logo (`IMG_1149` in the archive) is his own work and he asked for something
 cohesive with the site instead. The open-frame idea came from it; the pendant bells did not

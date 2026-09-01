@@ -47,12 +47,32 @@
   }
 
   /* ---------- header ---------- */
+  /* The mark states its own colour rather than blending, so it has to be told when a
+     plaster section is passing beneath it. Measuring the light sections against the
+     header's own centre line is exact and costs a few rects per scroll — an
+     IntersectionObserver would need a hand-maintained sliver of a root margin and would
+     still lie during momentum scrolling. */
   var hdr = document.querySelector('.hdr'), lastY = 0;
+  var lights = [].slice.call(document.querySelectorAll(".sec.light"));
+
+  function tone() {
+    if (!hdr) return;
+    var line = hdr.getBoundingClientRect().height * 0.5 + 26;
+    for (var i = 0; i < lights.length; i++) {
+      var r = lights[i].getBoundingClientRect();
+      if (r.top <= line && r.bottom >= line) { hdr.classList.add('on-light'); return; }
+    }
+    hdr.classList.remove('on-light');
+  }
+
   addEventListener('scroll', function () {
     var y = scrollY;
     if (hdr) hdr.classList.toggle('hide', y > lastY && y > 120);
     lastY = y;
+    tone();
   }, { passive: true });
+  addEventListener('resize', tone, { passive: true });
+  tone();
 
   /* ---------- the reel ---------- */
   var strip = document.querySelector('.strip'),
