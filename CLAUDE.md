@@ -266,48 +266,16 @@ tracked-out label. Same in both footers.
 The logo is drawn **from the site's own language rather than dropped on top of it**: the whole
 layout is hairline rules, so the mark is one too — an open frame with a plumb line hanging off the
 top rail. The plumb bob is the oldest tool on a job site and means true, level, upright; it also
-nods to the pendant in Eric's own mark. It is `currentColor`, so it takes the header's colour
-wherever the header happens to be.
+nods to the pendant in Eric's own mark. It is `currentColor`, so it inverts with the header's
+difference blend.
 
-**The header does not blend, and must not go back to blending.** It rode on
-`mix-blend-mode: difference` and Eric said the mark was "getting lost in the clouds." That is not a
-tuning problem: difference can only ever return 255 minus the backdrop, so against the hero's
-mid-grey sky white came out a dull 200 — about 5.9:1 — and no amount of adjusting the mark could
-fix it, because the mark was never the variable. Two things replaced it:
-
-- `.hdr` states its colour outright, and `motion.js` adds `.on-light` (ink) when a `.sec.light` is
-  crossing the header's centre line. Measured rects, not an IntersectionObserver: the observer needs
-  a hand-maintained sliver of root margin and still lies during momentum scroll.
-- `.hdr::before` is a scrim tinted to whatever is underneath — ink over the dark sections, plaster
-  over the light ones. Against a flat section it is the section's own colour and so invisible; over
-  the hero it drops the sky away behind the mark, and over a plaster section it fades body text out
-  before it can run through the nav.
-
-**Lighter, not heavier — this went the wrong way twice, so read it before touching the header.**
-When Eric says the mark is getting lost, he does not mean make it louder. He wants it *more*
-transparent and less solid: the mark sits back behind the wordmark and reads as something the light
-passes through. Solid colour makes it look stuck on. The mark is the most transparent thing in the
-header (`.58` / `.55`), the type sits just in front of it (`.80` / `.78`). If he says it still looks
-the same, the answer is another step lighter, never bolder.
-
-**The mark carries more weight than a rule anywhere else on the site.** At 1.5 next to a
-600-weight EC it read as scaffolding behind the name rather than a mark standing beside it — Eric
-looked at it twice and said it still looked the same. A drawn figure needs more weight than a filled
-letterform to hold the same presence, so the stroke is 2.6, the bob is `r 3.4`, and the whole thing
-is a size up. It also keeps its own near-solid colour (`.98` / `.96`) rather than the header's
-alpha: a stroked figure loses far more to transparency than a filled letterform, and at `.89` the
-frame washed into the clouds while the EC beside it held.
-
-**The type keeps a little transparency, and that is deliberate.** Stated as flat paper the mark
-measured 242 and Eric said it no longer felt designed — the one thing the blend did well was let the
-sky come through the letterforms. So the colour carries alpha (`.89` paper, `.87` ink) and the scrim
-was eased back to leave something worth seeing through them. The mark lands at 222 against a sky of
-74, between the old blend's 200 and flat colour's 242. Do not push it to full opacity; do not go
-back to `difference` to get the effect.
-
-A page-wide `position:fixed` veil was tried first and is the wrong shape: it sits above the flow,
-so it greys out the plaster sections, and no `z-index` on a section can climb over it without
-breaking the header too. Any darkening has to belong either to the hero or to the header.
+**The header blends, and that is the whole look.** `mix-blend-mode: difference` on `.hdr` is what
+Eric means by transparency — the sky comes through the type and the mark, and they shift against
+whatever is behind them. Three attempts to "fix" its contrast (a page-wide veil, an explicit
+light/dark switch, a tinted scrim, stated colours with alpha) all made it read as pasted on, and he
+rejected each one. When he says it is getting lost, the answer is a bolder stroke and a larger mark
+inside the blend — never solid colour, never a scrim, never a switch. Current: stroke 2, size
+`clamp(34px,2.95vw,43px)`.
 
 Eric's original logo (`IMG_1149` in the archive) is his own work and he asked for something
 cohesive with the site instead. The open-frame idea came from it; the pendant bells did not

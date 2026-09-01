@@ -11,16 +11,16 @@
 export default function Logo({ className = '' }: { className?: string }) {
   return (
     <svg className={`logo ${className}`} viewBox="0 0 40 44" aria-hidden="true" focusable="false">
-      <g fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="square">
+      <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square">
         {/* the frame is deliberately open — a room you can walk into, not a box */}
         <path d="M4 6 H36" />
         <path d="M4 6 V38" />
         <path d="M4 38 H13" />
         <path d="M36 6 V19" />
-        <path d="M15.5 6 V27" />
+        <path d="M15.5 6 V27.3" />
       </g>
       {/* the bob carries the weight — it is the one solid thing in the mark */}
-      <circle cx="15.5" cy="30.4" r="3.4" fill="currentColor" />
+      <circle cx="15.5" cy="30" r="2.9" fill="currentColor" />
     </svg>
   )
 }
