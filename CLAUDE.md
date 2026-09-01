@@ -256,6 +256,23 @@ Page-specific content already decided:
   New Hope, Doylestown and the surrounding areas.
 - Contact: 215 902 6636 · eric@ec-homes.com. CTA is "Book a walkthrough."
 
+## The mark
+
+Eric asked for the top-left to be more pronounced — "just want people to know where they are" —
+and it was 18px, smaller than the nav links beside it, so it read as incidental. It is now a
+lockup: `app/components/Logo.tsx`, then EC at ~25px tight, then the full name below as a 10px
+tracked-out label. Same in both footers.
+
+The logo is drawn **from the site's own language rather than dropped on top of it**: the whole
+layout is hairline rules, so the mark is one too — an open frame with a plumb line hanging off the
+top rail. The plumb bob is the oldest tool on a job site and means true, level, upright; it also
+nods to the pendant in Eric's own mark. It is `currentColor`, so it inverts correctly under the
+header's `mix-blend-mode: difference`.
+
+Eric's original logo (`IMG_1149` in the archive) is his own work and he asked for something
+cohesive with the site instead. The open-frame idea came from it; the pendant bells did not
+survive, as they read as clip art next to this typography.
+
 ## Working rules
 
 - Don't describe results in prose and deliver template-grade code. Match the reference's quality.

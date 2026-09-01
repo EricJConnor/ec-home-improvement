@@ -1,5 +1,7 @@
 /* Shared between the landing and the gallery. `base` prefixes the in-page anchors so
    the gallery's nav points back at the landing's sections rather than nowhere. */
+import Logo from './Logo'
+
 export default function SiteHeader({ base = '' }: { base?: string }) {
   const nav = [
     ['kitchens', 'Kitchens'], ['bathrooms', 'Bathrooms'], ['flexmarble', 'Statement Walls'],
@@ -10,7 +12,8 @@ export default function SiteHeader({ base = '' }: { base?: string }) {
     <>
       <header className="hdr">
         <a className="mark" href={base || '#top'} aria-label="EC Home Improvement, home">
-          EC<span>Home Improvement</span>
+          <Logo />
+          <span className="mark-text">EC<b>Home Improvement</b></span>
         </a>
         <nav className="nav" aria-label="Primary">
           {nav.map(([id, label]) => (

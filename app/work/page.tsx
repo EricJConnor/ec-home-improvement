@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import SiteHeader from '../components/SiteHeader'
 import ContactBand from '../components/ContactBand'
+import Logo from '../components/Logo'
 import Backdrop from '../components/Backdrop'
 import manifest from '../work-manifest.json'
 
@@ -68,7 +69,7 @@ export default function Work() {
       </div>
 
       <footer className="ftr">
-        <a className="mark" href="/">EC<span>Home Improvement</span></a>
+        <a className="mark" href="/"><Logo /><span className="mark-text">EC<b>Home Improvement</b></span></a>
         <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania.</p>
       </footer>
 

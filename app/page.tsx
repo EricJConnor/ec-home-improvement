@@ -1,4 +1,5 @@
 import SiteHeader from './components/SiteHeader'
+import Logo from './components/Logo'
 import Backdrop from './components/Backdrop'
 import ContactBand from './components/ContactBand'
 import Script from 'next/script'
@@ -202,9 +203,7 @@ export default function Home() {
       </main>
 
       <footer className="ftr">
-        <a className="mark" href="#top">
-          EC<span>Home Improvement</span>
-        </a>
+        <a className="mark" href="#top"><Logo /><span className="mark-text">EC<b>Home Improvement</b></span></a>
         <div className="links">
           <div>
             <b>Work</b>
