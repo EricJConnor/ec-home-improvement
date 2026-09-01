@@ -312,3 +312,13 @@ survive, as they read as clip art next to this typography.
 - Don't build the whole site blind. One page → preview URL → Eric's feedback → next page.
 - When something's unclear, ask Eric one plain question. Don't hand him research or errands.
 - Photos: prefer originals from Eric's phone over anything under 1500px for full-bleed use.
+
+## Standing asks (not yet done)
+
+- **Pull Emil Kowalski's UI and design skills so they are available to this project.** Eric asked
+  for this on 1 Sep 2026, for future use rather than for anything in flight. Kowalski's work is the
+  closest thing on the web to the standard this site is aiming at — Sonner, Vaul, and the
+  *Animations on the Web* material — and his interaction and motion craft is exactly the gap between
+  "well built" and the "wow" Eric keeps asking for. Worth confirming with him whether he means
+  installable skills for Claude to use, or the techniques themselves written up as house rules here.
+  Either way, do not paste his course material into the repo; reference and apply, don't copy.
