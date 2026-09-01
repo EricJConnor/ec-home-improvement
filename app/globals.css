@@ -532,11 +532,16 @@ main{position:relative;z-index:1}
    link. Stated explicitly, the ring keeps the pointer and grows instead. */
 .has-dust a,.has-dust button,.has-dust .pill,.has-dust summary,.has-dust label{cursor:none}
 /* anything that means something by its own cursor keeps it */
-.has-dust #globe,.has-dust #globe *,.has-dust #ov,.has-dust #ov *,
-.has-dust input,.has-dust textarea{cursor:revert}
-.has-dust #globe{cursor:grab}
-.has-dust #globe.dragging,.has-dust #globe.dragging *{cursor:grabbing}
-.has-dust #ov,.has-dust #ov *{cursor:zoom-out}
+/* The globe and the overlay used to keep their native grab and zoom-out. They were the two
+   most interactive things on the site and the effect quit on exactly those — the hint above
+   the globe already says "Drag to turn it", so the words carry the affordance and the ring
+   can take the job. Only text fields stay native: an I-beam shows where the caret lands and
+   a ring cannot say that. */
+.has-dust input,.has-dust textarea,.has-dust select{cursor:revert}
+/* the globe's own styles set grab on the stage and pointer on every tile; those are more
+   specific than the inherited none, so they have to be answered directly or the ring hides */
+.has-dust #globe,.has-dust #globe *,.has-dust #globe.dragging,
+.has-dust #ov,.has-dust #ov *{cursor:none}
 
 .dust-canvas{position:fixed;inset:0;z-index:200;pointer-events:none;visibility:hidden}
 .dust-ring{
@@ -552,6 +557,12 @@ main{position:relative;z-index:1}
 .dust-ring.on-light::after{background:rgba(20,20,20,.8)}
 .dust-ring.press{width:16px;height:16px}
 /* over something clickable it opens up and thins out — the affordance the hand used to give */
+/* over the globe: wider and thinner, a thing you can push */
+.dust-ring.drag{width:34px;height:34px;border-color:rgba(243,242,239,.42)}
+.dust-ring.drag::after{width:2px;height:2px;margin:-1px 0 0 -1px}
+/* and closed while actually dragging, the way a fist replaced an open hand */
+.dust-ring.grabbing{width:15px;height:15px;border-color:rgba(243,242,239,.85)}
+.dust-ring.grabbing::after{width:2px;height:2px;margin:-1px 0 0 -1px}
 .dust-ring.big{width:38px;height:38px;border-color:rgba(243,242,239,.5)}
 .dust-ring.big.on-light{border-color:rgba(20,20,20,.42)}
 .dust-ring.big::after{width:4px;height:4px;margin:-2px 0 0 -2px}

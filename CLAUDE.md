@@ -334,10 +334,14 @@ becoming a liability:
   disturbed rather than an effect running.
 - **Never on touch, never under reduced motion.** The script returns before it mounts anything, so
   the `.has-dust` class on `<html>` is the guarantee that none of the CSS applies where it should not.
-- **Never two cursors.** If the browser is drawing any cursor at all — the globe's `grab`, the
-  overlay's `zoom-out`, an I-beam in a field — the ring hides. Links and buttons are the exception:
-  their UA `cursor:pointer` is overridden to `none` so the ring stays and opens up instead, which is
-  the affordance the hand used to give.
+- **Never two cursors, but the ring does the work.** The first pass let the globe keep `grab` and
+  the overlay keep `zoom-out`, and Eric caught it immediately: the effect quit on the two most
+  interactive things on the site. The ring now carries those states itself — wide and thin over the
+  globe stage, open over a tile, closed to a small bright ring while dragging. Only text fields stay
+  native, because an I-beam says where the caret will land and a ring cannot.
+  Note `#globe{cursor:grab}` and `.tile{cursor:pointer}` are more specific than the inherited
+  `none`, so they have to be answered directly under `.has-dust` — miss that and the ring silently
+  hides instead of showing.
 - **Canvas at dpr 1, deliberately.** Specks are soft; at dpr 2 a full-viewport clear-and-fill every
   frame is four times the work. The canvas is also `visibility:hidden` when idle so it is not holding
   a compositing layer over the page.

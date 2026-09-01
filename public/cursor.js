@@ -105,13 +105,17 @@
     var cs = el && el.nodeType === 1 ? getComputedStyle(el).cursor : 'auto';
     /* the computed check alone reads only the exact event target, which on a form field is
        often the wrapper rather than the input — so name the regions outright as well */
-    native = cs !== 'none' ||
-      !!(el && el.closest && el.closest('input,textarea,select,#globe,#ov'));
+    native = cs !== 'none' || !!(el && el.closest && el.closest('input,textarea,select'));
 
-    var hot = !!(el && el.closest && el.closest('a,button,.pill'));
-    ring.style.transform =
-      'translate3d(' + (px - (hot ? 19 : 11)) + 'px,' + (py - (hot ? 19 : 11)) + 'px,0)';
-    ring.classList.toggle('big', hot && !native);
+    var C = el && el.closest ? el : null;
+    var hot  = !!(C && C.closest('a,button,.pill,.tile'));
+    var stage = !!(C && C.closest('#globe,#ov')) && !hot;
+    var grabbing = !!document.querySelector('#globe.dragging');
+    var half = grabbing ? 7.5 : hot ? 19 : stage ? 17 : 11;
+    ring.style.transform = 'translate3d(' + (px - half) + 'px,' + (py - half) + 'px,0)';
+    ring.classList.toggle('big', hot && !native && !grabbing);
+    ring.classList.toggle('drag', stage && !native && !grabbing);
+    ring.classList.toggle('grabbing', grabbing);
     ring.classList.toggle('on-light', onLight);
     ring.classList.toggle('hide', native);
 
