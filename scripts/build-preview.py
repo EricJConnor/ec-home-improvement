@@ -64,6 +64,11 @@ def tile(m):
     return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1), 256, 80)
 body, t_ = re.subn(r'src="(/work/[^"]+\.jpg)"', tile, body)
 
+# the background field is blurred to 58px, so it needs almost no resolution at all
+def field(m):
+    return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1), 400, 70)
+body, _f = re.subn(r'src="(/full/[^"]+\.jpg)"', field, body)
+
 # the closer look loads on click, so downscale it hard — nothing here is displayed
 # above about 760px wide anyway
 def fullsize(m):

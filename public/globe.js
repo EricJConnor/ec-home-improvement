@@ -24,7 +24,7 @@
   function layout() {
     var b = stage.getBoundingClientRect();
     R = Math.max(140, Math.min(b.width, b.height) * 0.44);
-    S = Math.round(R * 0.30);                 /* ~full coverage at this tile count */
+    S = Math.round(R * 0.265);               /* just under touching, so tiles don't clip */
     stage.style.setProperty('--r', R + 'px');
     stage.style.setProperty('--s', S + 'px');
     for (var i = 0; i < N; i++) {
@@ -40,11 +40,13 @@
 
   /* ---------- turning ---------- */
   var ry = 20, rx = -12, vy = reduce ? 0 : 0.09, vx = 0, drag = false, lx = 0, ly = 0, moved = 0;
+  var hovering = false;
   function apply() { sphere.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)'; }
   function tick() {
     if (!drag) {
       ry += vy; rx += vx;
-      vy += ((reduce ? 0 : 0.09) - vy) * 0.03;      /* ease back to the idle drift */
+      var idle = reduce ? 0 : (hovering ? 0.012 : 0.09);
+      vy += (idle - vy) * 0.045;                     /* eases toward the idle drift */
       vx *= 0.93;
       rx += (-12 - rx) * 0.01;                       /* and settle back to the level */
     }
@@ -74,17 +76,60 @@
   stage.addEventListener('touchmove', move, { passive: true });
   addEventListener('touchend', up);
 
-  /* ---------- naming and opening ---------- */
+  /* ---------- naming and opening ----------
+     The sphere never stops turning, so a press and a release land on different tiles and
+     the browser fires `click` on their common ancestor rather than on either one. Pair
+     the press and release ourselves instead, against the tile that was under the cursor
+     when the press happened. */
+  var pressed = null, pressedAt = 0, capTimer = 0;
+
+  function tileFrom(node) {
+    while (node && node !== stage) {
+      if (node.classList && node.classList.contains('tile')) return node;
+      node = node.parentNode;
+    }
+    return null;
+  }
+
+  stage.addEventListener('pointerdown', function (e) {
+    pressed = tileFrom(e.target); pressedAt = Date.now();
+  });
+  stage.addEventListener('pointerup', function (e) {
+    var t = pressed; pressed = null;
+    if (!t || moved > 10 || Date.now() - pressedAt > 600) return;
+    e.preventDefault();
+    open(t.querySelector('img'));
+  });
+
   tiles.forEach(function (t) {
     var img = t.querySelector('img');
-    t.addEventListener('mouseenter', function () { if (cap) cap.textContent = img.getAttribute('alt') || ''; });
-    t.addEventListener('mouseleave', function () { if (cap) cap.textContent = ''; });
-    t.addEventListener('click', function (e) {
-      if (moved > 10) return;                        /* that was a drag, not a click */
-      e.preventDefault();
-      open(img);
+    t.addEventListener('mouseenter', function () {
+      hovering = true;
+      clearTimeout(capTimer);
+      if (cap) cap.textContent = img.getAttribute('alt') || '';
+    });
+    t.addEventListener('mouseleave', function () {
+      hovering = false;
+      /* hold the name for a moment: tiles slide out from under the cursor constantly,
+         and clearing instantly makes the caption flicker */
+      clearTimeout(capTimer);
+      capTimer = setTimeout(function () { if (cap && !hovering) cap.textContent = ''; }, 500);
     });
   });
+
+  /* the field behind everything leans the other way from the cursor */
+  var bg = document.querySelector('.bg-inner');
+  if (bg && !reduce) {
+    var bxT = 0, byT = 0, bx = 0, by = 0;
+    addEventListener('mousemove', function (e) {
+      bxT = (e.clientX / innerWidth - 0.5) * 2; byT = (e.clientY / innerHeight - 0.5) * 2;
+    }, { passive: true });
+    (function bgTick() {
+      bx += (bxT - bx) * 0.045; by += (byT - by) * 0.045;
+      bg.style.transform = 'translate3d(' + (-bx * 26) + 'px,' + (-by * 20) + 'px,0)';
+      requestAnimationFrame(bgTick);
+    })();
+  }
 
   var ov = document.getElementById('ov'), ovImg = ov && ov.querySelector('img'), ovCap = ov && ov.querySelector('p');
   function open(img) {

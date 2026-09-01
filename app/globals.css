@@ -249,7 +249,29 @@ img,video{display:block;max-width:100%}
    nothing is the "main" thing — the sphere gives every job the same weight.
    The .tiles grid is the real, no-WebGL rendering; the globe hides it once it is live. */
 
-.work{position:relative}
+.work{position:relative;z-index:1}
+.ftr{position:relative;z-index:1}
+
+/* ---------- the background field ---------- */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-inner{position:absolute;inset:-14%;will-change:transform}
+.bg img{width:100%;height:100%;object-fit:cover;
+  filter:blur(58px) saturate(1.85) brightness(.62);
+  transform:scale(1.35);transform-origin:52% 46%;
+  animation:field 54s ease-in-out infinite alternate}
+@keyframes field{
+  from{transform:scale(1.30) translate3d(-2.5%,-1.5%,0) rotate(0deg)}
+  to  {transform:scale(1.52) translate3d(2.5%,2%,0) rotate(7deg)}
+}
+/* pull it back down so it stays a field and never competes with the work */
+.bg::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(115% 85% at 50% 42%,rgba(20,20,20,.28) 0%,rgba(20,20,20,.66) 55%,rgba(20,20,20,.93) 100%)}
+.bg-grain{position:absolute;inset:-50%;opacity:.05;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 1.6s steps(6) infinite}
+@media(prefers-reduced-motion:reduce){
+  .bg img{animation:none}.bg-grain{animation:none}
+}
 .work-head{padding:clamp(88px,12vh,124px) var(--pad) clamp(8px,1.5vw,20px);
   display:grid;grid-template-columns:1.5fr 1fr;gap:32px 40px;align-items:end}
 .work-head-side{justify-self:end}
@@ -274,30 +296,24 @@ img,video{display:block;max-width:100%}
 .tile img{width:100%;height:100%;object-fit:cover;display:block;
   transition:transform .35s cubic-bezier(.22,1,.36,1)}
 .tile:hover{filter:brightness(1.14)}
-.tile:hover img{transform:scale(1.07)}
+.tile:hover{filter:brightness(1.28) contrast(1.04);box-shadow:0 0 0 1px rgba(255,255,255,.55),0 18px 50px rgba(0,0,0,.5);z-index:5}
+.tile:hover img{transform:scale(1.1)}
 #globe.dragging .tile{pointer-events:none}
-
-/* depth without per-tile maths: the rim sinks into the ink */
-.vignette{position:absolute;inset:-2%;pointer-events:none;
-  background:radial-gradient(circle at 50% 50%,
-    rgba(20,20,20,0) 46%,rgba(20,20,20,.55) 68%,rgba(20,20,20,.92) 84%,var(--ink) 96%)}
 
 /* Before the script lays the tiles out — and anywhere 3D transforms are unavailable —
    they simply stack as a plain scrolling grid of snapshots, which is the same idea. */
 #globe:not(.live) .sphere{position:static;width:auto;height:auto;transform:none!important;
   display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start;height:100%;overflow:auto}
 #globe:not(.live) .tile{position:static;width:104px;height:104px;margin:0;transform:none!important}
-#globe:not(.live) .vignette{display:none}
 @supports not (transform-style: preserve-3d){
   #globe{perspective:none}
   #globe.live .sphere{position:static;width:auto;height:auto;transform:none!important;
     display:flex;flex-wrap:wrap;gap:10px;height:100%;overflow:auto}
   #globe.live .tile{position:static;width:104px;height:104px;transform:none!important}
-  #globe.live .vignette{display:none}
 }
 
-.globe-cap{min-height:1.5em;padding:18px var(--pad) 0;font-size:13px;color:var(--mute);
-  text-align:center}
+.globe-cap{min-height:1.6em;padding:20px var(--pad) 0;font-size:14px;color:var(--paper);
+  text-align:center;transition:opacity .3s}
 
 /* On a narrow screen the sphere is sized by width, so height the stage to match it
    rather than leaving a band of dead ink above. */

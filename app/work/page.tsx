@@ -18,6 +18,16 @@ export default function Work() {
     <>
       <SiteHeader base="/" />
 
+      {/* A field of colour behind the whole page. It is Eric's own FlexMarble peony wall,
+          blurred past recognition so it reads as atmosphere rather than a photograph —
+          the teal and gold give the ink something to sit against. */}
+      <div className="bg" aria-hidden="true">
+        <div className="bg-inner">
+          <img src="/full/p4085.jpg" alt="" />
+        </div>
+        <div className="bg-grain" />
+      </div>
+
       <main id="top" className="work">
         <section className="work-head">
           <h1 className="h-xl">Our work.</h1>
@@ -46,7 +56,6 @@ export default function Work() {
               </figure>
             ))}
           </div>
-          <div className="vignette" aria-hidden="true" />
         </div>
         <p className="globe-cap" id="globe-cap" aria-live="polite" />
 

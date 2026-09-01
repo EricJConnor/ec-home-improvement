@@ -160,6 +160,28 @@ structurally: every photo is small, there are no sections, and nothing is the "m
   cost about the same as one.
 - Without `.live` (script not run) or without `preserve-3d` support, the same tiles fall back to a
   plain scrolling grid of snapshots — the same idea, minus the sphere.
+- **Clicking is paired manually, and must stay that way.** The sphere never stops turning, so a
+  press and a release land on different tiles and the browser fires `click` on their common
+  ancestor rather than on either photo — a per-tile click listener simply never runs. `pointerdown`
+  records the tile under the cursor and `pointerup` opens it, gated on movement and elapsed time so
+  a drag doesn't open anything. Note this is invisible to synthetic events dispatched straight at a
+  tile, which is how it passed testing while being broken for Eric.
+- Rotation slows to about an eighth while a tile is hovered, and the caption is held for half a
+  second after `mouseleave`. Without both, tiles slide out from under the cursor and the name
+  flickers on and off.
+
+### The background field
+
+Eric asked for "something happening in the full page background, like that gear thing from the CNC
+site, just to give it some depth and colour contrast." It is his own FlexMarble peony wall
+(`p4085`), blurred to 58px, saturated and darkened under a radial scrim, drifting on a 54s
+animation and leaning against the cursor.
+
+- **Blur less than you think.** At 90px the teal and the gold average into a flat olive; 58px keeps
+  them apart, which is where the warm-to-cool contrast comes from.
+- The globe originally had its own `.vignette` over the top. A radial gradient inside a rectangular
+  element draws a hard-edged box across the field — it was removed, and the field supplies the
+  depth instead. Don't reintroduce it.
 
 `public/full/` holds the full-size images the closer look opens. The depth-displacement shader Eric
 liked (strength 50) is **not** on this page — the globe is the moment now. It is still worth
