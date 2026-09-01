@@ -343,9 +343,17 @@ while off screen. The slow scale on the showing frame is what separates footage 
 
 **"Done means done"** has no photograph on purpose. It is a promise, not a product, and a picture
 beside it turns it into a caption for the picture. Instead the mark's own plumb line hangs at size,
-swings in when the section arrives, and damps to true — the sentence, drawn. The heading leads and
-the paragraph steps in beneath it rather than sitting beside it, so the two rows do not read as the
-same template twice.
+swings in when the section arrives, and damps to true — the sentence, drawn.
+
+Three tiers of type, because with only a heading the row still read as a gap where a photograph had
+been: the statement at near-hero scale, then **"The job isn't done until we walk it together."** —
+Eric's own line, and the most valuable sentence in the section because it is a specific commitment a
+competitor cannot copy without meaning it — then the punch-list detail small beneath. Do not put a
+claim in this section that is not actually true of how he works.
+
+Watch the specificity here: `.mani h3` and `.mani p` are more specific than the `.h-xl` utility and
+than a bare `.done-lead`, so both were silently overridden and the row stayed at the size of the one
+above it. Everything in this row is scoped `.mani-row.done …` for that reason.
 
 Built against the vendored `animate` skill, which caught three things worth remembering: both
 progress bars were animating `width` (a layout property) and are now `transform: scaleX`; the

@@ -592,13 +592,21 @@ main{position:relative;z-index:1}
 }
 
 /* ---------- how we work: done means done ---------- */
-.mani-row.done{grid-template-columns:1.35fr .65fr;align-items:center}
+/* Three tiers rather than two: the statement at hero scale, Eric's own promise under it at
+   middle weight, then the detail small. The row was sized for a photograph, so with only a
+   heading in it the space read as a gap where a picture had been rather than as intent. */
+.mani-row.done{grid-template-columns:1.4fr .6fr;align-items:center}
 .done-text{max-width:none}
-.mani-row.done h3{margin-bottom:0;max-width:14ch}
-/* the paragraph steps in under the line rather than sitting beside it, so the two rows of
-   this section do not read as the same template twice */
-.mani-row.done p{margin-top:clamp(20px,2.4vw,32px);margin-left:clamp(0px,7vw,132px);
-  max-width:34ch;color:var(--mute)}
+/* Scoped past `.mani h3` and `.mani p`, which are more specific than the .h-xl utility and
+   would otherwise silently hold this row at the same size as the one above it. */
+.mani-row.done h3{margin-bottom:0;max-width:none;
+  font-size:clamp(38px,5.4vw,84px);line-height:.96;font-weight:300;letter-spacing:-.035em;
+  font-variation-settings:'opsz' 96}
+.mani-row.done p.done-lead{margin-top:clamp(26px,3vw,42px);
+  font-size:clamp(19px,1.9vw,27px);font-weight:300;line-height:1.3;letter-spacing:-.02em;
+  color:var(--paper);max-width:24ch}
+.mani-row.done p.done-lead + p{margin-top:clamp(14px,1.5vw,20px)}
+.mani-row.done p{margin-left:clamp(0px,7vw,132px);max-width:34ch;color:var(--mute)}
 
 /* The plumb line from the mark, at size. It hangs off a pivot, swings when the section
    arrives, and damps to true — which is the sentence, drawn. */

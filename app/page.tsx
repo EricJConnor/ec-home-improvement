@@ -167,7 +167,8 @@ export default function Home() {
                 own figure: it swings in and comes to rest, which is the whole claim. */}
             <div className="mani-row done rule-draw">
               <div className="done-text">
-                <h3 className="h-l">Done means done.</h3>
+                <h3 className="h-xl">Done means done.</h3>
+                <p className="done-lead">The job isn't done until we walk it together.</p>
                 <p>The punch list gets finished, the site gets cleaned, and you don't chase us for the last ten percent.</p>
               </div>
               <div className="plumb" aria-hidden="true">
