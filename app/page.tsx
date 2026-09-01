@@ -100,9 +100,9 @@ export default function Home() {
                   <p>Patios, pergolas, outdoor bars and the structures that make a yard a room.</p>
                 </div>
               </article>
-              <article className="panel" id="painting">
+              <article className="panel wide" id="painting">
                 <div className="plate">
-                  <img src="/assets/painting.jpg" alt="Grey painted front door on a brick rowhouse" />
+                  <img src="/assets/painting.jpg" alt="An arched niche in white-painted brick with a walnut ledge and brass pulls" />
                 </div>
                 <div className="cap">
                   <h2>Painting</h2>

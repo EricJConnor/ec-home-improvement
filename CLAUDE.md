@@ -101,6 +101,28 @@ standalone preview inlines verbatim, so the two cannot drift.
    The peony FlexMarble photo shows a "…nya Design" sign in a doorway — clean it when a full-res
    version arrives. Skip every `.WEBP` in his photo archive; those are watermarked MLS listing shots.
 
+## MLS photography — licensing
+
+39 photos in `contractorpics.zip` are BrightMLS listing shots (all 33 `.WEBP` plus
+`IMG_2616-2623.JPG`). Every one has a `bright MLS` watermark burned into the bottom-left.
+They are the sharpest images in the archive — five at 1344x896 — and mostly landscape, which the
+rest of the archive badly lacks.
+
+Eric did not shoot these and does not own them: copyright sits with the listing photographer or
+brokerage. Having built the work confers no rights in a photograph of it, and the homeowner, not
+the contractor, controls access to the finished space. **Do not use any of them without permission,
+and never strip or obscure the watermark.**
+
+- **Cleared:** Eric obtained verbal permission by phone for the painted-brick rowhouse set
+  (`IMG_2624-2636`). `IMG_2630` is now the Painting panel. He was asked to get it in writing.
+- **Not cleared:** the white-kitchen set (`IMG_2379-2383`, `IMG_2616-2623`) and the green-wall set
+  (`IMG_2637-2651`). Leave them alone until he says otherwise.
+
+The copies in the zip are downscales. When a permission comes in, ask for the photographer's
+original — those run 2000-3000px and would be the first genuinely full-bleed-capable photos in the
+project. Going forward Eric was advised to put a portfolio clause in his contracts so future jobs
+are his to shoot and publish.
+
 ## Interior pages — build ONE first, get approval, then template the rest
 
 Order: Kitchens first (best photos), then Bathrooms, Statement Walls, Outdoors, Painting, Agents.
