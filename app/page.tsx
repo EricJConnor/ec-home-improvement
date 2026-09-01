@@ -140,12 +140,16 @@ export default function Home() {
             <div className="mani-row rule-draw">
               <figure className="build" aria-label="A restaurant booth built from framing to finished">
                 {[
-                  ['build-1', 'Bare timber framing standing in the empty dining room'],
-                  ['build-2', 'Partitions roughed in across the floor'],
-                  ['build-3', 'The first mahogany panel skinned, still taped'],
-                  ['build-4', 'The finished row of mahogany partitions installed'],
-                  ['build-5', 'The green banquette in'],
-                  ['build-6', 'The booth finished — round table, brass lamp, lit'],
+                  ['build-1',  'Bare timber framing standing in the empty dining room'],
+                  ['build-2',  'Framing run out across the floor'],
+                  ['build-3',  'The first mahogany panel skinned, still taped at the base'],
+                  ['build-4',  'A second panel up, tape still down'],
+                  ['build-5',  'Booth backs in, chairs stacked, floor still covered'],
+                  ['build-6',  'The run of partitions standing, site not yet cleared'],
+                  ['build-7',  'The finished row of mahogany partitions, floor clear'],
+                  ['build-8',  'The green banquette in'],
+                  ['build-9',  'Table and lamp set in the booth'],
+                  ['build-10', 'Finished and lit, ready for service'],
                 ].map(([f, alt], i) => (
                   <img key={f} src={`/assets/${f}.jpg`} alt={alt} data-i={i}
                        loading="lazy" decoding="async" />

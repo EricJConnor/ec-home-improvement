@@ -54,38 +54,38 @@
     lastY = y;
   }, { passive: true });
 
-  /* ---------- how we work: the booth builds itself ---------- */
-  /* Driven by the row's own travel through the viewport rather than a timer: nobody waits
-     for a loop, and scrolling back runs it backwards, which is the point of a sequence. */
+  /* ---------- how we work: the booth reel ---------- */
+  /* It plays itself. The first version was scroll-linked and Eric was right that it did not
+     work: scroll-driven motion runs at whatever speed the reader scrolls, so a fast scroll
+     skips the whole build and a slow one stutters frame to frame. A build sequence only
+     reads as one if it keeps its own time. Runs only while on screen. */
   var build = document.querySelector('.build');
-  if (build && !reduce) {
+  if (build) {
     var frames = [].slice.call(build.querySelectorAll('img'));
-    /* seqBar, not bar: motion.js is one IIFE and `var` is function-scoped, so a second
-       `var bar` further down (the reel's) reassigns this one and the sequence silently ends
-       up driving the wrong progress bar. */
     var seqBar = build.querySelector('.build-bar span');
-    var row = build.closest('.mani-row');
-    var seqTicking = false;
+    var idx = 0, timer = null;
+    var HOLD = 780, FINALE = 2200;   /* the last frame is the payoff — let it land */
 
-    function sequence() {
-      seqTicking = false;
-      var r = row.getBoundingClientRect(), vh = innerHeight;
-      /* 0 as the row's top reaches three quarters down the screen, 1 as its bottom leaves
-         the top quarter — so the build happens while the row is actually being looked at */
-      var span = r.height + vh * 0.5;
-      var t = clamp01((vh * 0.75 - r.top) / span);
-      var pos = t * (frames.length - 1);
-      for (var i = 0; i < frames.length; i++) {
-        var d = Math.abs(i - pos);
-        frames[i].style.opacity = d >= 1 ? 0 : (1 - d);
-      }
-      if (seqBar) seqBar.style.transform = 'scaleX(' + t + ')';
+    function show(i) {
+      for (var k = 0; k < frames.length; k++) frames[k].classList.toggle('on', k === i);
+      if (seqBar) seqBar.style.transform = 'scaleX(' + ((i + 1) / frames.length) + ')';
     }
-    addEventListener('scroll', function () {
-      if (!seqTicking) { seqTicking = true; requestAnimationFrame(sequence); }
-    }, { passive: true });
-    addEventListener('resize', sequence, { passive: true });
-    sequence();
+    function advance() {
+      idx = (idx + 1) % frames.length;
+      show(idx);
+      timer = setTimeout(advance, idx === frames.length - 1 ? FINALE : HOLD);
+    }
+    function play() { if (!timer) timer = setTimeout(advance, HOLD); }
+    function stop() { clearTimeout(timer); timer = null; }
+
+    show(0);
+    if (!reduce) {
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          es.forEach(function (e) { e.isIntersecting ? play() : stop(); });
+        }, { threshold: 0.15 }).observe(build);
+      } else play();
+    }
   }
 
   /* ---------- the reel ---------- */

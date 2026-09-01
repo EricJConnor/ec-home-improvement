@@ -328,12 +328,18 @@ success, but no mail reaches Eric until that key exists.
 Eric said this section's photos were plain next to the rest of the site, and he was right — both
 rows were finished results, which is what every other section already shows.
 
-**"If it doesn't exist, we build it"** is now the same restaurant booth from bare studs to service:
-framing, partitions roughed in, the first mahogany panel taped, the row installed, the banquette,
-the finished table under a brass lamp. Six frames stacked in one plate, crossfaded by the row's own
-travel through the viewport — scroll-driven rather than timed, so nobody waits for a loop and
-scrolling back runs it in reverse. **This is the only place on the site that shows process**, which
-is the whole job of the section. Photos are 480x640: sequence at plate size, never full bleed.
+**"If it doesn't exist, we build it"** is the same restaurant booth from bare studs to service — ten
+frames: framing, the run across the floor, the first mahogany panel taped, a second up, booth backs
+with the floor still covered, the partitions standing, the row finished and the floor clear, the
+green banquette, the table and lamp, finished and lit. **This is the only place on the site that
+shows process**, which is the whole job of the section. Photos are 480x640: reel at plate size,
+never full bleed.
+
+**It keeps its own clock, and that was a correction.** The first version was scroll-linked and Eric
+said it did not work — rightly: scroll-driven motion runs at whatever speed the reader scrolls, so a
+fast scroll skips the build entirely and a slow one stutters frame to frame. It now advances itself
+at 780ms a frame, holds 2.2s on the finished shot so the payoff lands, loops, and stops entirely
+while off screen. The slow scale on the showing frame is what separates footage from a slideshow.
 
 **"Done means done"** has no photograph on purpose. It is a promise, not a product, and a picture
 beside it turns it into a caption for the picture. Instead the mark's own plumb line hangs at size,
