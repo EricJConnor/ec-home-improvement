@@ -119,7 +119,11 @@ and never strip or obscure the watermark.**
 - Because they are painting work, they are filed under **Painting** in the gallery — the room in the
   photo is not the job. Do not refile an MLS kitchen shot under Kitchens; that would imply he built it.
 
-The copies in the zip are downscales. When a permission comes in, ask for the photographer's
+Eric has decided not to chase the photographer for originals — it was a while ago, the agent says
+it would be a headache, and his position is that if anyone asks he will take them down. That is his
+call and it is settled; do not raise it again. The never-strip-the-watermark rule still stands.
+
+The copies in the zip are downscales. If a permission ever comes in, ask for the photographer's
 original — those run 2000-3000px and would be the first genuinely full-bleed-capable photos in the
 project. Going forward Eric was advised to put a portfolio clause in his contracts so future jobs
 are his to shoot and publish.
@@ -287,6 +291,34 @@ survive, as they read as clip art next to this typography.
 - Don't build the whole site blind. One page → preview URL → Eric's feedback → next page.
 - When something's unclear, ask Eric one plain question. Don't hand him research or errands.
 - Photos: prefer originals from Eric's phone over anything under 1500px for full-bleed use.
+
+## Sharing, search and the business card
+
+`app/site.ts` holds the domain, the phone number, the email and the service areas. Everything
+downstream reads from it — metadata, structured data, the sitemap, the vCard and the QR. Change the
+domain by setting `NEXT_PUBLIC_SITE_URL` in Vercel, then re-run `python3 scripts/build-qr.py <url>`,
+which is the one thing that does not pick it up automatically (the QR is a committed SVG).
+
+- **`public/og.jpg`** is what a texted link looks like. Built by rendering an HTML template through
+  headless Chromium so it uses the real Bricolage face and the real hero frame, rather than being
+  laid out by hand. The skyline sits low and the phone number bottom-right, where a thumbnail crop
+  takes the least away. Regenerate from `scratchpad/og/og.html` if the line changes.
+- **`app/icon.svg`** is the mark on ink, picked up automatically by Next as the favicon.
+- **Structured data** (`app/components/StructuredData.tsx`) states the trade and every area served,
+  once, in the form Google expects. It is not a substitute for a Google Business Profile — for a
+  local contractor that profile is the bigger lever by far, and it is Eric's to claim.
+- **`/card`** is the business card: Eric pulls it up when someone asks for one, they scan the QR,
+  land on the same page and tap **Save to contacts** (`/vcard`, served so the URL inside always
+  matches the deployed domain). The QR points at the page rather than carrying a vCard directly —
+  a URL stays small enough to scan instantly off a phone screen, and it puts the work one tap away
+  instead of only dropping a contact in. Verified by decoding it back out of a rendered screenshot,
+  not by eye.
+
+Two things that will bite: segno writes the QR with `width`/`height` in module units and **no
+viewBox**, so it will not scale — `build-qr.py` rewrites that, and a hand-regenerated QR without it
+renders as a 29px speck in the corner of its box. And the contact form returns 503 until
+`RESEND_API_KEY` is set in Vercel; it fails visibly with the phone number rather than faking a
+success, but no mail reaches Eric until that key exists.
 
 ## Standing asks (not yet done)
 
