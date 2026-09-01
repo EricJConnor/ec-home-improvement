@@ -283,6 +283,14 @@ fix it, because the mark was never the variable. Two things replaced it:
   the hero it drops the sky away behind the mark, and over a plaster section it fades body text out
   before it can run through the nav.
 
+**The mark carries more weight than a rule anywhere else on the site.** At 1.5 next to a
+600-weight EC it read as scaffolding behind the name rather than a mark standing beside it — Eric
+looked at it twice and said it still looked the same. A drawn figure needs more weight than a filled
+letterform to hold the same presence, so the stroke is 2.6, the bob is `r 3.4`, and the whole thing
+is a size up. It also keeps its own near-solid colour (`.98` / `.96`) rather than the header's
+alpha: a stroked figure loses far more to transparency than a filled letterform, and at `.89` the
+frame washed into the clouds while the EC beside it held.
+
 **The type keeps a little transparency, and that is deliberate.** Stated as flat paper the mark
 measured 242 and Eric said it no longer felt designed — the one thing the blend did well was let the
 sky come through the letterforms. So the colour carries alpha (`.89` paper, `.87` ink) and the scrim
