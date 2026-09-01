@@ -28,10 +28,13 @@ export default function Home() {
                 <br />
                 coming home to.
               </h1>
-              <p className="p">
-                EC Home Improvement is the custom interiors specialist for Philadelphia and the
-                surrounding counties. Unique spaces, built one at a time. Nothing off a shelf.
-              </p>
+              <div className="hero-side">
+                <a className="pill" href="/work">View our work</a>
+                <p className="p">
+                  EC Home Improvement is the custom interiors specialist for Philadelphia and the
+                  surrounding counties. Unique spaces, built one at a time. Nothing off a shelf.
+                </p>
+              </div>
             </div>
           </section>
         </div>

@@ -323,6 +323,16 @@ renders as a 29px speck in the corner of its box. And the contact form returns 5
 `RESEND_API_KEY` is set in Vercel; it fails visibly with the phone number rather than faking a
 success, but no mail reaches Eric until that key exists.
 
+## The hero's "View our work"
+
+"Our work" was the last link in a row of nine and Eric said it was hidden — which it was: the one
+page that sells the business read as another nav item. It is out of the nav entirely and lives in the
+hero instead, as a pill above the standing paragraph.
+
+`.pill` is drawn like the mark: hairline outline, nothing filled, so it belongs to the same language
+rather than sitting on the footage as a button. It fills to paper on hover. The mobile sheet keeps
+its "Our work" link, since there the sheet is the only navigation there is.
+
 ## Statement Walls copy
 
 Eric rewrote this section himself. The claim is **the sourcing**, not the product spec: "We source

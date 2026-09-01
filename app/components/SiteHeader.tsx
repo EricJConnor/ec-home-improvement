@@ -19,7 +19,6 @@ export default function SiteHeader({ base = '' }: { base?: string }) {
           {nav.map(([id, label]) => (
             <a key={id} href={`${base}#${id}`}>{label}</a>
           ))}
-          <a href="/work">Our work</a>
         </nav>
         <button className="burger" aria-expanded="false" aria-controls="sheet">Menu</button>
       </header>
