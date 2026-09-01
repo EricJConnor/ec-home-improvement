@@ -27,6 +27,9 @@ more than the CSS:
   more expensive — do not "fix" this by making the plates bigger again.
 - The FlexMarble plate is landscape (4:3) because its source is; the rest are 3:4. Alternate plates
   sit slightly low so the hang reads composed rather than gridded.
+- Plate size is capped by viewport **height** as well as width (`min(30vw,46vh)`), because sizing off
+  width alone let a 3:4 plate push its caption past the pinned area on a short laptop screen, where
+  `overflow:hidden` clipped it. It reproduced at 1512x700 on all four portrait panels. Keep the vh term.
 - The reel pins and travels on scroll **on every viewport now, phones included**. It is scroll-linked,
   not a timed carousel — the visitor sets the pace. Plates parallax inside their frames as they pass.
 

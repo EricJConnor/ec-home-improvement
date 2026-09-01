@@ -112,8 +112,8 @@ img,video{display:block;max-width:100%}
 .strip-pin{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;background:var(--ink);display:flex;align-items:center}
 .strip-track{display:flex;align-items:center;height:100%;will-change:transform;
   padding:0 clamp(24px,9vw,180px);gap:clamp(28px,4.6vw,92px)}
-.panel{position:relative;flex:0 0 auto;width:clamp(240px,30vw,440px);display:flex;flex-direction:column;justify-content:center}
-.panel.wide{width:clamp(300px,42vw,660px)}
+.panel{position:relative;flex:0 0 auto;width:clamp(240px,min(30vw,46vh),440px);display:flex;flex-direction:column;justify-content:center}
+.panel.wide{width:clamp(300px,min(42vw,82vh),660px)}
 /* a considered hang, not a grid: alternate plates sit slightly low */
 .panel:nth-child(even){transform:translateY(clamp(14px,3vh,40px))}
 
@@ -139,8 +139,8 @@ img,video{display:block;max-width:100%}
 @media(max-width:820px){
   .strip-pin{min-height:0}
   .strip-track{padding:0 var(--pad);gap:clamp(22px,7vw,44px)}
-  .panel{width:min(78vw,380px)}
-  .panel.wide{width:min(88vw,440px)}
+  .panel{width:min(78vw,380px,46vh)}
+  .panel.wide{width:min(88vw,440px,82vh)}
   .panel:nth-child(even){transform:translateY(18px)}
   .panel h2{font-size:clamp(24px,7vw,34px)}
 }
