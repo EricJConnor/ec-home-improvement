@@ -336,6 +336,12 @@ composites, and more. Do not narrow it back to two products. The only edit made 
 "one of a kind vision execution" → "executing one-of-a-kind visions", to undo the noun pile-up;
 revert it if he prefers his phrasing.
 
+The two wall photos are **tagged on the image**, the way the full-bleed band is — "Custom image on
+FlexMarble" and "Marble veins on FlexMarble". Eric asked for the band's treatment specifically:
+a label on the work reads as a note, the same words under it read as a catalogue caption. The band
+gets its legibility from a separate `.veil` element, but these two photos end light at the bottom
+(pale floor, grey rug), so the scrim is carried on the caption's own gradient instead.
+
 Note the reel's Statement Walls caption still says "FlexMarble, SPC stone panels, and more" — it was
 left alone because he did not ask for it, but it is the same claim in an older form.
 

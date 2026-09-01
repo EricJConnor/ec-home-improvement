@@ -103,11 +103,11 @@ export default function Home() {
           <div className="fm-grid">
             <figure>
               <img src="/assets/flexmarble-peony.jpg" alt="A backlit peony printed across a full FlexMarble showroom wall" />
-              <figcaption>A single peony across a full showroom wall.</figcaption>
+              <figcaption>Custom image on FlexMarble</figcaption>
             </figure>
             <figure className="tall">
               <img src="/assets/flexmarble-geometric.jpg" alt="Geometric FlexMarble panels with moss and trailing florals" />
-              <figcaption>Panelled marble with living moss and trailing florals.</figcaption>
+              <figcaption>Marble veins on FlexMarble</figcaption>
             </figure>
           </div>
           <div className="fm-materials">
