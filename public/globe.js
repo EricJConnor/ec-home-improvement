@@ -30,6 +30,14 @@
     for (var i = 0; i < N; i++) {
       var y = 1 - (i / Math.max(1, N - 1)) * 2, r = Math.sqrt(Math.max(0, 1 - y * y)), th = GOLD * i;
       var lat = Math.asin(y) * 180 / Math.PI, lon = Math.atan2(Math.cos(th) * r, Math.sin(th) * r) * 180 / Math.PI;
+      /* photographs keep their own proportions; area-normalising the size means a wide
+         one and a tall one still carry the same weight on the sphere */
+      var ar = parseFloat(tiles[i].getAttribute('data-ar')) || 1, k = Math.sqrt(ar);
+      var tw = Math.round(S * k), thh = Math.round(S / k);
+      tiles[i].style.width = tw + 'px';
+      tiles[i].style.height = thh + 'px';
+      tiles[i].style.marginLeft = (-tw / 2) + 'px';
+      tiles[i].style.marginTop = (-thh / 2) + 'px';
       tiles[i].style.transform =
         'rotateY(' + lon + 'deg) rotateX(' + (-lat) + 'deg) translateZ(' + R + 'px)';
     }

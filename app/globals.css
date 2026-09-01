@@ -254,6 +254,12 @@ img,video{display:block;max-width:100%}
 
 /* ---------- the background field ---------- */
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+/* on the landing the footage and the plates already carry colour, so the field only
+   needs to keep the ink from going dead flat */
+.bg-quiet{opacity:.5}
+/* let the field run behind the reel instead of stopping at an opaque black band */
+.bg-quiet ~ main .strip-pin{background:transparent}
+main{position:relative;z-index:1}
 .bg-inner{position:absolute;inset:-14%;will-change:transform}
 .bg img{width:100%;height:100%;object-fit:cover;
   filter:blur(30px) saturate(1.9) brightness(.66);
@@ -318,8 +324,7 @@ img,video{display:block;max-width:100%}
 .sphere{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;
   will-change:transform}
 
-.tile{position:absolute;margin:0;
-  left:calc(var(--s,96px) / -2);top:calc(var(--s,96px) / -2);
+.tile{position:absolute;margin:0;left:0;top:0;
   width:var(--s,96px);height:var(--s,96px);
   /* the back of the sphere culls itself — no depth sorting, no shader */
   backface-visibility:hidden;-webkit-backface-visibility:hidden;
@@ -336,12 +341,12 @@ img,video{display:block;max-width:100%}
    they simply stack as a plain scrolling grid of snapshots, which is the same idea. */
 #globe:not(.live) .sphere{position:static;width:auto;height:auto;transform:none!important;
   display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start;height:100%;overflow:auto}
-#globe:not(.live) .tile{position:static;width:104px;height:104px;margin:0;transform:none!important}
+#globe:not(.live) .tile{position:static;width:104px!important;height:104px!important;margin:0!important;transform:none!important}
 @supports not (transform-style: preserve-3d){
   #globe{perspective:none}
   #globe.live .sphere{position:static;width:auto;height:auto;transform:none!important;
     display:flex;flex-wrap:wrap;gap:10px;height:100%;overflow:auto}
-  #globe.live .tile{position:static;width:104px;height:104px;transform:none!important}
+  #globe.live .tile{position:static;width:104px!important;height:104px!important;margin:0!important;transform:none!important}
 }
 
 .globe-cap{min-height:1.6em;padding:20px var(--pad) 0;font-size:14px;color:var(--paper);

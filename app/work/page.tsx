@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import SiteHeader from '../components/SiteHeader'
 import ContactBand from '../components/ContactBand'
+import Backdrop from '../components/Backdrop'
 import manifest from '../work-manifest.json'
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     'Kitchens, bathrooms, painted interiors, statement walls, outdoor rooms and one restaurant, built across Philadelphia, Bucks, Montgomery and Delaware counties.',
 }
 
-type Tile = { ch: string; slug: string; alt: string }
+type Tile = { ch: string; slug: string; w: number; h: number; alt: string }
 
 export default function Work() {
   const tiles = manifest as Tile[]
@@ -18,22 +19,7 @@ export default function Work() {
     <>
       <SiteHeader base="/" />
 
-      {/* A field of colour behind the whole page. It is Eric's own FlexMarble peony wall,
-          blurred past recognition so it reads as atmosphere rather than a photograph —
-          the teal and gold give the ink something to sit against. */}
-      <div className="bg" aria-hidden="true">
-        <div className="bg-inner">
-          <img src="/full/p4085.jpg" alt="" />
-        </div>
-        <div className="bg-2">
-          <img src="/full/p4082.jpg" alt="" />
-        </div>
-        {/* A blurred wash has no edges, so motion inside it is invisible. This travelling
-            highlight is the thing the eye can actually track. */}
-        <div className="bg-sweep" />
-        <div className="bg-sweep bg-sweep-2" />
-        <div className="bg-grain" />
-      </div>
+      <Backdrop />
 
       <main id="top" className="work">
         <section className="work-head">
@@ -52,7 +38,7 @@ export default function Work() {
         <div id="globe" aria-label="Photographs of our work">
           <div className="sphere">
             {tiles.map((t) => (
-              <figure className="tile" key={t.slug}>
+              <figure className="tile" key={t.slug} data-ar={(t.w / t.h).toFixed(4)}>
                 <img
                   src={`/work/${t.slug}.jpg`}
                   data-full={`/full/${t.slug}.jpg`}

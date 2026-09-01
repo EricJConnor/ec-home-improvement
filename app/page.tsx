@@ -1,4 +1,5 @@
 import SiteHeader from './components/SiteHeader'
+import Backdrop from './components/Backdrop'
 import ContactBand from './components/ContactBand'
 import Script from 'next/script'
 
@@ -6,6 +7,7 @@ export default function Home() {
   return (
     <>
       <SiteHeader />
+      <Backdrop quiet />
 
       <main id="top">
         {/* HERO */}

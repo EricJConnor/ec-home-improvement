@@ -136,8 +136,10 @@ original idea of a rotating globe.
 files are oversampled and genuinely crisp. The globe also settles three of his complaints
 structurally: every photo is small, there are no sections, and nothing is the "main" thing.
 
-- **137 tiles**, square-cropped to 320px, spread by Fibonacci distribution so the sphere is even
-  rather than banded. Kitchens 39, Painting 28, Bathrooms 27, Commercial 26, Outdoors 15, Walls 2 —
+- **137 tiles at their true proportions** (long side 320px), spread by Fibonacci distribution so the
+  sphere is even rather than banded. Sizes are area-normalised in `layout()` — width `S*sqrt(ar)`,
+  height `S/sqrt(ar)` — so a wide photo and a tall one carry the same visual weight. Nothing on
+  the page is cropped any more; they were square-cropped until Eric asked for the real shapes. Kitchens 39, Painting 28, Bathrooms 27, Commercial 26, Outdoors 15, Walls 2 —
   deliberately wide so no single project carries it.
 - **Density, brightness and scale are the whole design.** The first build had 93 tiles at 74%
   brightness fading from z=0.36 inward, and Eric's verdict was that you couldn't see anything — it
@@ -171,6 +173,11 @@ structurally: every photo is small, there are no sections, and nothing is the "m
   flickers on and off.
 
 ### The background field
+
+It lives in `app/components/Backdrop.tsx` and is on **both** pages — full strength on `/work`,
+`quiet` (half opacity) on the landing, where the footage and the plates already carry colour.
+`.strip-pin` on the landing is transparent so the field runs continuously behind the reel instead
+of stopping at an opaque black band.
 
 Eric asked for "something happening in the full page background, like that gear thing from the CNC
 site, just to give it some depth and colour contrast." It is his own FlexMarble peony wall
