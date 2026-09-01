@@ -25,6 +25,9 @@ export default function Work() {
         <div className="bg-inner">
           <img src="/full/p4085.jpg" alt="" />
         </div>
+        <div className="bg-2">
+          <img src="/full/p4082.jpg" alt="" />
+        </div>
         <div className="bg-grain" />
       </div>
 

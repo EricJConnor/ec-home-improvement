@@ -177,8 +177,25 @@ site, just to give it some depth and colour contrast." It is his own FlexMarble 
 (`p4085`), blurred to 58px, saturated and darkened under a radial scrim, drifting on a 54s
 animation and leaning against the cursor.
 
-- **Blur less than you think.** At 90px the teal and the gold average into a flat olive; 58px keeps
-  them apart, which is where the warm-to-cool contrast comes from.
+- **Blur less than you think.** At 90px the teal and the gold average into a flat olive. It now sits
+  at 30px, with a second, more heavily blurred plate (`p4082`) counter-moving behind it on `screen`
+  blend. The counter-motion between the two plates is what reads as depth — one drifting layer just
+  reads as a static wash.
+
+### Pulling a photograph off the globe
+
+Eric on the first closer look: "a very static image that looks like it was just slapped in there."
+It now flies. The overlay image starts at the exact rect, scale and lean of the tile that was
+clicked — computed from that tile's live `getBoundingClientRect()` and its offset from the sphere's
+centre — and transitions to the middle; closing sends it back to wherever that tile has turned to
+by then.
+
+- The backdrop is `backdrop-filter: blur(15px)` over a light scrim, **not** an opaque black. The
+  globe keeps turning and the colour field stays visible behind, which is what he asked for.
+- The full-size file is prefetched on `mouseenter`. Without it the flight cannot start until the
+  image arrives, and the first frame has no size to measure from.
+- Measure only once `ovImg.complete && naturalWidth` — measuring an undecoded image gives a zero
+  rect and the flight silently does nothing.
 - The globe originally had its own `.vignette` over the top. A radial gradient inside a rectangular
   element draws a hard-edged box across the field — it was removed, and the field supplies the
   depth instead. Don't reintroduce it.

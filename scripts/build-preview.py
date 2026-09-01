@@ -72,7 +72,7 @@ body, _f = re.subn(r'src="(/full/[^"]+\.jpg)"', field, body)
 # the closer look loads on click, so downscale it hard — nothing here is displayed
 # above about 760px wide anyway
 def fullsize(m):
-    return 'data-full="data:image/jpeg;base64,%s"' % _inline(m.group(1), 460, 72)
+    return 'data-full="data:image/jpeg;base64,%s"' % _inline(m.group(1), 560, 70)
 body, f_ = re.subn(r'data-full="(/full/[^"]+\.jpg)"', fullsize, body)
 if t_: n += t_; print('work: %d tiles, %d full-size inlined' % (t_, f_))
 

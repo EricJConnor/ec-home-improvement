@@ -98,7 +98,7 @@
     var t = pressed; pressed = null;
     if (!t || moved > 10 || Date.now() - pressedAt > 600) return;
     e.preventDefault();
-    open(t.querySelector('img'));
+    open(t);
   });
 
   tiles.forEach(function (t) {
@@ -107,6 +107,10 @@
       hovering = true;
       clearTimeout(capTimer);
       if (cap) cap.textContent = img.getAttribute('alt') || '';
+      /* fetch the full-size file now, so the flight can start the instant it is clicked
+         rather than after a round trip */
+      var full = img.getAttribute('data-full');
+      if (full && !t._pre) { t._pre = new Image(); t._pre.src = full; }
     });
     t.addEventListener('mouseleave', function () {
       hovering = false;
@@ -131,16 +135,70 @@
     })();
   }
 
-  var ov = document.getElementById('ov'), ovImg = ov && ov.querySelector('img'), ovCap = ov && ov.querySelector('p');
-  function open(img) {
-    if (!ov) return;
+  /* ---------- pulling a photograph off the sphere ----------
+     The overlay starts life at the exact position, size and lean of the tile that was
+     clicked, then flies to the middle. That is what connects the two — without it the
+     picture just appears, and reads as pasted on top of the page. */
+  var ov = document.getElementById('ov'), ovImg = ov && ov.querySelector('img'),
+      ovCap = ov && ov.querySelector('p'), fromTile = null, busy = false;
+
+  function tileTransform(tile) {
+    var t = tile.getBoundingClientRect(), f = ovImg.getBoundingClientRect(), g = stage.getBoundingClientRect();
+    if (!t.width || !f.width) return null;
+    var s = t.width / f.width;
+    var dx = (t.left + t.width / 2) - (f.left + f.width / 2);
+    var dy = (t.top + t.height / 2) - (f.top + f.height / 2);
+    /* lean it the way that part of the sphere was facing */
+    var ry = ((t.left + t.width / 2) - (g.left + g.width / 2)) / Math.max(1, g.width / 2);
+    var rx = ((t.top + t.height / 2) - (g.top + g.height / 2)) / Math.max(1, g.height / 2);
+    return 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ') ' +
+           'rotateY(' + (ry * 46) + 'deg) rotateX(' + (-rx * 34) + 'deg)';
+  }
+
+  function open(tile) {
+    if (!ov || busy) return;
+    var img = tile.querySelector('img');
+    fromTile = tile;
     ovImg.src = img.getAttribute('data-full') || img.src;
     ovImg.alt = img.getAttribute('alt') || '';
     if (ovCap) ovCap.textContent = img.getAttribute('alt') || '';
     ov.hidden = false;
-    document.body.style.overflow = 'hidden';
+    ov.classList.remove('in');
+
+    var start = function () {
+      var from = tileTransform(tile);
+      if (from) {
+        ovImg.style.transition = 'none';
+        ovImg.style.transform = from;
+        ovImg.style.opacity = '0.6';
+        ovImg.getBoundingClientRect();                 /* force the start state to stick */
+        ovImg.style.transition = '';
+      }
+      requestAnimationFrame(function () {
+        ov.classList.add('in');
+        ovImg.style.transform = '';
+        ovImg.style.opacity = '';
+      });
+    };
+    /* the full-size file may not be decoded yet; measuring before it is gives a wrong size */
+    if (ovImg.complete && ovImg.naturalWidth) requestAnimationFrame(start);
+    else ovImg.addEventListener('load', function () { requestAnimationFrame(start); }, { once: true });
   }
-  function close() { if (ov) { ov.hidden = true; document.body.style.overflow = ''; } }
+
+  function close() {
+    if (!ov || ov.hidden || busy) return;
+    busy = true;
+    /* fly back into wherever that tile has turned to by now */
+    var back = fromTile ? tileTransform(fromTile) : null;
+    ov.classList.remove('in');
+    if (back) { ovImg.style.transform = back; ovImg.style.opacity = '0'; }
+    setTimeout(function () {
+      ov.hidden = true; busy = false; fromTile = null;
+      ovImg.style.transition = 'none'; ovImg.style.transform = ''; ovImg.style.opacity = '';
+      ovImg.getBoundingClientRect(); ovImg.style.transition = '';
+    }, 460);
+  }
+
   if (ov) {
     ov.addEventListener('click', close);
     addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
