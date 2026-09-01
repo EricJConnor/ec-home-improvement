@@ -135,22 +135,39 @@ export default function Home() {
         <section className="sec rule-draw" id="how">
           <h2 className="h-l">How we work.</h2>
           <div className="mani">
+            {/* The one place on the site that shows process rather than result: the same
+                restaurant booth from bare studs to service, built by the scroll. */}
             <div className="mani-row rule-draw">
-              <div className="mani-plate">
-                <img src="/assets/how-build.jpg" alt="A finished booth: green banquette, a round wood table and a brass lamp" />
-              </div>
+              <figure className="build" aria-label="A restaurant booth built from framing to finished">
+                {[
+                  ['build-1', 'Bare timber framing standing in the empty dining room'],
+                  ['build-2', 'Partitions roughed in across the floor'],
+                  ['build-3', 'The first mahogany panel skinned, still taped'],
+                  ['build-4', 'The finished row of mahogany partitions installed'],
+                  ['build-5', 'The green banquette in'],
+                  ['build-6', 'The booth finished — round table, brass lamp, lit'],
+                ].map(([f, alt], i) => (
+                  <img key={f} src={`/assets/${f}.jpg`} alt={alt} data-i={i}
+                       loading="lazy" decoding="async" />
+                ))}
+                <span className="build-bar" aria-hidden="true"><span /></span>
+              </figure>
               <div className="mani-text">
                 <h3>If it doesn't exist, we build it.</h3>
                 <p>Custom booths, a bar from scratch, a marble wall with your photograph in it. "Off the shelf" isn't a phrase we use much.</p>
               </div>
             </div>
-            <div className="mani-row rule-draw">
-              <div className="mani-plate">
-                <img src="/assets/how-done.jpg" alt="A finished shower in white subway tile with a black frame and hex floor" />
-              </div>
-              <div className="mani-text">
-                <h3>Done means done.</h3>
+
+            {/* No photograph here on purpose. This one is a promise, not a product — a picture
+                beside it turns it into a caption for the picture. The plumb line is the mark's
+                own figure: it swings in and comes to rest, which is the whole claim. */}
+            <div className="mani-row done rule-draw">
+              <div className="done-text">
+                <h3 className="h-l">Done means done.</h3>
                 <p>The punch list gets finished, the site gets cleaned, and you don't chase us for the last ten percent.</p>
+              </div>
+              <div className="plumb" aria-hidden="true">
+                <span className="plumb-arm"><span className="plumb-line" /><span className="plumb-bob" /></span>
               </div>
             </div>
           </div>

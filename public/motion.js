@@ -54,6 +54,40 @@
     lastY = y;
   }, { passive: true });
 
+  /* ---------- how we work: the booth builds itself ---------- */
+  /* Driven by the row's own travel through the viewport rather than a timer: nobody waits
+     for a loop, and scrolling back runs it backwards, which is the point of a sequence. */
+  var build = document.querySelector('.build');
+  if (build && !reduce) {
+    var frames = [].slice.call(build.querySelectorAll('img'));
+    /* seqBar, not bar: motion.js is one IIFE and `var` is function-scoped, so a second
+       `var bar` further down (the reel's) reassigns this one and the sequence silently ends
+       up driving the wrong progress bar. */
+    var seqBar = build.querySelector('.build-bar span');
+    var row = build.closest('.mani-row');
+    var seqTicking = false;
+
+    function sequence() {
+      seqTicking = false;
+      var r = row.getBoundingClientRect(), vh = innerHeight;
+      /* 0 as the row's top reaches three quarters down the screen, 1 as its bottom leaves
+         the top quarter — so the build happens while the row is actually being looked at */
+      var span = r.height + vh * 0.5;
+      var t = clamp01((vh * 0.75 - r.top) / span);
+      var pos = t * (frames.length - 1);
+      for (var i = 0; i < frames.length; i++) {
+        var d = Math.abs(i - pos);
+        frames[i].style.opacity = d >= 1 ? 0 : (1 - d);
+      }
+      if (seqBar) seqBar.style.transform = 'scaleX(' + t + ')';
+    }
+    addEventListener('scroll', function () {
+      if (!seqTicking) { seqTicking = true; requestAnimationFrame(sequence); }
+    }, { passive: true });
+    addEventListener('resize', sequence, { passive: true });
+    sequence();
+  }
+
   /* ---------- the reel ---------- */
   var strip = document.querySelector('.strip'),
       pin   = document.querySelector('.strip-pin'),
@@ -77,7 +111,7 @@
     if (!strip || !track || !pinned() || dist <= 0) return;
     var t = clamp01(-strip.getBoundingClientRect().top / dist);
     track.style.transform = 'translate3d(' + (-t * dist) + 'px,0,0)';
-    if (bar) bar.style.width = (t * 100) + '%';
+    if (bar) bar.style.transform = 'scaleX(' + t + ')';
     parallax();
   }
 
