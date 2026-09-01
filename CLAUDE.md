@@ -283,6 +283,13 @@ fix it, because the mark was never the variable. Two things replaced it:
   the hero it drops the sky away behind the mark, and over a plaster section it fades body text out
   before it can run through the nav.
 
+**Lighter, not heavier — this went the wrong way twice, so read it before touching the header.**
+When Eric says the mark is getting lost, he does not mean make it louder. He wants it *more*
+transparent and less solid: the mark sits back behind the wordmark and reads as something the light
+passes through. Solid colour makes it look stuck on. The mark is the most transparent thing in the
+header (`.58` / `.55`), the type sits just in front of it (`.80` / `.78`). If he says it still looks
+the same, the answer is another step lighter, never bolder.
+
 **The mark carries more weight than a rule anywhere else on the site.** At 1.5 next to a
 600-weight EC it read as scaffolding behind the name rather than a mark standing beside it — Eric
 looked at it twice and said it still looked the same. A drawn figure needs more weight than a filled

@@ -52,10 +52,10 @@ img,video{display:block;max-width:100%}
   position:fixed;inset:0 0 auto 0;z-index:50;
   display:flex;align-items:flex-start;justify-content:space-between;
   padding:26px var(--pad);
-  color:rgba(243,242,239,.89);
+  color:rgba(243,242,239,.80);
   transition:transform .45s ease,opacity .35s,color .3s ease;
 }
-.hdr.on-light{color:rgba(20,20,20,.87)}
+.hdr.on-light{color:rgba(20,20,20,.78)}
 /* A scrim tinted to whatever the header is over: against a flat section it is the same
    colour as the section and so invisible, but it drops the hero's sky away behind the
    mark and stops body text from running through the nav on the way past. */
@@ -74,11 +74,10 @@ img,video{display:block;max-width:100%}
    without shouting. */
 .mark{display:flex;align-items:center;gap:11px;line-height:1}
 .logo{width:clamp(35px,3.05vw,45px);height:auto;flex:0 0 auto;overflow:visible}
-/* The type keeps its transparency; the mark does not get to. A stroked figure loses far
-   more to alpha than a filled letterform does, and at .89 the frame washed out into the
-   clouds while the EC beside it held. */
-.hdr .logo{color:rgba(243,242,239,.98)}
-.hdr.on-light .logo{color:rgba(20,20,20,.96)}
+/* The mark sits further back than the type, not in front of it. It is a drawn frame — it
+   reads as something the light passes through, and going solid made it look stuck on. */
+.hdr .logo{color:rgba(243,242,239,.58)}
+.hdr.on-light .logo{color:rgba(20,20,20,.55)}
 .mark-text{display:block;font-weight:600;font-size:clamp(20px,1.7vw,25px);
   letter-spacing:-.035em;line-height:.88}
 .mark-text b{display:block;font-weight:400;font-size:10px;letter-spacing:.2em;
