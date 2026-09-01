@@ -124,41 +124,39 @@ original — those run 2000-3000px and would be the first genuinely full-bleed-c
 project. Going forward Eric was advised to put a portfolio clause in his contracts so future jobs
 are his to shoot and publish.
 
-## The gallery (`/gallery`)
+## Our work (`/work`)
 
-Eric's call, and the right one: instead of six thin category pages, one gallery. Pooled, the archive
-is a real body of work; split six ways it is mostly gaps.
+Eric reviewed a chaptered gallery of large plates and rejected it: the photos were too big, the
+sections unwanted, and he did not want the black kitchen reading as the headline. What he asked for
+was "a general Our Work, and below small concise snapshots into our world", and he returned to his
+original idea of a rotating globe.
 
-- **Six chapters** in the landing reel's order plus Commercial: Kitchens, Bathrooms, Statement Walls,
-  Outdoors, Painting, Commercial. 49 plates, deliberately spread so no one project dominates —
-  he asked specifically not to lean on the black kitchen.
-- **No hero photograph.** He rejected a centrepiece image, so the page opens on type alone.
-- **Plates keep their true aspect ratio** and are laid out on a repeating rhythm of widths and
-  vertical offsets (`RHYTHM` in `app/gallery/page.tsx`), not a grid. Nothing is cropped.
-- **A ghosted chapter numeral** sits behind each chapter at 2.8% white — texture, not information.
-  A fixed rail on the right tracks the chapter and jumps between them.
+**He was right and an earlier objection of mine was wrong.** I had argued against the globe because
+640px photos on moving geometry turn to mush — but that assumed large. At ~120px on a sphere those
+files are oversampled and genuinely crisp. The globe also settles three of his complaints
+structurally: every photo is small, there are no sections, and nothing is the "main" thing.
 
-### The depth renderer (`public/gallery.js`)
+- **93 tiles**, square-cropped to 320px, spread by Fibonacci distribution so the sphere is even
+  rather than banded. Kitchens 24, Painting 19, Bathrooms 19, Commercial 16, Outdoors 13, Walls 2 —
+  deliberately wide so no single project carries it.
+- Turns on its own, drag to spin with inertia, hover names the photo underneath, click opens a
+  closer look **capped so it never upscales past native** — a smaller sharp image beats a big soft one.
+- **Only the front hemisphere draws.** Tangent tiles seen from behind read as grey rectangles and
+  clutter the sphere; culling them is what makes it read as a globe.
+- Raw WebGL, no three.js, so the page carries no library and the standalone preview stays
+  self-contained. The `.tiles` grid behind it is the real no-JS/no-WebGL rendering, carries the alt
+  text, and is the texture source.
 
-The one real 3D moment. Every plate is displaced per-pixel by a depth map as the cursor moves —
-near pixels travel further than far ones, so a flat photo reads as a room you lean into. Eric chose
-strength **50** from a side-by-side test rig.
+`public/full/` holds the full-size images the closer look opens. The depth-displacement shader Eric
+liked (strength 50) is **not** on this page — the globe is the moment now. It is still worth
+offering for the closer look if he wants the effect back.
 
-Three things about it that are load-bearing:
+### Corrections worth keeping
 
-- **One shared WebGL canvas, fixed and full-viewport, drawing every visible plate as a quad.**
-  Browsers cap WebGL contexts at roughly 16 and there are 49 plates, so a canvas per plate fails
-  partway down the page. Do not refactor to per-plate canvases.
-- **The `<img>` inside each plate is real**, carries the alt text, is the no-JS/no-WebGL rendering,
-  and is the texture source. It is faded out only once its texture is actually uploaded
-  (`.gp.drawn`), never optimistically — otherwise a WebGL failure leaves blank rectangles.
-- **Depth maps are approximated**, not from a model: interiors recede upward, so a vertical ramp
-  blended with large-scale luminance. Only a few pixels of displacement ride on this, so the eye
-  reads depth well before it notices the map is wrong. `huggingface.co` is blocked here; if it is
-  ever allowed, real monocular depth would sharpen the edges.
-
-Textures are loaded on approach and evicted behind you (`MAX_LIVE`), and touch devices drive the
-displacement from scroll position since there is no cursor.
+- `IMG_2379-2383` and `IMG_2616-2623` are a **kitchen remodel**, not painting. Eric corrected this
+  after I inferred it from "all the watermark pics are painting jobs".
+- Do not re-add chapters, do not enlarge the tiles, and do not reintroduce a hero photograph — each
+  was explicitly rejected.
 
 ## Interior pages — build ONE first, get approval, then template the rest
 

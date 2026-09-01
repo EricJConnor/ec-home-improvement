@@ -59,14 +59,16 @@ def img(m):
     return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1))
 body, n = re.subn(r'src="(/assets/[^"]+)"', img, body)
 
-def gal(m):
-    return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1), 900, 78)
-body, g = re.subn(r'src="(/gallery/[^"]+\.jpg)"', gal, body)
+def tile(m):
+    return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1))
+body, t_ = re.subn(r'src="(/work/[^"]+\.jpg)"', tile, body)
 
-def dep(m):
-    return 'data-depth="data:image/jpeg;base64,%s"' % _inline(m.group(1))
-body, d = re.subn(r'data-depth="(/gallery/[^"]+\.jpg)"', dep, body)
-if g: n += g; print('gallery: %d plates, %d depth maps inlined' % (g, d))
+# the closer look loads on click, so downscale it hard — nothing here is displayed
+# above about 760px wide anyway
+def fullsize(m):
+    return 'data-full="data:image/jpeg;base64,%s"' % _inline(m.group(1), 600, 74)
+body, f_ = re.subn(r'data-full="(/full/[^"]+\.jpg)"', fullsize, body)
+if t_: n += t_; print('work: %d tiles, %d full-size inlined' % (t_, f_))
 
 # The hero footage has to travel inside the file too, but a 1080p master would
 # make this a multi-megabyte download on a phone. Prefer a 720p preview cut when
@@ -90,7 +92,7 @@ if srcs:
 
 title = re.search(r'<title>(.*?)</title>', html, re.S)
 scripts = ''.join('\n<script>\n%s\n</script>' % (ROOT / 'public' / s_).read_text()
-                  for s_ in ('gallery.js', 'motion.js')
+                  for s_ in ('globe.js', 'motion.js')
                   if ('/' + s_) in html and (ROOT / 'public' / s_).exists())
 OUT.write_text("<title>%s</title>\n<style>\n%s\n</style>\n%s%s\n"
                % (title.group(1) if title else 'EC Home Improvement', css, body, scripts))
