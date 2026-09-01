@@ -275,13 +275,20 @@ tuning problem: difference can only ever return 255 minus the backdrop, so again
 mid-grey sky white came out a dull 200 — about 5.9:1 — and no amount of adjusting the mark could
 fix it, because the mark was never the variable. Two things replaced it:
 
-- `.hdr` states `color: var(--paper)` outright, and `motion.js` adds `.on-light` (ink) when a
-  `.sec.light` is crossing the header's centre line. Measured rects, not an IntersectionObserver:
-  the observer needs a hand-maintained sliver of root margin and still lies during momentum scroll.
+- `.hdr` states its colour outright, and `motion.js` adds `.on-light` (ink) when a `.sec.light` is
+  crossing the header's centre line. Measured rects, not an IntersectionObserver: the observer needs
+  a hand-maintained sliver of root margin and still lies during momentum scroll.
 - `.hdr::before` is a scrim tinted to whatever is underneath — ink over the dark sections, plaster
   over the light ones. Against a flat section it is the section's own colour and so invisible; over
   the hero it drops the sky away behind the mark, and over a plaster section it fades body text out
-  before it can run through the nav. The mark now measures 242 against a sky of 55, about 9:1.
+  before it can run through the nav.
+
+**The type keeps a little transparency, and that is deliberate.** Stated as flat paper the mark
+measured 242 and Eric said it no longer felt designed — the one thing the blend did well was let the
+sky come through the letterforms. So the colour carries alpha (`.89` paper, `.87` ink) and the scrim
+was eased back to leave something worth seeing through them. The mark lands at 222 against a sky of
+74, between the old blend's 200 and flat colour's 242. Do not push it to full opacity; do not go
+back to `difference` to get the effect.
 
 A page-wide `position:fixed` veil was tried first and is the wrong shape: it sits above the flow,
 so it greys out the plaster sections, and no `z-index` on a section can climb over it without

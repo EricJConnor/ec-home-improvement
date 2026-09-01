@@ -42,28 +42,31 @@ img,video{display:block;max-width:100%}
 /* The mark used to ride on mix-blend-mode:difference. Difference can only ever return
    255 minus the backdrop, so against the hero's mid-grey sky the wordmark topped out at
    a dull 200 and got lost in the clouds. The header now states its colour outright and
-   motion.js flips it when a plaster section passes under it — full paper on dark, full
-   ink on light, no arithmetic in between. */
+   motion.js flips it when a plaster section passes under it.
+
+   Stating it as solid paper read as pasted on, though — the blend's one virtue was that
+   the sky came through the letterforms. That is kept as honest alpha instead: enough to
+   sit in the light, not so much that it dissolves back into it. */
 
 .hdr{
   position:fixed;inset:0 0 auto 0;z-index:50;
   display:flex;align-items:flex-start;justify-content:space-between;
   padding:26px var(--pad);
-  color:var(--paper);
+  color:rgba(243,242,239,.89);
   transition:transform .45s ease,opacity .35s,color .3s ease;
 }
-.hdr.on-light{color:var(--ink)}
+.hdr.on-light{color:rgba(20,20,20,.87)}
 /* A scrim tinted to whatever the header is over: against a flat section it is the same
    colour as the section and so invisible, but it drops the hero's sky away behind the
    mark and stops body text from running through the nav on the way past. */
 .hdr::before{
   content:"";position:absolute;left:0;right:0;top:0;height:150px;z-index:-1;
   pointer-events:none;
-  background:linear-gradient(180deg,rgba(16,16,16,.74) 0%,rgba(16,16,16,.42) 44%,rgba(16,16,16,0) 100%);
+  background:linear-gradient(180deg,rgba(16,16,16,.60) 0%,rgba(16,16,16,.33) 44%,rgba(16,16,16,0) 100%);
   transition:background .3s ease;
 }
 .hdr.on-light::before{
-  background:linear-gradient(180deg,rgba(236,235,231,.97) 0%,rgba(236,235,231,.74) 44%,rgba(236,235,231,0) 100%);
+  background:linear-gradient(180deg,rgba(236,235,231,.94) 0%,rgba(236,235,231,.70) 44%,rgba(236,235,231,0) 100%);
 }
 .hdr.hide{transform:translateY(-110%);opacity:0}
 /* The mark was 18px — smaller than the nav links beside it, so it read as incidental.
