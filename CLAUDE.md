@@ -6,9 +6,32 @@ building anything he hasn't asked for. He reviews on desktop and phone.
 
 ## What exists
 
-`reference/index.html` (saved from the block at the bottom of this message) is the approved landing page,
-built and reviewed in chat. It is the design source of truth — the type, palette, spacing, section order
-and copy are all locked. Port it faithfully into the framework; do not redesign it.
+`reference/index.html` is the originally approved landing page. The palette, type, section order and
+copy from it are still locked and still the source of truth.
+
+**The work section was reworked at Eric's direction after he reviewed it (see "The reel" below), so
+`reference/index.html` no longer matches the built site there. The Next.js app is authoritative.**
+
+## The reel (the work section)
+
+Eric's note on the first review: the photos were "too in your face" on a laptop, and the horizontal
+scroll only moved if you swiped it yourself on a phone. Both are fixed, and the reasoning matters
+more than the CSS:
+
+- His photos are close-range job documentation, not editorial compositions with negative space in
+  them. Run full-bleed at 86vw x 100vh they read as surface pressed against the glass, and the
+  portrait originals had to be cropped to a narrow landscape band to fit.
+- So each photo is now a **plate**: a framed image sitting in the ink ground with real air around it,
+  caption below it rather than over it, no scrim. The ink is the page; the photo is an object on it.
+- Displaying a 640px file at roughly half the previous size also renders it sharper. Smaller reads
+  more expensive — do not "fix" this by making the plates bigger again.
+- The FlexMarble plate is landscape (4:3) because its source is; the rest are 3:4. Alternate plates
+  sit slightly low so the hang reads composed rather than gridded.
+- The reel pins and travels on scroll **on every viewport now, phones included**. It is scroll-linked,
+  not a timed carousel — the visitor sets the pace. Plates parallax inside their frames as they pass.
+
+Page behaviour lives in `public/motion.js`, one plain file the app loads with `next/script` and the
+standalone preview inlines verbatim, so the two cannot drift.
 
 ## Stack
 

@@ -1,5 +1,5 @@
 import ContactForm from './components/ContactForm'
-import SiteMotion from './components/SiteMotion'
+import Script from 'next/script'
 
 export default function Home() {
   return (
@@ -60,40 +60,50 @@ export default function Home() {
           </section>
         </div>
 
-        {/* WORK: horizontal strip */}
+        {/* WORK: the reel */}
         <section className="strip" id="work" aria-label="What we build">
           <div className="strip-pin">
             <div className="strip-track">
               <article className="panel" id="kitchens">
-                <img src="/assets/kitchens.jpg" alt="Black kitchen with hex-tile backsplash and acacia floors" />
+                <div className="plate">
+                  <img src="/assets/kitchens.jpg" alt="Black kitchen with hex-tile backsplash and acacia floors" />
+                </div>
                 <div className="cap">
                   <h2>Kitchens</h2>
                   <p>From the layout drawing to the last cabinet pull. Custom to your specific vision.</p>
                 </div>
               </article>
               <article className="panel" id="bathrooms">
-                <img src="/assets/bathrooms.jpg" alt="Bathroom with striped wallpaper, walnut vanity and brass sconces" />
+                <div className="plate">
+                  <img src="/assets/bathrooms.jpg" alt="Bathroom with striped wallpaper, walnut vanity and brass sconces" />
+                </div>
                 <div className="cap">
                   <h2>Bathrooms</h2>
                   <p>Tile, stone, glass and light. The room you use first and last every day.</p>
                 </div>
               </article>
-              <article className="panel" id="flexmarble">
-                <img src="/assets/flexmarble-peony-panel.jpg" alt="Backlit peony printed across a FlexMarble wall" />
+              <article className="panel wide" id="flexmarble">
+                <div className="plate">
+                  <img src="/assets/flexmarble-peony-panel.jpg" alt="Backlit peony printed across a FlexMarble wall" />
+                </div>
                 <div className="cap">
                   <h2>Statement Walls</h2>
                   <p>FlexMarble, SPC stone panels, and more. Truly unique products for one-off custom designs.</p>
                 </div>
               </article>
               <article className="panel" id="outdoors">
-                <img src="/assets/outdoors.jpg" alt="Modern backyard shed with a black window" />
+                <div className="plate">
+                  <img src="/assets/outdoors.jpg" alt="Modern backyard shed with a black window" />
+                </div>
                 <div className="cap">
                   <h2>Outdoors</h2>
                   <p>Patios, pergolas, outdoor bars and the structures that make a yard a room.</p>
                 </div>
               </article>
               <article className="panel" id="painting">
-                <img src="/assets/painting.jpg" alt="Grey painted front door on a brick rowhouse" />
+                <div className="plate">
+                  <img src="/assets/painting.jpg" alt="Grey painted front door on a brick rowhouse" />
+                </div>
                 <div className="cap">
                   <h2>Painting</h2>
                   <p>Prep done properly, finish done by hand. Interior and exterior.</p>
@@ -264,7 +274,7 @@ export default function Home() {
         <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania.</p>
       </footer>
 
-      <SiteMotion />
+      <Script src="/motion.js" strategy="afterInteractive" />
     </>
   )
 }
