@@ -335,6 +335,15 @@ are in reach and this site is none of those: take the judgment — easing direct
 ceilings, interruptibility, transform and opacity only, reduced-motion — and leave the tooling.
 **Where a skill and the brief disagree, the brief wins.** Never let one argue you into a dependency.
 
+Motion now runs on tokens: `--ease-out` (the strong ease-out that was hand-typed in four places
+before it was a token), `--ease-in-out`, and `--t-press` / `--t-hover` / `--t-panel`. Use them rather
+than typing another curve. Two things the first audit caught that are worth not repeating: a
+find-and-replace that turns a value into a token will also rewrite the token's own definition into
+`--x:var(--x)`, which is invalid at computed-value time and silently drops every `transition`
+shorthand that references it back to `transition-property: all` — check the `:root` block after any
+such replace. And hover motion must sit inside `@media(hover:hover) and (pointer:fine)`, because a
+tap fires a false hover and tapping a tile is exactly how the globe is used on a phone.
+
 Note his own site is blocked by this environment's egress proxy; the skills came from
 `github.com/emilkowalski/skills`, which is reachable. Update from there, not from the site.
 
