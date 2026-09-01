@@ -97,10 +97,7 @@ export default function Home() {
           <div className="two">
             <h2 className="h-l">Walls people remember.</h2>
             <p className="p on-light">
-              Two materials nobody expects. FlexMarble is real crushed marble on a thin, flexible
-              backing, and our supplier can print any image you want straight into it. SPC is a rigid
-              stone composite panel, fully waterproof, in marble, stone and wood looks. Both go up in a
-              fraction of the time of real stone.
+              We source the materials nobody expects, and produce any look you want.
             </p>
           </div>
           <div className="fm-grid">
@@ -113,21 +110,13 @@ export default function Home() {
               <figcaption>Panelled marble with living moss and trailing florals.</figcaption>
             </figure>
           </div>
-          <div className="fm-more">
-            <div>
-              <h3 className="h-m">FlexMarble. Any image, real marble.</h3>
-              <p className="p on-light" style={{ marginTop: 14 }}>
-                Accent walls, columns, lobbies, bars, headboards, restaurant interiors. Nobody else in
-                the region is printing into marble. Bring us the image and the room.
-              </p>
-            </div>
-            <div>
-              <h3 className="h-m">SPC. Stone looks, waterproof, no grout.</h3>
-              <p className="p on-light" style={{ marginTop: 14 }}>
-                Large-format panels for showers, kitchen walls and full feature walls. Marble, stone and
-                wood finishes, seamless, and nothing to scrub out of grout lines.
-              </p>
-            </div>
+          <div className="fm-materials">
+            <p className="fm-list">
+              FlexMarble, SPC panels, stainless steel fabrics, bio composites, and more.
+            </p>
+            <p className="fm-note">
+              Cutting-edge materials for executing one-of-a-kind visions.
+            </p>
           </div>
         </section>
 

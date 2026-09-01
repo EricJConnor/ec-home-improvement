@@ -323,6 +323,22 @@ renders as a 29px speck in the corner of its box. And the contact form returns 5
 `RESEND_API_KEY` is set in Vercel; it fails visibly with the phone number rather than faking a
 success, but no mail reaches Eric until that key exists.
 
+## Statement Walls copy
+
+Eric rewrote this section himself. The claim is **the sourcing**, not the product spec: "We source
+the materials nobody expects, and produce any look you want." The two explainer columns that used to
+sit below the photos — one for FlexMarble, one for SPC — are gone; they read as a spec sheet and
+put two paragraphs in competition with the images. In their place, one statement under a hairline:
+the materials list, then the line beneath it.
+
+The list is his and should stay open-ended — FlexMarble, SPC panels, stainless steel fabrics, bio
+composites, and more. Do not narrow it back to two products. The only edit made to his wording was
+"one of a kind vision execution" → "executing one-of-a-kind visions", to undo the noun pile-up;
+revert it if he prefers his phrasing.
+
+Note the reel's Statement Walls caption still says "FlexMarble, SPC stone panels, and more" — it was
+left alone because he did not ask for it, but it is the same claim in an older form.
+
 ## The reel's plates
 
 The kitchen panel is `p3634` — the farmhouse sink under the window, brass gooseneck, white counter
