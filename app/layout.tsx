@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 import { Bricolage_Grotesque } from 'next/font/google'
 import './globals.css'
 import { SITE, BIZ } from './site'
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <StructuredData />
         {children}
+        <Script src="/cursor.js" strategy="afterInteractive" />
       </body>
     </html>
   )

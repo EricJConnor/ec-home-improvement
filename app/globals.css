@@ -522,3 +522,37 @@ main{position:relative;z-index:1}
 .card-links a:hover{color:#fff}
 .card-area{margin-top:clamp(30px,7vw,44px);padding-top:22px;border-top:1px solid var(--line);
   font-size:13px;line-height:1.5;color:var(--mute-dark);max-width:38ch}
+
+/* ---------- the dust cursor ---------- */
+/* Only ever mounted by cursor.js, which refuses to run on touch or under reduced motion,
+   so the class is the guarantee that nothing here applies where it should not. */
+.has-dust,.has-dust body{cursor:none}
+/* Links and buttons carry cursor:pointer from the browser's own stylesheet, which would
+   beat the inherited none — so the ring would blink out and a system hand appear on every
+   link. Stated explicitly, the ring keeps the pointer and grows instead. */
+.has-dust a,.has-dust button,.has-dust .pill,.has-dust summary,.has-dust label{cursor:none}
+/* anything that means something by its own cursor keeps it */
+.has-dust #globe,.has-dust #globe *,.has-dust #ov,.has-dust #ov *,
+.has-dust input,.has-dust textarea{cursor:revert}
+.has-dust #globe{cursor:grab}
+.has-dust #globe.dragging,.has-dust #globe.dragging *{cursor:grabbing}
+.has-dust #ov,.has-dust #ov *{cursor:zoom-out}
+
+.dust-canvas{position:fixed;inset:0;z-index:200;pointer-events:none;visibility:hidden}
+.dust-ring{
+  position:fixed;left:0;top:0;width:22px;height:22px;border-radius:999px;z-index:201;
+  border:1px solid rgba(243,242,239,.72);pointer-events:none;
+  will-change:transform;
+  transition:width .18s var(--ease-out),height .18s var(--ease-out),
+    opacity .18s ease,border-color .18s ease,transform .06s linear;
+}
+.dust-ring::after{content:"";position:absolute;left:50%;top:50%;width:3px;height:3px;
+  margin:-1.5px 0 0 -1.5px;border-radius:999px;background:rgba(243,242,239,.9)}
+.dust-ring.on-light{border-color:rgba(20,20,20,.6)}
+.dust-ring.on-light::after{background:rgba(20,20,20,.8)}
+.dust-ring.press{width:16px;height:16px}
+/* over something clickable it opens up and thins out — the affordance the hand used to give */
+.dust-ring.big{width:38px;height:38px;border-color:rgba(243,242,239,.5)}
+.dust-ring.big.on-light{border-color:rgba(20,20,20,.42)}
+.dust-ring.big::after{width:4px;height:4px;margin:-2px 0 0 -2px}
+.dust-ring.hide{opacity:0}

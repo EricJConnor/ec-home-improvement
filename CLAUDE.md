@@ -323,6 +323,29 @@ renders as a 29px speck in the corner of its box. And the contact form returns 5
 `RESEND_API_KEY` is set in Vercel; it fails visibly with the phone number rather than faking a
 success, but no mail reaches Eric until that key exists.
 
+## The dust cursor
+
+Eric asked for the cursor to be "a little circle that leaves marble dust behind it".
+`public/cursor.js` draws a hairline ring in place of the arrow and kicks up specks on a single
+canvas. It is the one deliberately decorative thing on the site; the rules that keep it from
+becoming a liability:
+
+- **Speed emits, not time.** Standing still leaves nothing. That is what makes it read as dust
+  disturbed rather than an effect running.
+- **Never on touch, never under reduced motion.** The script returns before it mounts anything, so
+  the `.has-dust` class on `<html>` is the guarantee that none of the CSS applies where it should not.
+- **Never two cursors.** If the browser is drawing any cursor at all — the globe's `grab`, the
+  overlay's `zoom-out`, an I-beam in a field — the ring hides. Links and buttons are the exception:
+  their UA `cursor:pointer` is overridden to `none` so the ring stays and opens up instead, which is
+  the affordance the hand used to give.
+- **Canvas at dpr 1, deliberately.** Specks are soft; at dpr 2 a full-viewport clear-and-fill every
+  frame is four times the work. The canvas is also `visibility:hidden` when idle so it is not holding
+  a compositing layer over the page.
+
+Measured on `/work` with the script blocked versus running: identical frame timing. It costs nothing.
+If it ever looks like it does, A/B it by aborting the `cursor.js` request before blaming it — the
+container's own frame times drift by 2x between runs and that fooled me once.
+
 ## The hero's "View our work"
 
 "Our work" was the last link in a row of nine and Eric said it was hidden — which it was: the one
