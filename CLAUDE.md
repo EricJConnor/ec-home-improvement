@@ -301,8 +301,9 @@ which is the one thing that does not pick it up automatically (the QR is a commi
 
 - **`public/og.jpg`** is what a texted link looks like. Built by rendering an HTML template through
   headless Chromium so it uses the real Bricolage face and the real hero frame, rather than being
-  laid out by hand. The skyline sits low and the phone number bottom-right, where a thumbnail crop
-  takes the least away. Regenerate from `scratchpad/og/og.html` if the line changes.
+  laid out by hand. **The mark and nothing else** — a first pass carried the headline, the service
+  areas and the phone number, and Eric cut all of it. Sky, skyline, lockup centred. Regenerate from
+  `scratchpad/og/og.html`; resist putting copy back on it.
 - **`app/icon.svg`** is the mark on ink, picked up automatically by Next as the favicon.
 - **Structured data** (`app/components/StructuredData.tsx`) states the trade and every area served,
   once, in the form Google expects. It is not a substitute for a Google Business Profile — for a
