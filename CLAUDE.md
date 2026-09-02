@@ -617,7 +617,14 @@ Note his own site is blocked by this environment's egress proxy; the skills came
 
 ## Standing asks (not yet done)
 
-1. **Test the contact form end to end.** Eric's first live attempt showed no confirmation and
+1. **The contact form is off the page.** Eric pulled it (Sep 2026) after a long round of
+   failed tests: the Resend key in Vercel was the *shortened* display copy (`re_xxxx…`, with a
+   literal ellipsis at index 7 — the page reported "cannot convert argument to a bytestring …
+   value of 8230"). The fix is a fresh key copied from Resend's create pop-up, pasted into the
+   Production row, then Redeploy. `ContactForm.tsx` and `/api/contact` stay in the repo,
+   tested locally; put `<ContactForm />` back in `ContactBand.tsx` once the key is real.
+   The band now closes on the phone number and the email link only.
+   Earlier note, kept for the mechanics: Eric's first live attempt showed no confirmation and
    nothing arrived, and this environment cannot reach the live site to see why. The form now
    prints Resend's own reason on the page, sends every lead to `7echome@gmail.com` as well as
    `eric@ec-homes.com`, and retries through `onboarding@resend.dev` to the Gmail if the
