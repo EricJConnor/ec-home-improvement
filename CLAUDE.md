@@ -588,7 +588,10 @@ Note his own site is blocked by this environment's egress proxy; the skills came
   the panel; the track gets trailing padding so the last plate can be centred, and arriving at
   `/#painting` from another page lands on it after the reel is measured. On a laptop the first
   two panels cannot be centred because the reel still opens left-aligned; that is deliberate.
-- Booth reel 980ms a frame, 2.6s finale. Service line drops New Hope and Doylestown; the share
+- Booth reel 1250ms a frame, 3.2s finale (slowed twice at Eric's ask). On phones the reel gear
+  is multiplied by 1.6 (k up to 3.4), since a flick carries about a screen and a half.
+- **Done means done on a phone**: the plumb hangs in a 34px gutter beside the words, full row
+  height, so the bob lands level with the last line instead of dropping into an empty band. Service line drops New Hope and Doylestown; the share
   image was re-rendered (`scripts/og/`).
 - The backdrop uses 240px copies (`public/assets/field-*.jpg`); under a 30px blur nothing more
   survives, and it stops competing with the sheet on a phone.

@@ -72,7 +72,7 @@
     var frames = [].slice.call(build.querySelectorAll('img'));
     var seqBar = build.querySelector('.build-bar span');
     var idx = 0, timer = null;
-    var HOLD = 980, FINALE = 2600;   /* the last frame is the payoff — let it land */
+    var HOLD = 1250, FINALE = 3200;   /* the last frame is the payoff — let it land */
 
     function show(i) {
       for (var k = 0; k < frames.length; k++) frames[k].classList.toggle('on', k === i);
@@ -118,7 +118,11 @@
     /* One screen of scrolling moves the reel about one plate. At 1:1 a single flick on a
        phone threw the whole reel past before anyone could look at it. */
     var step = panels.length > 1 ? panels[1].offsetLeft - panels[0].offsetLeft : pin.clientWidth;
-    k = Math.max(1.2, Math.min(2, pin.offsetHeight / Math.max(1, step)));
+    k = pin.offsetHeight / Math.max(1, step);
+    /* a phone flick carries about a screen and a half, so on a narrow screen the reel is
+       geared down further: one flick lands roughly one plate on, a slow thumb pulls it by hand */
+    if (innerWidth <= 820) k *= 1.6;
+    k = Math.max(1.2, Math.min(3.4, k));
     travel = dist * k;
     strip.style.height = (pin.offsetHeight + travel) + 'px';
     slide();
