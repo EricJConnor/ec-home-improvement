@@ -35,7 +35,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Please add your name and a valid email.' }, { status: 400 })
   }
 
-  const key = process.env.RESEND_API_KEY
+  // trimmed: a key pasted into Vercel with a trailing space or line break makes fetch throw
+  // on the Authorization header before Resend is ever reached
+  const key = (process.env.RESEND_API_KEY || '').trim()
   if (!key) {
     // Better a visible failure than a lead that vanishes: the form falls back
     // to the phone number when this happens.
@@ -63,16 +65,23 @@ export async function POST(req: Request) {
     `<p style="color:#888;font-size:12px">Sent from ec-homes.com</p>`
 
   const send = async (from: string, to: string[]) => {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from, to, reply_to: email, subject: `Walkthrough request — ${name}`, text, html }),
-    })
-    if (res.ok) return null
-    const detail = await res.json().catch(() => ({}))
-    const reason = typeof detail?.message === 'string' ? detail.message : `Resend ${res.status}`
-    console.error('[contact] resend failed', from, to, res.status, reason)
-    return reason
+    try {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from: from.trim(), to, reply_to: email, subject: `Walkthrough request — ${name}`, text, html }),
+      })
+      if (res.ok) return null
+      const detail = await res.json().catch(() => ({}))
+      const reason = typeof detail?.message === 'string' ? detail.message : `Resend ${res.status}`
+      console.error('[contact] resend failed', from, to, res.status, reason)
+      return reason
+    } catch (e) {
+      // never a bare 500: whatever threw is the diagnosis, so it goes back to the page
+      const reason = e instanceof Error ? e.message : String(e)
+      console.error('[contact] send threw', from, reason)
+      return reason
+    }
   }
 
   let reason = await send(FROM, TO)
