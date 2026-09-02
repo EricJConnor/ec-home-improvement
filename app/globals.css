@@ -290,7 +290,14 @@ img,video{display:block;max-width:100%}
 .ftr .links b{display:block;font-weight:500;margin-bottom:12px}
 .ftr .links a{display:block;color:var(--mute);margin-bottom:8px}
 .ftr .links a:hover{color:#fff}
-.ftr .legal{grid-column:1/-1;font-size:12px;color:var(--mute-dark);margin-top:30px}
+.ftr .legal{grid-column:1/-1;font-size:12px;color:var(--mute-dark);margin-top:30px;
+  display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+/* The one piece of colour on the site. The brief says photos and footage carry all colour and
+   that still holds for the design — this is a credit line, deliberately the exception, and
+   kept to an oxide red that sits in the same temperature as the plaster rather than shouting
+   against it. Do not let this red spread anywhere else. */
+.ftr .by{color:#9E3B33;opacity:.72;transition:opacity .3s var(--ease-out),color .3s var(--ease-out)}
+.ftr .by:hover,.ftr .by:focus-visible{opacity:1;color:#C2564C}
 @media(max-width:820px){.ftr{grid-template-columns:1fr}.ftr .links{grid-template-columns:1fr 1fr}}
 
 @media(prefers-reduced-motion:reduce){

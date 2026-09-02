@@ -285,6 +285,19 @@ Eric's original logo (`IMG_1149` in the archive) is his own work and he asked fo
 cohesive with the site instead. The open-frame idea came from it; the pendant bells did not
 survive, as they read as clip art next to this typography.
 
+## The one piece of colour
+
+The footer credit — **"Web design and powered by ecwd1.com"**, linking to ecwd1.com — is in an oxide
+red (`#9E3B33` at 72%, brightening on hover). Eric asked for it in red and subtle.
+
+This is a deliberate exception to the brief's "no accent colour — photos and footage carry all
+colour", and it is the only one. It is a credit line rather than part of the design, it sits at the
+very bottom next to the copyright, and at 12px it never competes with anything. **Do not let this red
+spread anywhere else on the site** — the moment a second thing is red, the rule is gone and the
+photographs stop being the only colour on the page.
+
+It is in the footer on both the landing page and `/work`.
+
 ## Working rules
 
 - Don't describe results in prose and deliver template-grade code. Match the reference's quality.

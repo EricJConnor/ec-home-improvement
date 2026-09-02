@@ -237,7 +237,7 @@ export default function Home() {
             <a href="mailto:eric@ec-homes.com">eric@ec-homes.com</a>
           </div>
         </div>
-        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania.</p>
+        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania.<a className="by" href="https://ecwd1.com" rel="noopener">Web design and powered by ecwd1.com</a></p>
       </footer>
 
       <Script src="/motion.js" strategy="afterInteractive" />

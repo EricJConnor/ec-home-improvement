@@ -71,7 +71,7 @@ export default function Work() {
 
       <footer className="ftr">
         <a className="mark" href="/"><Logo /><span className="mark-text">EC<b>Home Improvement</b></span></a>
-        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania.</p>
+        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania.<a className="by" href="https://ecwd1.com" rel="noopener">Web design and powered by ecwd1.com</a></p>
       </footer>
 
       <Script src="/globe.js" strategy="afterInteractive" />
