@@ -171,8 +171,11 @@
            'rotateY(' + (ry * 46) + 'deg) rotateX(' + (-rx * 34) + 'deg)';
   }
 
+  var openedAt = 0;
+
   function open(tile) {
     if (!ov || busy) return;
+    openedAt = Date.now();
     var img = tile.querySelector('img');
     fromTile = tile;
     var full = img.getAttribute('data-full') || img.src;
@@ -218,7 +221,15 @@
   }
 
   if (ov) {
-    ov.addEventListener('click', close);
+    /* The tap that opens also produces a synthesized click a moment later, and on touch the
+       browser hit-tests that click when it dispatches — by which time the overlay is covering
+       the screen, so it lands here and closes what it just opened. Desktop sends it to the
+       original tile instead, which is why this only ever broke on a phone. Ignore anything
+       arriving in the first half second. */
+    ov.addEventListener('click', function () {
+      if (Date.now() - openedAt < 500) return;
+      close();
+    });
     addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
   }
 })();

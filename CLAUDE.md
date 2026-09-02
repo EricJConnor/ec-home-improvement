@@ -488,6 +488,15 @@ and 2066KB, and Eric said the globe took a minute to fill on a phone. They paint
 phone, 168px on a laptop and 200px on a large monitor, so 240 was never reaching the screen. Do not
 raise this without measuring what a tile actually paints at first.
 
+**The overlay closed itself on a phone, and the guard against it is load-bearing.** A tap that opens
+the overlay also produces a synthesized `click` a moment later. On touch the browser hit-tests that
+click when it *dispatches* it — by which point the overlay is covering the screen, so it landed on
+`#ov`'s close handler and shut what the same tap had just opened. Desktop dispatches it to the
+original tile instead, which is why it only ever broke on a phone. `open()` stamps `openedAt` and the
+overlay's click handler ignores anything inside 500ms. Reproduced both ways before and after:
+0/4 taps stayed open without the guard, 6/6 with it. Note `preventDefault()` on `pointerup` does
+**not** suppress that click — only the time guard does.
+
 When testing hover or clicks on the globe, **find the tile with `elementFromPoint`, never with
 `getBoundingClientRect`** — a back-facing tile still reports a bounding rect but is culled by
 `backface-visibility` and cannot be hovered or clicked. That mistake has now produced a false
