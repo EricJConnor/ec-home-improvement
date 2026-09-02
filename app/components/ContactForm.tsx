@@ -77,7 +77,7 @@ export default function ContactForm() {
             215 902 6636
           </a>{' '}
           or write to{' '}
-          <a href="mailto:eric@ec-homes.com" style={{ color: '#fff', borderBottom: '1px solid var(--line)' }}>
+          <a className="mail-link" href="mailto:eric@ec-homes.com">
             eric@ec-homes.com
           </a>
           .

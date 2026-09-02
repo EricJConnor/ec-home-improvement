@@ -532,6 +532,18 @@ main{position:relative;z-index:1}
 .card-area{margin-top:clamp(30px,7vw,44px);padding-top:22px;border-top:1px solid var(--line);
   font-size:13px;line-height:1.5;color:var(--mute-dark);max-width:38ch}
 
+/* The email address in the contact band. It was white text on a 14%-opacity underline, which
+   next to muted body copy read as emphasis rather than as a link — Eric assumed it was not
+   clickable. It always was. The rule is visible now and thickens under the pointer, using the
+   same scaleX-from-the-left the nav links use. */
+.mail-link{position:relative;color:#fff;white-space:nowrap}
+.mail-link::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;
+  background:rgba(255,255,255,.42)}
+.mail-link::before{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;
+  background:#fff;transform:scaleX(0);transform-origin:left;
+  transition:transform var(--t-hover) var(--ease-out)}
+.mail-link:hover::before,.mail-link:focus-visible::before{transform:scaleX(1)}
+
 /* ---------- the dust cursor ---------- */
 /* Only ever mounted by cursor.js, which refuses to run on touch or under reduced motion,
    so the class is the guarantee that nothing here applies where it should not. */

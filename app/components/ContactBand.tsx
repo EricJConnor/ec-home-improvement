@@ -8,7 +8,7 @@ export default function ContactBand() {
       <a className="big-tel" href="tel:+12159026636">215 902 6636</a>
       <p className="p" style={{ marginTop: 22 }}>
         Or write to{' '}
-        <a href="mailto:eric@ec-homes.com" style={{ color: '#fff', borderBottom: '1px solid var(--line)' }}>
+        <a className="mail-link" href="mailto:eric@ec-homes.com">
           eric@ec-homes.com
         </a>
         . Tell us the room and the rough idea. We&rsquo;ll come see it.
