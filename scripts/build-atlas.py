@@ -59,14 +59,23 @@ for r in rows:
         x += w + PAD * 2
     y += rh + PAD * 2
 
-buf = io.BytesIO()
-sheet.save(buf, 'JPEG', quality=76, optimize=True, progressive=True, subsampling=1)
-data = buf.getvalue()
-digest = hashlib.md5(data).hexdigest()[:8]
-for old in WORK.glob('atlas-*.jpg'):
+def save(im, q, tag):
+    buf = io.BytesIO()
+    im.save(buf, 'JPEG', quality=q, optimize=True, progressive=True, subsampling=1)
+    data = buf.getvalue()
+    out = WORK / ('atlas%s-%s.jpg' % (tag, hashlib.md5(data).hexdigest()[:8]))
+    out.write_bytes(data)
+    print('%s  %dx%d  %.0f KB' % (out.name, im.width, im.height, len(data) / 1024))
+    return '/work/' + out.name
+
+for old in WORK.glob('atlas*.jpg'):
     old.unlink()
-out = WORK / ('atlas-%s.jpg' % digest)
-out.write_bytes(data)
+big = save(sheet, 76, '')
+# The phone sheet is the same picture at 0.8 scale, so every crop — stored as a ratio of the
+# sheet — is identical, and the browser picks between the two by srcset alone.
+PH = 0.8
+small = save(sheet.resize((round(WIDTH * PH), round(H * PH)), Image.LANCZOS), 70, '-phone')
 (ROOT / 'app' / 'work-atlas.json').write_text(json.dumps(
-    {'file': '/work/' + out.name, 'w': WIDTH, 'h': H, 'tiles': pos}, separators=(',', ':')))
-print('%s  %dx%d  %d tiles  %.0f KB' % (out.name, WIDTH, H, len(pos), len(data) / 1024))
+    {'file': big, 'w': WIDTH, 'h': H, 'phone': small, 'pw': round(WIDTH * PH), 'tiles': pos},
+    separators=(',', ':')))
+print('%d tiles' % len(pos))

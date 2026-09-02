@@ -258,13 +258,15 @@
   /* ---------- the full-bleed breath ----------
      The photo drifts slowly against the scroll so the band reads as a held shot
      rather than a static picture. Small shift — it should be felt, not watched. */
-  var band = document.querySelector('.band'), bandImg = band && band.querySelector('img');
+  var band = document.querySelector('.band'),
+      bandLayers = band ? [].slice.call(band.querySelectorAll('img, .band-hex')) : [];
   function bandDrift() {
-    if (!band || !bandImg || reduce) return;
+    if (!band || !bandLayers.length || reduce) return;
     var r = band.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
     var t = (innerHeight - r.top) / (innerHeight + r.height);   /* 0 entering, 1 leaving */
-    bandImg.style.transform = 'translate3d(0,' + ((t - 0.5) * 2 * -5.5) + '%,0)';
+    var y = 'translate3d(0,' + ((t - 0.5) * 2 * -5.5) + '%,0)';
+    for (var i = 0; i < bandLayers.length; i++) bandLayers[i].style.transform = y;
   }
   addEventListener('scroll', bandDrift, { passive: true });
   bandDrift();

@@ -23,27 +23,52 @@
   if (!sphere || !tiles.length) return;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- lay the tiles out on the sphere ---------- */
-  var GOLD = Math.PI * (3 - Math.sqrt(5)), N = tiles.length, R = 300, S = 96;
+  /* ---------- lay the tiles out ----------
+     A ball on a laptop; on a phone the same tiles go round a drum. A 137-photo sphere on a
+     screen the width of a hand made every tile the size of a fingernail. The drum keeps the
+     object and the spin, but each photo is three times the area, three across the front,
+     and the vertical finger movement that used to tilt the ball scrolls the page instead. */
+  var GOLD = Math.PI * (3 - Math.sqrt(5)), N = tiles.length, R = 300, S = 96, drum = false;
+  function place(i, transform) {
+    /* photographs keep their own proportions; area-normalising the size means a wide
+       one and a tall one still carry the same weight */
+    var ar = parseFloat(tiles[i].getAttribute('data-ar')) || 1, k = Math.sqrt(ar);
+    var tw = Math.round(S * k), thh = Math.round(S / k);
+    tiles[i].style.width = tw + 'px';
+    tiles[i].style.height = thh + 'px';
+    tiles[i].style.marginLeft = (-tw / 2) + 'px';
+    tiles[i].style.marginTop = (-thh / 2) + 'px';
+    tiles[i].style.transform = transform;
+  }
   function layout() {
     var b = stage.getBoundingClientRect();
+    drum = innerWidth <= 820;
+    if (drum) {
+      /* seven rows, twenty round: about four and a half across the front, the rows arcing
+         with the curve, and the top and bottom rows running off the stage so the drum
+         reads as taller than the screen */
+      var rows = 7, per = Math.ceil(N / rows);
+      S = Math.round(Math.min(b.width / 5, 96));
+      var gap = Math.round(S * 0.15), pitch = Math.round(S * 1.14);
+      R = Math.round(per * (S + gap) / (2 * Math.PI));
+      stage.style.setProperty('--r', R + 'px');
+      stage.style.setProperty('--s', S + 'px');
+      for (var i = 0; i < N; i++) {
+        /* a stride through the list so one job does not fill one column */
+        var j = (i * 53) % N, row = j % rows, col = Math.floor(j / rows);
+        var a = (col + (row % 2) * 0.5) * 360 / per, y = (row - (rows - 1) / 2) * pitch;
+        place(i, 'rotateY(' + a + 'deg) translateZ(' + R + 'px) translateY(' + y + 'px)');
+      }
+      return;
+    }
     R = Math.max(140, Math.min(b.width, b.height) * 0.44);
     S = Math.round(R * 0.265);               /* just under touching, so tiles don't clip */
     stage.style.setProperty('--r', R + 'px');
     stage.style.setProperty('--s', S + 'px');
-    for (var i = 0; i < N; i++) {
-      var y = 1 - (i / Math.max(1, N - 1)) * 2, r = Math.sqrt(Math.max(0, 1 - y * y)), th = GOLD * i;
-      var lat = Math.asin(y) * 180 / Math.PI, lon = Math.atan2(Math.cos(th) * r, Math.sin(th) * r) * 180 / Math.PI;
-      /* photographs keep their own proportions; area-normalising the size means a wide
-         one and a tall one still carry the same weight on the sphere */
-      var ar = parseFloat(tiles[i].getAttribute('data-ar')) || 1, k = Math.sqrt(ar);
-      var tw = Math.round(S * k), thh = Math.round(S / k);
-      tiles[i].style.width = tw + 'px';
-      tiles[i].style.height = thh + 'px';
-      tiles[i].style.marginLeft = (-tw / 2) + 'px';
-      tiles[i].style.marginTop = (-thh / 2) + 'px';
-      tiles[i].style.transform =
-        'rotateY(' + lon + 'deg) rotateX(' + (-lat) + 'deg) translateZ(' + R + 'px)';
+    for (var n = 0; n < N; n++) {
+      var yy = 1 - (n / Math.max(1, N - 1)) * 2, r = Math.sqrt(Math.max(0, 1 - yy * yy)), th = GOLD * n;
+      var lat = Math.asin(yy) * 180 / Math.PI, lon = Math.atan2(Math.cos(th) * r, Math.sin(th) * r) * 180 / Math.PI;
+      place(n, 'rotateY(' + lon + 'deg) rotateX(' + (-lat) + 'deg) translateZ(' + R + 'px)');
     }
   }
   addEventListener('resize', layout);
@@ -57,10 +82,10 @@
   function tick() {
     if (!drag) {
       ry += vy; rx += vx;
-      var idle = reduce ? 0 : (hovering ? 0.012 : 0.09);
+      var idle = reduce ? 0 : (hovering ? 0.012 : (drum ? 0.06 : 0.09));
       vy += (idle - vy) * 0.045;                     /* eases toward the idle drift */
       vx *= 0.93;
-      rx += (-12 - rx) * 0.01;                       /* and settle back to the level */
+      rx += ((drum ? -6 : -12) - rx) * 0.01;         /* and settle back to the level */
     }
     rx = Math.max(-62, Math.min(62, rx));
     apply();
@@ -123,7 +148,7 @@
     if (e.button !== 0 || pid !== null) return;
     if (e.pointerType === 'mouse') e.preventDefault();       /* no text selection, no image drag */
     pid = e.pointerId; downX = lx = e.clientX; downY = ly = e.clientY;
-    pressed = tileAt(e.clientX, e.clientY, e.pointerType === 'touch' ? Math.max(16, S * 0.5) : 0);
+    pressed = tileAt(e.clientX, e.clientY, e.pointerType === 'touch' ? Math.min(24, Math.max(16, S * 0.5)) : 0);
     if (pressed) { pressed.classList.add('pressed'); prefetch(pressed); name(pressed); }
     drag = true; stage.classList.add('dragging');
   });
@@ -131,7 +156,7 @@
     if (e.pointerId !== pid || !drag) return;
     var dx = e.clientX - lx, dy = e.clientY - ly;
     lx = e.clientX; ly = e.clientY;
-    vy = dx * 0.22; vx = -dy * 0.22;
+    vy = dx * 0.22; vx = drum ? 0 : -dy * 0.22;    /* the drum only turns; up and down scrolls */
     ry += vy; rx = Math.max(-62, Math.min(62, rx + vx));
     apply();
     /* once it has clearly travelled it is a drag, and the pressed tile lets go */
@@ -226,7 +251,8 @@
     var ax = v('--ax'), ay = v('--ay'), aw = v('--aw') || 1, ah = v('--ah') || 1,
         AW = v('--AW', stage) || 1, AH = v('--AH', stage) || 1;
     var kx = W / aw, ky = H / ah;
-    el.style.backgroundImage = 'url("' + tile.querySelector('img').src + '")';
+    var im = tile.querySelector('img');
+    el.style.backgroundImage = 'url("' + (im.currentSrc || im.src) + '")';
     el.style.backgroundSize = (AW * kx) + 'px ' + (AH * ky) + 'px';
     el.style.backgroundPosition = (-ax * kx) + 'px ' + (-ay * ky) + 'px';
   }

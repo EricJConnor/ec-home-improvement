@@ -17,13 +17,16 @@ export const metadata: Metadata = {
 
 type Tile = { ch: string; slug: string; w: number; h: number; alt: string }
 type Window = { x: number; y: number; w: number; h: number; fw: number; fh: number }
-const sheet = atlas as { file: string; w: number; h: number; tiles: Record<string, Window> }
+const sheet = atlas as { file: string; w: number; h: number; phone: string; pw: number; tiles: Record<string, Window> }
+/* two sizes of the same sheet; the browser picks by screen, and the preload uses the same
+   rule so it never fetches the one the tiles will not use */
+const srcSet = `${sheet.phone} ${sheet.pw}w, ${sheet.file} ${sheet.w}w`
 
 export default function Work() {
   const tiles = manifest as Tile[]
   /* One sheet carries all 137 tiles (scripts/build-atlas.py). Ask for it before anything
      else on the page: it is the page. */
-  preload(sheet.file, { as: 'image', fetchPriority: 'high' })
+  preload(sheet.file, { as: 'image', fetchPriority: 'high', imageSrcSet: srcSet, imageSizes: '100vw' })
   return (
     <>
       <SiteHeader base="/" />
@@ -38,7 +41,7 @@ export default function Work() {
               Kitchens, bathrooms, whole interiors, outdoor rooms and one restaurant, across
               Philadelphia and the counties around it.
             </p>
-            <p className="hint">Drag to turn it. Click any one to look closer.</p>
+            <p className="hint"><span className="fine">Drag to turn it. Click any one to look closer.</span><span className="coarse">Swipe to turn it. Tap any one to look closer.</span></p>
           </div>
         </section>
 
@@ -65,6 +68,8 @@ export default function Work() {
                 >
                   <img
                     src={sheet.file}
+                    srcSet={srcSet}
+                    sizes="100vw"
                     data-full={`/full/${t.slug}.jpg`}
                     alt={t.alt}
                     decoding="async"

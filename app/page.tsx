@@ -126,6 +126,10 @@ export default function Home() {
         {/* THE BREATH: one full-bleed image between chapters */}
         <figure className="band">
           <img src="/assets/band-kitchen.jpg" alt="A matte black kitchen, its hex-tile backsplash lit from under the cabinets" />
+          {/* On a phone the photograph is a dark strip of something, so the band shows the same
+              backsplash drawn instead: a hairline honeycomb, with a soft light passing over the
+              tile the way the under-cabinet light does in the photo. Phones only. */}
+          <div className="band-hex" aria-hidden="true"><div className="band-lines" /><div className="band-lit"><div className="pool" /></div></div>
           <div className="veil" />
           <div className="grain" />
           <figcaption>Matte black, hex tile, veined stone.</figcaption>

@@ -590,6 +590,17 @@ Note his own site is blocked by this environment's egress proxy; the skills came
   two panels cannot be centred because the reel still opens left-aligned; that is deliberate.
 - Booth reel 1250ms a frame, 3.2s finale (slowed twice at Eric's ask). On phones the reel gear
   is multiplied by 1.6 (k up to 3.4), since a flick carries about a screen and a half.
+- **The drum.** On screens up to 820px the same tiles are laid on a cylinder (`globe.js`,
+  `drum`): seven rows, twenty round, edge to edge and clipped, ~4.5 across the front, spinning
+  on a vertical axis only, so vertical finger movement scrolls the page. Eric's verdict on the
+  sphere at phone size was that the tiles were fingernails; the drum triples their area and
+  keeps the object. The sheet has a phone edition at 0.8 scale (`atlas-phone-*.jpg`, ~520KB)
+  picked by `srcset`; crops are ratios of the sheet so both editions share one set of numbers.
+  The laptop sphere is untouched.
+- **The band on phones is drawn, not photographed.** Eric rejected four portrait photos for it
+  and asked for a design element. It is the hex backsplash from the laptop photo as a hairline
+  honeycomb (one SVG tile as a data URL, used as both the faint lattice and the mask over a
+  drifting pool of light, so the two cannot misalign). Photo and caption are hidden ≤820px.
 - **Done means done on a phone**: the plumb hangs in a 34px gutter beside the words, full row
   height, so the bob lands level with the last line instead of dropping into an empty band. Service line drops New Hope and Doylestown; the share
   image was re-rendered (`scripts/og/`).
