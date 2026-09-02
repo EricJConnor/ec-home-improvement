@@ -7,10 +7,10 @@ export default function Backdrop({ quiet = false }: { quiet?: boolean }) {
   return (
     <div className={`bg${quiet ? ' bg-quiet' : ''}`} aria-hidden="true">
       <div className="bg-inner">
-        <img src="/full/p4085.jpg" alt="" />
+        <img src="/assets/field-p4085.jpg" alt="" />
       </div>
       <div className="bg-2">
-        <img src="/full/p4082.jpg" alt="" />
+        <img src="/assets/field-p4082.jpg" alt="" />
       </div>
       <div className="bg-sweep" />
       <div className="bg-sweep bg-sweep-2" />

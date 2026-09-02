@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
+import type { CSSProperties } from 'react'
+import { preload } from 'react-dom'
 import Script from 'next/script'
 import SiteHeader from '../components/SiteHeader'
 import ContactBand from '../components/ContactBand'
 import Logo from '../components/Logo'
 import Backdrop from '../components/Backdrop'
 import manifest from '../work-manifest.json'
+import atlas from '../work-atlas.json'
 
 export const metadata: Metadata = {
   title: 'Our work — EC Home Improvement',
@@ -13,9 +16,14 @@ export const metadata: Metadata = {
 }
 
 type Tile = { ch: string; slug: string; w: number; h: number; alt: string }
+type Window = { x: number; y: number; w: number; h: number; fw: number; fh: number }
+const sheet = atlas as { file: string; w: number; h: number; tiles: Record<string, Window> }
 
 export default function Work() {
   const tiles = manifest as Tile[]
+  /* One sheet carries all 137 tiles (scripts/build-atlas.py). Ask for it before anything
+     else on the page: it is the page. */
+  preload(sheet.file, { as: 'image', fetchPriority: 'high' })
   return (
     <>
       <SiteHeader base="/" />
@@ -35,21 +43,36 @@ export default function Work() {
         </section>
 
         {/* The images are real: they render without JS or WebGL, carry the alt text,
-            and are the texture source for the globe. */}
-        <div id="globe" aria-label="Photographs of our work">
+            and are the texture source for the globe. Each one is a window onto the shared
+            sheet — one request instead of 137, and a progressive JPEG, so the whole sphere
+            appears at once and sharpens rather than filling in a square at a time. */}
+        <div
+          id="globe"
+          aria-label="Photographs of our work"
+          style={{ '--AW': sheet.w, '--AH': sheet.h } as CSSProperties}
+        >
           <div className="sphere">
-            {tiles.map((t) => (
-              <figure className="tile" key={t.slug} data-ar={(t.w / t.h).toFixed(4)}>
-                <img
-                  src={`/work/${t.slug}.jpg`}
-                  data-full={`/full/${t.slug}.jpg`}
-                  alt={t.alt}
-                  loading="lazy"
-                  decoding="async"
-                  draggable={false}
-                />
-              </figure>
-            ))}
+            {tiles.map((t) => {
+              const a = sheet.tiles[t.slug]
+              return (
+                <figure
+                  className="tile"
+                  key={t.slug}
+                  data-ar={(t.w / t.h).toFixed(4)}
+                  data-fw={a.fw}
+                  data-fh={a.fh}
+                  style={{ '--ax': a.x, '--ay': a.y, '--aw': a.w, '--ah': a.h, '--ar': (t.w / t.h).toFixed(4) } as CSSProperties}
+                >
+                  <img
+                    src={sheet.file}
+                    data-full={`/full/${t.slug}.jpg`}
+                    alt={t.alt}
+                    decoding="async"
+                    draggable={false}
+                  />
+                </figure>
+              )
+            })}
           </div>
         </div>
         <p className="globe-cap" id="globe-cap" aria-live="polite" />
@@ -62,7 +85,10 @@ export default function Work() {
           <div className="shotwrap">
             {/* the photo's own colours, blurred, so its edge melts into the page
                 instead of sitting there as a hard rectangle */}
-            <img className="bloom" alt="" aria-hidden="true" />
+            <div className="bloom" aria-hidden="true" />
+            {/* the tile's own crop of the sheet: on screen already, so the flight starts
+                on the tap and the full-size file fades in over it when it arrives */}
+            <div className="lo" aria-hidden="true" />
             <img className="shot" alt="" />
           </div>
           <p />

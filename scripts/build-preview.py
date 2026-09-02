@@ -59,10 +59,15 @@ def img(m):
     return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1))
 body, n = re.subn(r'src="(/assets/[^"]+)"', img, body)
 
-def tile(m):
-    # tiles render around 110px on screen, so 256 is still 2x on a retina display
-    return 'src="data:image/jpeg;base64,%s"' % _inline(m.group(1), 256, 80)
-body, t_ = re.subn(r'src="(/work/[^"]+\.jpg)"', tile, body)
+# The globe's 137 tiles all point at one sheet. Inlining it 137 times would be a
+# 100MB file, so the tags are emptied and one script hands them the same data URL.
+t_ = 0
+sheet = re.search(r'src="(/work/atlas-[^"]+\.jpg)"', body)
+if sheet:
+    body, t_ = re.subn(r'src="%s"' % re.escape(sheet.group(1)), 'src="" data-sheet', body)
+    body += ('\n<script>(function(){var d="data:image/jpeg;base64,%s";'
+             '[].forEach.call(document.querySelectorAll("img[data-sheet]"),function(i){i.src=d})})()</script>'
+             % _inline(sheet.group(1)))
 
 # the background field is blurred to 58px, so it needs almost no resolution at all
 def field(m):

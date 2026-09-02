@@ -57,8 +57,8 @@ export default function Card() {
         </div>
 
         <p className="card-area">
-          Philadelphia, Bucks County, Montgomery County, Delaware County, New Hope, Doylestown
-          and the surrounding areas.
+          Philadelphia, Bucks County, Montgomery County, Delaware County and the surrounding
+          areas.
         </p>
       </div>
     </main>

@@ -15,8 +15,8 @@ export default function ContactBand() {
       </p>
       <ContactForm />
       <p className="area">
-        Serving Philadelphia, Bucks County, Montgomery County, Delaware County, New Hope, Doylestown
-        and the surrounding areas.
+        Serving Philadelphia, Bucks County, Montgomery County, Delaware County and the
+        surrounding areas.
       </p>
     </section>
   )

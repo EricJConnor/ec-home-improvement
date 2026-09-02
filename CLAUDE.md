@@ -273,8 +273,9 @@ Page-specific content already decided:
 - **Restaurants** is not a page. The Yankee Chipper buildout (Eric owned it and built it himself —
   booths, bar, framing to finish) is proof in the "How we work" manifesto, and its photos can appear
   in galleries as evidence of scope.
-- Service area line, verbatim: Philadelphia, Bucks County, Montgomery County, Delaware County,
-  New Hope, Doylestown and the surrounding areas.
+- Service area line, verbatim: Philadelphia, Bucks County, Montgomery County, Delaware County and
+  the surrounding areas. (New Hope and Doylestown were cut by Eric as redundant — both are in Bucks.
+  They stay in `AREAS` for the structured data, where a town is a signal rather than a repetition.)
 - Contact: 215 902 6636 · eric@ec-homes.com. CTA is "Book a walkthrough."
 
 ## The mark
@@ -561,6 +562,38 @@ tap fires a false hover and tapping a tile is exactly how the globe is used on a
 
 Note his own site is blocked by this environment's egress proxy; the skills came from
 `github.com/emilkowalski/skills`, which is reachable. Update from there, not from the site.
+
+## Round of fixes from Eric's wife's phone (Sep 2026)
+
+- **The globe loads from one sheet.** `scripts/build-atlas.py` packs the 137 tiles into a
+  progressive JPEG (`public/work/atlas-<hash>.jpg`, ~860KB) and writes `app/work-atlas.json`;
+  each tile is an `<img>` of that sheet cropped in CSS by percentage (`--ax/--ay/--aw/--ah`
+  against `--AW/--AH`). 137 requests became one, and progressive means the whole sphere
+  appears softly and sharpens instead of filling in a square at a time. Re-run the script
+  after touching any tile; the hash changes and the immutable cache header is safe.
+- **Taps.** Pointer events only, and the tap test is straight-line distance (18px on touch,
+  8 on mouse) with no time limit — the old test summed every wobble and rejected a thumb
+  standing still. A finger that lands beside a tile is probed in a ring and takes the nearest.
+  Long-press callout is suppressed. `.tile.pressed` is the touch equivalent of hover, added
+  and removed by the script so it cannot stick.
+- **The closer look no longer waits for the network.** The frame is sized from the photo's
+  known dimensions (`data-fw/fh`) and filled with the tile's own crop (`.lo`), so the flight
+  begins on the tap; the full file fades in over it (`.ready`). The bloom is that crop too.
+- **Hero copy rises with the scroll** (1:1, easing out over the first 70% of the pin) and only
+  fades from 45%; the ink starts at 25%. It used to sit pinned at the bottom and fade the moment
+  you scrolled to read it. `padding-bottom` also adds `100lvh - 100svh` so the paragraph is not
+  under a phone's toolbar on load.
+- **Reel ratio.** Vertical scroll maps to horizontal travel at `k = pin height / plate step`,
+  clamped 1.2–2, so one screen of scrolling moves about one plate (was 1:1). Menu links centre
+  the panel; the track gets trailing padding so the last plate can be centred, and arriving at
+  `/#painting` from another page lands on it after the reel is measured. On a laptop the first
+  two panels cannot be centred because the reel still opens left-aligned; that is deliberate.
+- Booth reel 980ms a frame, 2.6s finale. Service line drops New Hope and Doylestown; the share
+  image was re-rendered (`scripts/og/`).
+- The backdrop uses 240px copies (`public/assets/field-*.jpg`); under a 30px blur nothing more
+  survives, and it stops competing with the sheet on a phone.
+- `next dev` appends an agent-rules block to this file; `agentRules: false` in `next.config.mjs`
+  stops it. Strip it if it ever reappears.
 
 ## Standing asks (not yet done)
 

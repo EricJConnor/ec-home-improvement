@@ -27,10 +27,18 @@
     var range = wrap.offsetHeight - innerHeight;
     if (range <= 0) return;
     var t = clamp01(-wrap.getBoundingClientRect().top / range);
-    dim.style.opacity = Math.pow(t, 1.6) * 0.96;
+    /* The copy behaves like ordinary text for the first stretch of the pin: it rises with
+       the finger, at the finger's speed, easing to a stop. Before, it sat fixed at the
+       bottom of the screen and faded the moment you scrolled — and on a phone, scrolling is
+       exactly what you do to bring the paragraph up to read it. The ink starts arriving
+       only after that, and the copy is the last thing to go. */
+    var d = clamp01((t - 0.25) / 0.75);
+    dim.style.opacity = Math.pow(d, 1.4) * 0.96;
     if (!reduce && copy) {
-      copy.style.transform = 'translateY(' + (-t * 40) + 'px)';
-      copy.style.opacity = 1 - Math.pow(t, 2.2);
+      var a = 0.7, u = Math.min(t, a), rise = (u - u * u / (2 * a)) * range;
+      var c = clamp01((t - 0.45) / 0.42);
+      copy.style.transform = 'translateY(' + (-rise).toFixed(1) + 'px)';
+      copy.style.opacity = 1 - Math.pow(c, 1.6);
     }
   }
 
@@ -64,7 +72,7 @@
     var frames = [].slice.call(build.querySelectorAll('img'));
     var seqBar = build.querySelector('.build-bar span');
     var idx = 0, timer = null;
-    var HOLD = 780, FINALE = 2200;   /* the last frame is the payoff — let it land */
+    var HOLD = 980, FINALE = 2600;   /* the last frame is the payoff — let it land */
 
     function show(i) {
       for (var k = 0; k < frames.length; k++) frames[k].classList.toggle('on', k === i);
@@ -94,22 +102,31 @@
       track = document.querySelector('.strip-track'),
       bar   = document.querySelector('.strip-progress span'),
       panels = [].slice.call(document.querySelectorAll('.panel'));
-  var dist = 0;
+  var dist = 0, travel = 0, k = 1;
   var pinned = function () { return !reduce; };
 
   function size() {
     if (!strip || !pin || !track) return;
-    if (!pinned()) { strip.style.height = ''; track.style.transform = ''; return; }
+    if (!pinned()) { strip.style.height = ''; track.style.transform = ''; track.style.paddingRight = ''; return; }
+    /* room after the last plate so a menu link can land it in the middle of the screen,
+       and so the reel ends on a plate rather than running off the edge */
+    var last = panels[panels.length - 1];
+    if (last) track.style.paddingRight = Math.max(0, (pin.clientWidth - last.offsetWidth) / 2) + 'px';
     /* measure the pin rather than innerHeight: on phones the address bar
        resizes the visual viewport mid-scroll and the two disagree. */
     dist = Math.max(0, track.scrollWidth - pin.clientWidth);
-    strip.style.height = (pin.offsetHeight + dist) + 'px';
+    /* One screen of scrolling moves the reel about one plate. At 1:1 a single flick on a
+       phone threw the whole reel past before anyone could look at it. */
+    var step = panels.length > 1 ? panels[1].offsetLeft - panels[0].offsetLeft : pin.clientWidth;
+    k = Math.max(1.2, Math.min(2, pin.offsetHeight / Math.max(1, step)));
+    travel = dist * k;
+    strip.style.height = (pin.offsetHeight + travel) + 'px';
     slide();
   }
 
   function slide() {
     if (!strip || !track || !pinned() || dist <= 0) return;
-    var t = clamp01(-strip.getBoundingClientRect().top / dist);
+    var t = clamp01(-strip.getBoundingClientRect().top / travel);
     track.style.transform = 'translate3d(' + (-t * dist) + 'px,0,0)';
     if (bar) bar.style.transform = 'scaleX(' + t + ')';
     parallax();
@@ -156,24 +173,38 @@
   });
   hero(); size();
 
-  /* Nav links land on the matching panel inside the reel. */
+  /* Nav links land the matching panel in the middle of the screen. */
+  function goTo(panel, behavior) {
+    if (pinned()) {
+      var to = panel.offsetLeft + panel.offsetWidth / 2 - pin.clientWidth / 2;
+      var top = strip.getBoundingClientRect().top + scrollY;
+      scrollTo({ top: top + Math.max(0, Math.min(to, dist)) * k, behavior: behavior });
+    } else {
+      strip.scrollIntoView({ behavior: behavior });
+      track.scrollTo({ left: panel.offsetLeft - track.offsetLeft, behavior: behavior });
+    }
+  }
+  function panelFor(hash) {
+    var panel = hash && hash.length > 1 && document.getElementById(hash.slice(1));
+    return panel && panel.classList.contains('panel') && strip && track ? panel : null;
+  }
   [].forEach.call(document.querySelectorAll('a[href^="#"]'), function (a) {
     a.addEventListener('click', function (e) {
-      var id = a.getAttribute('href').slice(1);
-      var panel = document.getElementById(id);
-      if (!panel || !panel.classList.contains('panel') || !strip || !track) return;
+      var panel = panelFor(a.getAttribute('href'));
+      if (!panel) return;
       e.preventDefault();
-      if (pinned()) {
-        /* how far the reel must travel to bring this panel to the left margin */
-        var travel = panel.offsetLeft - track.offsetLeft;
-        var top = strip.getBoundingClientRect().top + scrollY;
-        scrollTo({ top: top + Math.min(travel, dist), behavior: 'smooth' });
-      } else {
-        strip.scrollIntoView({ behavior: 'smooth' });
-        track.scrollTo({ left: panel.offsetLeft - track.offsetLeft, behavior: 'smooth' });
-      }
+      goTo(panel, 'smooth');
     });
   });
+  /* Arriving from another page with #painting in the address, the browser jumps to the
+     panel's own position — which is the top of the reel, showing the first plate, not
+     the fifth. Land on it properly once the reel is measured. */
+  var arrived = panelFor(location.hash);
+  if (arrived) {
+    var land = function () { size(); goTo(arrived, 'instant'); };
+    land();
+    addEventListener('load', function () { setTimeout(land, 0); }, { once: true });
+  }
 
   /* ---------- the plumb drops ---------- */
   /* Its own observer, not the shared .rule-draw one: that fires as the row's top edge
