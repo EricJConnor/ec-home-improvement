@@ -4,6 +4,21 @@ Flagship website for EC Home Improvement, Eric Connor's contracting business (Ph
 Eric is the owner and the decision-maker. Work at his direction: propose, then wait for his go before
 building anything he hasn't asked for. He reviews on desktop and phone.
 
+## Where things stand (Sep 2026)
+
+**The site is live at https://ec-homes.com.** Vercel project `ec-home-improvement`, deploying
+automatically from `claude/clone-ec-homes-repo-t915hn` — that branch is the repo's default; there is
+no `main`. **Any change is a commit and a push. There is nothing to click.**
+
+- **DNS** is at GoDaddy: `A @ -> 216.150.1.1`. His Microsoft 365 email on the domain is untouched and
+  must stay that way — the `autodiscover`, `email`, `msoid` and `lyncdiscover` CNAMEs are his inbox.
+- **Resend** account is under `7echome@gmail.com`. `ec-homes.com` was added and auto-configured
+  through GoDaddy; `levelworks.org` (his other domain) was already verified and is the fallback
+  sender if `ec-homes.com` ever fails. All three Resend records resolved on public DNS when checked.
+- **Vercel env vars**: `RESEND_API_KEY`, and `RESEND_FROM` = `EC Home Improvement <site@ec-homes.com>`.
+- **This environment cannot reach Vercel or Resend** — the egress proxy 403s both, and there is no
+  token here. Anything in those dashboards is Eric's to click. Do not try to route around it.
+
 ## What exists
 
 `reference/index.html` is the originally approved landing page. The palette, type, section order and
@@ -90,13 +105,15 @@ standalone preview inlines verbatim, so the two cannot drift.
 - Motion budget: one orchestrated moment per page. On the landing that's the pinned hero (footage
   darkens to ink) and the pinned horizontal strip. Everything else scrolls normally.
 
-## Landing page — remaining wiring (not design)
+## Landing page wiring — DONE, kept for the reasoning
 
-1. **Hero video.** Download the Pexels clip (`https://www.pexels.com/download/video/37165639/`,
-   "Philadelphia skyline at dusk with pastel sky"). Compress with ffmpeg to 1920×1080 H.264
-   (~4–6 MB, `-crf 26 -movflags +faststart`) plus a WebM, and a poster JPEG from the first frame.
-   Put them in `/public/video/`. Never hotlink Pexels in production.
-2. **Form** → email as above.
+All three are done. Left here because the reasoning still applies to replacements.
+
+1. **Hero video** — Eric supplied the clip; Pexels is blocked by this environment's egress proxy.
+   It lives in `/public/video/` as H.264 + WebM + a poster, and it is **committed, not gitignored**
+   (it was ignored once, which would have shipped an empty hero). The first 6.4s is sky only, so it
+   is trimmed to start there and boomeranged — forward then reversed — for a seamless loop.
+2. **Form** → Resend, wired. See "Where things stand".
 3. **Photos**: the shed and grey-door panels are 640px files. When Eric provides originals, swap them.
    The peony FlexMarble photo shows a "…nya Design" sign in a doorway — clean it when a full-res
    version arrives. Skip every `.WEBP` in his photo archive; those are watermarked MLS listing shots.
@@ -547,3 +564,22 @@ Note his own site is blocked by this environment's egress proxy; the skills came
 
 ## Standing asks (not yet done)
 
+1. **Test the contact form end to end.** Never done. Everything is wired and DNS resolved, but no
+   message has actually been sent through it. Fill the form on the live site and confirm it lands at
+   `eric@ec-homes.com`. If Resend never finished verifying `ec-homes.com`, point `RESEND_FROM` at
+   `levelworks.org`, which is already verified, and it will send immediately.
+2. **Claim the Google Business Profile.** The single biggest lever for local search, free, and
+   nothing in the code substitutes for it. Raised more than once; still not done.
+3. **Get the MLS permission in writing.** Eric has it by phone. An email trail costs nothing.
+4. **Put a portfolio clause in his contracts** so future jobs come with photo rights attached.
+5. **Statement Walls still has only two photographs.** Thinnest section on the site. Eric is
+   relaxed about it — do not push, but a proper FlexMarble shoot would fix it.
+
+### Settled — do not reopen
+
+- **Chasing the listing photographer for unwatermarked originals.** Eric decided against it: it was
+  a while ago, the agent says it would be a headache, and his position is that if anyone objects he
+  takes them down. His call, made explicitly. The never-strip-the-watermark rule still stands.
+- **Chapters, bigger tiles and a hero photo on `/work`**, and **porting the globe back to WebGL**.
+- **A page-wide fixed veil** behind the header, and **any attempt to replace the header's
+  `mix-blend-mode: difference`** with stated colour, a scrim or a light/dark switch.
