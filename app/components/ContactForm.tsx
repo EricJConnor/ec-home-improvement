@@ -31,6 +31,30 @@ export default function ContactForm() {
     }
   }
 
+  // A failure takes the form's place at the same scale as the thank-you, with the reason
+  // Resend gave. The old one-line note under the button went unread on a phone.
+  if (state === 'error') {
+    return (
+      <div className="sent" role="alert">
+        <p className="h-m">That didn&rsquo;t go through.</p>
+        <p className="p" style={{ marginTop: 14 }}>
+          The site said: &ldquo;{why}&rdquo;
+        </p>
+        <p className="p" style={{ marginTop: 14 }}>
+          Call{' '}
+          <a href="tel:+12159026636" style={{ color: '#fff', borderBottom: '1px solid var(--line)' }}>
+            215 902 6636
+          </a>{' '}
+          or write to{' '}
+          <a className="mail-link" href="mailto:eric@ec-homes.com">eric@ec-homes.com</a>.
+        </p>
+        <button className="btn" type="button" style={{ marginTop: 28 }} onClick={() => setState('idle')}>
+          Try again
+        </button>
+      </div>
+    )
+  }
+
   // Plain confirmation state, same type scale as the rest of the section.
   if (state === 'sent') {
     return (
@@ -76,19 +100,6 @@ export default function ContactForm() {
         {state === 'sending' ? 'Sending…' : 'Send and we’ll call you'}
       </button>
 
-      {state === 'error' && (
-        <p className="form-error" role="alert">
-          That didn&rsquo;t go through ({why}). Call{' '}
-          <a href="tel:+12159026636" style={{ color: '#fff', borderBottom: '1px solid var(--line)' }}>
-            215 902 6636
-          </a>{' '}
-          or write to{' '}
-          <a className="mail-link" href="mailto:eric@ec-homes.com">
-            eric@ec-homes.com
-          </a>
-          .
-        </p>
-      )}
     </form>
   )
 }
