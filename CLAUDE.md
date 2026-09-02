@@ -342,8 +342,17 @@ at 780ms a frame, holds 2.2s on the finished shot so the payoff lands, loops, an
 while off screen. The slow scale on the showing frame is what separates footage from a slideshow.
 
 **"Done means done"** has no photograph on purpose. It is a promise, not a product, and a picture
-beside it turns it into a caption for the picture. Instead the mark's own plumb line hangs at size,
-swings in when the section arrives, and damps to true — the sentence, drawn.
+beside it turns it into a caption for the picture. Instead the mark's own plumb line is **lowered**: the bob
+falls the length of the line, the string pays out with it, it catches at the bottom and wobbles to
+true. Lowering a plumb is literally how you check something is upright, so the motion is the
+sentence.
+
+It swung rather than dropped at first, and Eric said it did not move at all. It did — but it fired
+off the shared `.rule-draw` observer, which triggers as a row's top edge crosses the viewport. On a
+row this tall that is several seconds before anyone is looking at it, so the animation had finished
+and read as static. It has its own observer now at `threshold: 0.55`, and it **rearms when the row
+leaves** so it replays if you scroll back. The fall distance is measured from the container rather
+than guessed, so the bob lands on the end of the line at every breakpoint.
 
 Three tiers of type, because with only a heading the row still read as a gap where a photograph had
 been: the statement at near-hero scale, then **"The job isn't done until we walk it together."** —

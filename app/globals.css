@@ -609,29 +609,46 @@ main{position:relative;z-index:1}
 .mani-row.done p.done-lead + p{margin-top:clamp(14px,1.5vw,20px)}
 .mani-row.done p{margin-left:clamp(0px,7vw,132px);max-width:34ch;color:var(--mute)}
 
-/* The plumb line from the mark, at size. It hangs off a pivot, swings when the section
-   arrives, and damps to true — which is the sentence, drawn. */
+/* The plumb line from the mark, at size. It is lowered rather than swung: the bob descends
+   the line, catches at the bottom, and wobbles to true. Lowering a plumb is literally how you
+   check something is upright, so the motion is the sentence.
+   The first version swung and damped, but it fired the moment the row's top edge crossed the
+   viewport — five seconds later, when you had actually scrolled to it, it had already finished
+   and looked static. It now triggers only when the row is properly on screen, and replays if
+   you come back to it. */
 .plumb{position:relative;height:clamp(190px,26vw,330px);display:flex;justify-content:center}
-.plumb-arm{position:absolute;top:0;transform-origin:50% 0;
-  transform:rotate(9deg);display:block;height:100%}
+.plumb-arm{position:absolute;top:0;transform-origin:50% 0;display:block;height:100%}
 .plumb-line{position:absolute;left:50%;top:0;width:1px;height:calc(100% - 14px);
-  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.42))}
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.42));
+  transform:scaleY(0);transform-origin:50% 0}
 .plumb-bob{position:absolute;left:50%;bottom:0;width:13px;height:13px;margin-left:-6.5px;
-  border-radius:999px;background:var(--paper);box-shadow:0 6px 22px rgba(0,0,0,.5)}
-.mani-row.done.drawn .plumb-arm{animation:settle 5.2s linear forwards}
+  border-radius:999px;background:var(--paper);box-shadow:0 6px 22px rgba(0,0,0,.5);
+  transform:translateY(var(--drop,-200px))}
+
+.mani-row.done.dropped .plumb-line{animation:plumb-pay 1.05s cubic-bezier(.5,0,.7,.25) forwards}
+.mani-row.done.dropped .plumb-bob{animation:plumb-fall 1.05s cubic-bezier(.5,0,.7,.25) forwards}
+/* the string catches and the weight swings itself true */
+.mani-row.done.dropped .plumb-arm{animation:settle 3.6s linear 1.02s both}
+
+@keyframes plumb-pay{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes plumb-fall{from{transform:translateY(var(--drop,-200px))}to{transform:translateY(0)}}
 @keyframes settle{
-  0%  {transform:rotate(9deg);   animation-timing-function:ease-in-out}
-  18% {transform:rotate(-6.4deg);animation-timing-function:ease-in-out}
-  34% {transform:rotate(4.3deg); animation-timing-function:ease-in-out}
-  50% {transform:rotate(-2.6deg);animation-timing-function:ease-in-out}
-  66% {transform:rotate(1.5deg); animation-timing-function:ease-in-out}
-  80% {transform:rotate(-.7deg); animation-timing-function:ease-in-out}
-  92% {transform:rotate(.25deg); animation-timing-function:ease-in-out}
+  0%  {transform:rotate(0deg);    animation-timing-function:ease-out}
+  12% {transform:rotate(4.2deg);  animation-timing-function:ease-in-out}
+  30% {transform:rotate(-2.9deg); animation-timing-function:ease-in-out}
+  48% {transform:rotate(1.8deg);  animation-timing-function:ease-in-out}
+  64% {transform:rotate(-1deg);   animation-timing-function:ease-in-out}
+  78% {transform:rotate(.5deg);   animation-timing-function:ease-in-out}
+  90% {transform:rotate(-.2deg);  animation-timing-function:ease-in-out}
   100%{transform:rotate(0deg)}
 }
 @media(prefers-reduced-motion:reduce){
-  .plumb-arm{transform:rotate(0deg)}
-  .mani-row.done.drawn .plumb-arm{animation:none}
+  /* hung and true, with no drop */
+  .plumb-line{transform:scaleY(1)}
+  .plumb-bob{transform:translateY(0)}
+  .mani-row.done.dropped .plumb-line,
+  .mani-row.done.dropped .plumb-bob,
+  .mani-row.done.dropped .plumb-arm{animation:none}
 }
 @media(max-width:820px){
   .mani-row.done{grid-template-columns:1fr;gap:36px}

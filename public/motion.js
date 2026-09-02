@@ -175,6 +175,32 @@
     });
   });
 
+  /* ---------- the plumb drops ---------- */
+  /* Its own observer, not the shared .rule-draw one: that fires as the row's top edge
+     crosses the viewport, which for a tall row is several seconds before the reader is
+     looking at it — the animation had already finished and read as static. This waits for
+     the row to be properly on screen, and replays on re-entry rather than firing once. */
+  var doneRow = document.querySelector('.mani-row.done');
+  if (doneRow && 'IntersectionObserver' in window) {
+    var plumb = doneRow.querySelector('.plumb');
+    var bob = doneRow.querySelector('.plumb-bob');
+    function armDrop() {
+      if (!plumb || !bob) return;
+      /* the fall is the container's height less the bob, measured rather than guessed so it
+         lands on the end of the line at every breakpoint */
+      doneRow.style.setProperty('--drop', -(plumb.offsetHeight - bob.offsetHeight) + 'px');
+    }
+    armDrop();
+    addEventListener('resize', armDrop, { passive: true });
+
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { armDrop(); doneRow.classList.add('dropped'); }
+        else doneRow.classList.remove('dropped');   /* rearm for the next visit */
+      });
+    }, { threshold: 0.55 }).observe(doneRow);
+  }
+
   /* ---------- the hairlines draw ----------
      The rules are already the site's signature, so they carry the motion between
      sections instead of a fade on every element. Each sweeps once, then stays. */
