@@ -617,7 +617,12 @@ Note his own site is blocked by this environment's egress proxy; the skills came
 
 ## Standing asks (not yet done)
 
-1. **Test the contact form end to end.** Never done. Everything is wired and DNS resolved, but no
+1. **Test the contact form end to end.** Eric's first live attempt showed no confirmation and
+   nothing arrived, and this environment cannot reach the live site to see why. The form now
+   prints Resend's own reason on the page, sends every lead to `7echome@gmail.com` as well as
+   `eric@ec-homes.com`, and retries through `onboarding@resend.dev` to the Gmail if the
+   ec-homes.com sender fails. Eric has since set up the Microsoft mailbox and forwards it to
+   Gmail. Original note: Everything is wired and DNS resolved, but no
    message has actually been sent through it. Fill the form on the live site and confirm it lands at
    `eric@ec-homes.com`. If Resend never finished verifying `ec-homes.com`, point `RESEND_FROM` at
    `levelworks.org`, which is already verified, and it will send immediately.

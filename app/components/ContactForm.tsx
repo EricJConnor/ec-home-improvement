@@ -6,6 +6,7 @@ type State = 'idle' | 'sending' | 'sent' | 'error'
 
 export default function ContactForm() {
   const [state, setState] = useState<State>('idle')
+  const [why, setWhy] = useState('')
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -19,8 +20,13 @@ export default function ContactForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
-      setState(res.ok ? 'sent' : 'error')
+      if (res.ok) { setState('sent'); return }
+      /* say what went wrong, in words, so a failed test is diagnosable from the page */
+      const j = await res.json().catch(() => ({}))
+      setWhy(typeof j.error === 'string' ? j.error : `Error ${res.status}.`)
+      setState('error')
     } catch {
+      setWhy('No connection.')
       setState('error')
     }
   }
@@ -56,7 +62,7 @@ export default function ContactForm() {
         <input id="f-email" name="email" type="email" autoComplete="email" required />
       </div>
       <div className="field">
-        <label htmlFor="f-msg">What are you thinking about?</label>
+        <label htmlFor="f-msg">What can we do for you?</label>
         <textarea id="f-msg" name="message" />
       </div>
 
@@ -72,7 +78,7 @@ export default function ContactForm() {
 
       {state === 'error' && (
         <p className="form-error" role="alert">
-          That didn&rsquo;t go through. Call{' '}
+          That didn&rsquo;t go through ({why}). Call{' '}
           <a href="tel:+12159026636" style={{ color: '#fff', borderBottom: '1px solid var(--line)' }}>
             215 902 6636
           </a>{' '}

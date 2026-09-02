@@ -2,11 +2,14 @@ import { NextResponse } from 'next/server'
 
 export const runtime = 'nodejs'
 
-const TO = 'eric@ec-homes.com'
-// Until ec-homes.com is verified in Resend, RESEND_FROM should stay on the
-// shared onboarding sender. Once the domain is verified, set it to something
-// like "EC Home Improvement <site@ec-homes.com>".
+// Every lead goes to both: the business address, and the Gmail Eric actually lives in.
+const TO = ['eric@ec-homes.com', '7echome@gmail.com']
 const FROM = process.env.RESEND_FROM || 'EC Home Improvement <onboarding@resend.dev>'
+// Resend's own sender works with no domain set-up at all, but only to the address that owns
+// the Resend account — which is the Gmail. If the ec-homes.com sender fails for any reason,
+// the lead still lands there.
+const FALLBACK_FROM = 'EC Home Improvement <onboarding@resend.dev>'
+const FALLBACK_TO = ['7echome@gmail.com']
 
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '')
 const esc = (s: string) =>
@@ -52,28 +55,35 @@ export async function POST(req: Request) {
     '— sent from ec-homes.com',
   ].join('\n')
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: FROM,
-      to: [TO],
-      reply_to: email,
-      subject: `Walkthrough request — ${name}`,
-      text,
-      html:
-        `<p><b>Name:</b> ${esc(name)}<br>` +
-        `<b>Phone:</b> ${esc(phone) || '&mdash;'}<br>` +
-        `<b>Email:</b> <a href="mailto:${esc(email)}">${esc(email)}</a></p>` +
-        `<p style="white-space:pre-wrap">${esc(message) || '(no message)'}</p>` +
-        `<p style="color:#888;font-size:12px">Sent from ec-homes.com</p>`,
-    }),
-  })
+  const html =
+    `<p><b>Name:</b> ${esc(name)}<br>` +
+    `<b>Phone:</b> ${esc(phone) || '&mdash;'}<br>` +
+    `<b>Email:</b> <a href="mailto:${esc(email)}">${esc(email)}</a></p>` +
+    `<p style="white-space:pre-wrap">${esc(message) || '(no message)'}</p>` +
+    `<p style="color:#888;font-size:12px">Sent from ec-homes.com</p>`
 
-  if (!res.ok) {
-    console.error('[contact] resend failed', res.status, await res.text().catch(() => ''))
-    return NextResponse.json({ error: 'Could not send.' }, { status: 502 })
+  const send = async (from: string, to: string[]) => {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from, to, reply_to: email, subject: `Walkthrough request — ${name}`, text, html }),
+    })
+    if (res.ok) return null
+    const detail = await res.json().catch(() => ({}))
+    const reason = typeof detail?.message === 'string' ? detail.message : `Resend ${res.status}`
+    console.error('[contact] resend failed', from, to, res.status, reason)
+    return reason
   }
+
+  let reason = await send(FROM, TO)
+  if (reason && FROM !== FALLBACK_FROM) {
+    const again = await send(FALLBACK_FROM, FALLBACK_TO)
+    if (!again) return NextResponse.json({ ok: true, fallback: reason })
+    reason = `${reason}; fallback: ${again}`
+  }
+  // The reason is shown on the page. It comes from Resend, not the visitor, so it is safe
+  // to surface, and it turns "didn't go through" into something that can be fixed.
+  if (reason) return NextResponse.json({ error: reason.slice(0, 200) }, { status: 502 })
 
   return NextResponse.json({ ok: true })
 }
