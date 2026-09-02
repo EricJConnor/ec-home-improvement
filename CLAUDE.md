@@ -312,6 +312,12 @@ downstream reads from it — metadata, structured data, the sitemap, the vCard a
 domain by setting `NEXT_PUBLIC_SITE_URL` in Vercel, then re-run `python3 scripts/build-qr.py <url>`,
 which is the one thing that does not pick it up automatically (the QR is a committed SVG).
 
+- **The share card and the search result are deliberately different strings.** `title` and
+  `description` in `app/layout.tsx` are long and keyword-heavy because that is what Google shows in
+  a result. `shareTitle` and `shareText` feed `openGraph` and `twitter` only, and are short because
+  that is what fits on a lock screen when someone texts the link: **"EC Home Improvement"** and
+  **"Custom interiors specialist in Philadelphia and the surrounding counties."** Changing one
+  should not change the other — that is the whole point of the split.
 - **`public/og.jpg`** is what a texted link looks like. Built by rendering an HTML template through
   headless Chromium so it uses the real Bricolage face and the real hero frame, rather than being
   laid out by hand. Three things, centred: **the lockup, "Work worth coming home to.", and the

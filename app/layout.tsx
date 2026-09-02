@@ -15,10 +15,17 @@ const bricolage = Bricolage_Grotesque({
   variable: '--font-bricolage',
 })
 
+/* Two different jobs, deliberately not the same string.
+   `title` and `description` are what a search engine shows in a result, so they stay long and
+   specific. `shareTitle` and `shareText` are what a texted link shows on someone's lock screen,
+   where anything past a few words is truncated and the card has to read at a glance. */
 const title =
   'EC Home Improvement — Kitchens, bathrooms, FlexMarble and outdoor rooms across Greater Philadelphia'
 const description =
   'EC Home Improvement builds kitchens, bathrooms, outdoor rooms and custom FlexMarble statement walls across Philadelphia, Bucks, Montgomery and Delaware counties. Call 215-902-6636 to book a walkthrough.'
+
+const shareTitle = 'EC Home Improvement'
+const shareText = 'Custom interiors specialist in Philadelphia and the surrounding counties.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
@@ -35,8 +42,8 @@ export const metadata: Metadata = {
   authors: [{ name: BIZ.owner }],
   creator: BIZ.owner,
   openGraph: {
-    title,
-    description,
+    title: shareTitle,
+    description: shareText,
     siteName: BIZ.name,
     locale: 'en_US',
     type: 'website',
@@ -45,8 +52,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title,
-    description,
+    title: shareTitle,
+    description: shareText,
     images: ['/og.jpg'],
   },
   robots: { index: true, follow: true },
