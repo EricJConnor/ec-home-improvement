@@ -123,16 +123,36 @@
        geared down further: one flick lands roughly one plate on, a slow thumb pulls it by hand */
     if (innerWidth <= 820) k *= 1.6;
     k = Math.max(1.2, Math.min(3.4, k));
-    travel = dist * k;
+    /* the last quarter of the reel decelerates to a stop, which takes twice its share of
+       scrolling: hence 2 - A screens-worth for one reel-length of travel */
+    travel = dist * k * (2 - A);
     strip.style.height = (pin.offsetHeight + travel) + 'px';
     slide();
   }
 
+  /* The reel ran at one steady speed and then simply let go, so the page after it felt
+     like it was falling: inside the reel a screen of scrolling moved one plate, outside it
+     moved a whole screen. It now eases to a stop on the last plate — the hand-off reads as
+     "the reel stopped, now the page moves" rather than as everything speeding up.
+     A is where the slowing starts, as a fraction of the reel's travel. */
+  var A = 0.75;
+  function reelPos(s) {              /* scroll, in reel-lengths → travel, as a fraction */
+    if (s <= A) return s;
+    var q = s - A, m = 2 * (1 - A);
+    return A + q - q * q / (2 * m);
+  }
+  function reelScroll(h) {           /* the inverse: travel fraction → scroll in reel-lengths */
+    if (h <= A) return h;
+    var m = 2 * (1 - A), d = Math.min(h, 1) - A;
+    return A + (m - Math.sqrt(Math.max(0, m * m - 2 * m * d)));
+  }
+
   function slide() {
     if (!strip || !track || !pinned() || dist <= 0) return;
-    var t = clamp01(-strip.getBoundingClientRect().top / travel);
-    track.style.transform = 'translate3d(' + (-t * dist) + 'px,0,0)';
-    if (bar) bar.style.transform = 'scaleX(' + t + ')';
+    var s = Math.max(0, Math.min(2 - A, -strip.getBoundingClientRect().top / (dist * k)));
+    var h = Math.min(1, reelPos(s));
+    track.style.transform = 'translate3d(' + (-h * dist) + 'px,0,0)';
+    if (bar) bar.style.transform = 'scaleX(' + h + ')';
     parallax();
   }
 
@@ -182,7 +202,7 @@
     if (pinned()) {
       var to = panel.offsetLeft + panel.offsetWidth / 2 - pin.clientWidth / 2;
       var top = strip.getBoundingClientRect().top + scrollY;
-      scrollTo({ top: top + Math.max(0, Math.min(to, dist)) * k, behavior: behavior });
+      scrollTo({ top: top + reelScroll(Math.max(0, Math.min(to, dist)) / dist) * dist * k, behavior: behavior });
     } else {
       strip.scrollIntoView({ behavior: behavior });
       track.scrollTo({ left: panel.offsetLeft - track.offsetLeft, behavior: behavior });
@@ -260,13 +280,20 @@
      rather than a static picture. Small shift — it should be felt, not watched. */
   var band = document.querySelector('.band'),
       bandLayers = band ? [].slice.call(band.querySelectorAll('img, .band-hex')) : [];
-  function bandDrift() {
-    if (!band || !bandLayers.length || reduce) return;
-    var r = band.getBoundingClientRect();
+  /* the wall photographs carry a lighter version of the same weight, so after the reel
+     lets go they pass with some mass to them rather than flying */
+  var walls = [].slice.call(document.querySelectorAll('.fm-grid figure'));
+  function drift(box, layers, amount) {
+    var r = box.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
     var t = (innerHeight - r.top) / (innerHeight + r.height);   /* 0 entering, 1 leaving */
-    var y = 'translate3d(0,' + ((t - 0.5) * 2 * -5.5) + '%,0)';
-    for (var i = 0; i < bandLayers.length; i++) bandLayers[i].style.transform = y;
+    var y = 'translate3d(0,' + ((t - 0.5) * 2 * -amount) + '%,0)';
+    for (var i = 0; i < layers.length; i++) layers[i].style.transform = y;
+  }
+  function bandDrift() {
+    if (reduce) return;
+    if (band && bandLayers.length) drift(band, bandLayers, 5.5);
+    for (var i = 0; i < walls.length; i++) drift(walls[i], [walls[i].querySelector('img')], 3.5);
   }
   addEventListener('scroll', bandDrift, { passive: true });
   bandDrift();

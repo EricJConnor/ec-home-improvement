@@ -588,6 +588,12 @@ Note his own site is blocked by this environment's egress proxy; the skills came
   the panel; the track gets trailing padding so the last plate can be centred, and arriving at
   `/#painting` from another page lands on it after the reel is measured. On a laptop the first
   two panels cannot be centred because the reel still opens left-aligned; that is deliberate.
+- **The reel eases to a stop.** Eric: after the geared-down reel let go, the page "flew"
+  through Statement Walls. Not fixable by slowing the page (that is scroll-jacking; refused).
+  Instead the last quarter of the reel's travel decelerates to zero over twice its share of
+  scroll (`A = 0.75`, `reelPos`/`reelScroll` in motion.js — the inverse keeps menu links
+  exact), Statement Walls carries the most padding on the page, and its two photographs
+  overhang their frames by 8% and drift at 3.5% as they pass, the band's trick at half weight.
 - Booth reel 1250ms a frame, 3.2s finale (slowed twice at Eric's ask). On phones the reel gear
   is multiplied by 1.6 (k up to 3.4), since a flick carries about a screen and a half.
 - **The drum.** On screens up to 820px the same tiles are laid on a cylinder (`globe.js`,
