@@ -96,12 +96,12 @@ img,video{display:block;max-width:100%}
 .sheet button{position:absolute;top:26px;right:var(--pad);background:none;border:0;color:#fff;font:inherit;font-size:14px;cursor:pointer}
 
 /* ---------- hero ---------- */
-.hero-wrap{height:190vh;position:relative}
-.hero{position:sticky;top:0;height:100vh;overflow:hidden;background:#1b1d23}
+.hero-wrap{height:190vh;position:relative;z-index:1}
+.hero{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--ink)}
 .hero video,.hero .poster{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   object-position:50% 62%;
-  filter:contrast(1.08) saturate(1.12);transform:scale(1.02);
+  filter:contrast(1.08) saturate(1.12);transform:scale(var(--hs,1.02));
 }
 .hero .poster{background:radial-gradient(120% 90% at 50% 100%,#454a5e 0%,#262932 55%,#1b1d23 100%)}
 .hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(27,29,35,.32) 0%,rgba(27,29,35,0) 35%,rgba(27,29,35,.55) 100%)}
@@ -157,7 +157,12 @@ img,video{display:block;max-width:100%}
    The photos are close-range job documentation, not editorial compositions, so
    they are hung as framed plates with air around them rather than run full-bleed.
    Displaying a 640px file at roughly half the old size also renders it sharper.  */
-.strip{position:relative;border-top:1px solid var(--line)}
+/* The reel arrives over the hero, not after it. The hero used to darken to ink with the
+   copy gone and then scroll away as a black screen before the first plate appeared:
+   over a screen of nothing. Now the reel's pin slides up across the last half of the
+   hero's pin while the footage shrinks back into the ink (--hs, set in motion.js), so
+   the footage becomes one more plate receding as the reel's plates come forward. */
+.strip{position:relative;z-index:2;border-top:1px solid var(--line);margin-top:-48vh}
 .strip-pin{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;background:var(--ink);display:flex;align-items:center}
 .strip-track{display:flex;align-items:center;height:100%;will-change:transform;
   padding:0 clamp(24px,9vw,180px);gap:clamp(28px,4.6vw,92px)}
@@ -339,6 +344,7 @@ img,video{display:block;max-width:100%}
   html{scroll-behavior:auto}
   .hero .grain,.band .grain{animation:none}
   .hero-wrap{height:100vh}
+  .strip{margin-top:0}
 }
 :focus-visible{outline:1px solid #fff;outline-offset:4px}
 

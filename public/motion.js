@@ -18,6 +18,7 @@
 
   /* ---------- hero ---------- */
   var wrap = document.querySelector('.hero-wrap'),
+      stage = document.querySelector('.hero'),
       dim  = document.querySelector('.dim'),
       copy = document.querySelector('.hero-copy'),
       vid  = document.querySelector('.hero video');
@@ -33,7 +34,15 @@
        exactly what you do to bring the paragraph up to read it. The ink starts arriving
        only after that, and the copy is the last thing to go. */
     var d = clamp01((t - 0.25) / 0.75);
-    dim.style.opacity = Math.pow(d, 1.4) * 0.96;
+    dim.style.opacity = Math.pow(d, 1.4) * 0.9;
+    /* The footage pulls back into the ink as the reel slides up over it (the strip
+       overlaps the hero by 48vh in the CSS), so the hero hands off as a receding plate
+       instead of sitting as a black screen. Ease-out: it moves most while the copy is
+       still going and is nearly settled by the time the first plate is on screen. */
+    if (stage) {
+      var r = clamp01((t - 0.4) / 0.6), e = 1 - (1 - r) * (1 - r);
+      stage.style.setProperty('--hs', reduce ? 1.02 : (1.02 - 0.1 * e).toFixed(4));
+    }
     if (!reduce && copy) {
       var a = 0.7, u = Math.min(t, a), rise = (u - u * u / (2 * a)) * range;
       var c = clamp01((t - 0.45) / 0.42);
