@@ -634,7 +634,15 @@ Note his own site is blocked by this environment's egress proxy; the skills came
    `eric@ec-homes.com`. If Resend never finished verifying `ec-homes.com`, point `RESEND_FROM` at
    `levelworks.org`, which is already verified, and it will send immediately.
 2. **Claim the Google Business Profile.** The single biggest lever for local search, free, and
-   nothing in the code substitutes for it. Raised more than once; still not done.
+   nothing in the code substitutes for it. **The whole listing is drafted in `gbp/profile.md`**
+   (categories, service area, 750-char description, services, hours, photo URLs, first four
+   posts, review scripts, Q&A) and Eric's Windsor.ai account can push all of it through the
+   `google_my_business` connector once he has claimed and connected the listing. Site side is
+   done: `/review` redirects to Google's review box (needs `NEXT_PUBLIC_GBP_PLACE_ID` in Vercel;
+   falls back to a Google search until then), the card page carries "Leave a review", and the
+   structured data states hours (`HOURS` in `site.ts`, must match the listing) and `sameAs`
+   links (`NEXT_PUBLIC_GBP_MAPS_URL`, `NEXT_PUBLIC_FACEBOOK_URL`). Left to Eric: claim, verify
+   by video, connect to Windsor, set the three env vars, add his PA HIC number to the description.
 3. **Get the MLS permission in writing.** Eric has it by phone. An email trail costs nothing.
 4. **Put a portfolio clause in his contracts** so future jobs come with photo rights attached.
 5. **Statement Walls still has only two photographs.** Thinnest section on the site. Eric is

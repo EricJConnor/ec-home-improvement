@@ -54,6 +54,7 @@ export default function Card() {
         <div className="card-links">
           <Link href="/work">See the work</Link>
           <Link href="/#contact">Book a walkthrough</Link>
+          <a href="/review">Leave a review</a>
         </div>
 
         <p className="card-area">

@@ -14,6 +14,32 @@ export const BIZ = {
   country: 'US',
 }
 
+/* The Google Business Profile. Everything here is empty until Eric has claimed and verified
+   the listing; the site degrades to a Google search for the business name until then.
+   - GBP_PLACE_ID: the Place ID Google assigns the listing (Business Profile → the listing's
+     Maps URL, or https://developers.google.com/maps/documentation/places/web-service/place-id).
+     It drives the "leave a review" link, which opens the review box directly.
+   - GBP_MAPS_URL: the listing's share link, for sameAs in the structured data.
+   Set both as NEXT_PUBLIC_* in Vercel; nothing else needs to change. */
+export const GBP = {
+  placeId: process.env.NEXT_PUBLIC_GBP_PLACE_ID ?? '',
+  mapsUrl: process.env.NEXT_PUBLIC_GBP_MAPS_URL ?? '',
+  facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? '',
+}
+
+/* Where a review request goes. With a Place ID this opens Google's review box in one tap;
+   without one it opens the business in Google search, where the reviews panel is. */
+export const REVIEW_URL = GBP.placeId
+  ? `https://search.google.com/local/writereview?placeid=${GBP.placeId}`
+  : `https://www.google.com/search?q=${encodeURIComponent(`${BIZ.name} Philadelphia reviews`)}`
+
+/* Hours as stated on the Business Profile. Google cross-checks the site against the listing,
+   so these must match what is set there — change both or neither. */
+export const HOURS = [
+  { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '07:00', closes: '18:00' },
+  { days: ['Saturday'], opens: '08:00', closes: '14:00' },
+]
+
 /* The service-area line Eric wrote, kept verbatim on the page and split here for the
    structured data. Google reads areaServed; people read the sentence. */
 export const AREAS = [

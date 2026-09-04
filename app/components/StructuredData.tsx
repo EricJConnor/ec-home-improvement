@@ -1,4 +1,4 @@
-import { SITE, BIZ, AREAS, SERVICES } from '../site'
+import { SITE, BIZ, AREAS, SERVICES, GBP, HOURS } from '../site'
 
 /* What Google reads. A contractor lives or dies on local search, so the point of this block
    is to state plainly what the business does and every area it does it in — the same list
@@ -22,6 +22,14 @@ export default function StructuredData() {
         founder: { '@type': 'Person', name: BIZ.owner },
         address: { '@type': 'PostalAddress', addressLocality: BIZ.city, addressRegion: BIZ.region, addressCountry: BIZ.country },
         areaServed: AREAS.map((a) => ({ '@type': 'Place', name: a })),
+        // The listing and the site have to agree on these or Google trusts neither.
+        openingHoursSpecification: HOURS.map((h) => ({
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: h.days,
+          opens: h.opens,
+          closes: h.closes,
+        })),
+        sameAs: [GBP.mapsUrl, GBP.facebook].filter(Boolean),
         knowsAbout: SERVICES.map(([name]) => name),
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
