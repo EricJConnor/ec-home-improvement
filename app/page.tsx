@@ -1,7 +1,6 @@
 import SiteHeader from './components/SiteHeader'
 import Logo from './components/Logo'
 import Backdrop from './components/Backdrop'
-import ContactBand from './components/ContactBand'
 import Script from 'next/script'
 
 export default function Home() {
@@ -9,131 +8,133 @@ export default function Home() {
     <>
       <SiteHeader />
       <Backdrop quiet />
+      <div className="rails" aria-hidden="true"><i /><i /><i /></div>
 
       <main id="top">
-        {/* HERO */}
-        <div className="hero-wrap">
-          <section className="hero" aria-label="Introduction">
-            <div className="poster" />
-            <video autoPlay muted loop playsInline preload="metadata" poster="/video/hero-poster.jpg">
+        {/* HERO: two cells cut on the grid. The sky on the left with the words cycling over it,
+            the booth build on the right, one sentence in the black block. */}
+        <section className="hero4" aria-label="Introduction">
+          <div className="cell l">
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.jpg">
               <source src="/video/hero.webm" type="video/webm" />
               <source src="/video/hero.mp4" type="video/mp4" />
             </video>
-            <div className="veil" />
-            <div className="grain" />
-            <div className="dim" />
-            <div className="hero-copy">
-              <h1 className="h-xl">
-                Work worth
-                <br />
-                coming home to.
-              </h1>
-              <div className="hero-side">
-                <a className="pill" href="/work">View our work</a>
-                <p className="p">
-                  EC Home Improvement is the custom interiors specialist for Philadelphia and the
-                  surrounding counties. Unique spaces, built one at a time. Nothing off a shelf.
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* WORK: the reel */}
-        <section className="strip" id="work" aria-label="What we build">
-          <div className="strip-pin">
-            <div className="strip-track">
-              <article className="panel" id="kitchens">
-                <a className="plate" href="/kitchens" aria-label="Kitchens, all photographs">
-                  <img src="/assets/kitchens.jpg" alt="Farmhouse sink under the kitchen window, brass faucet, white counter running out to the sill, navy cabinets below" />
-                </a>
-                <div className="cap">
-                  <h2><a href="/kitchens">Kitchens</a></h2>
-                  <p>From the layout drawing to the last cabinet pull. Custom to your specific vision.</p>
-                </div>
-              </article>
-              <article className="panel" id="bathrooms">
-                <a className="plate" href="/bathrooms" aria-label="Bathrooms, all photographs">
-                  <img src="/assets/bathrooms.jpg" alt="Bathroom with striped wallpaper, walnut vanity and brass sconces" />
-                </a>
-                <div className="cap">
-                  <h2><a href="/bathrooms">Bathrooms</a></h2>
-                  <p>Tile, stone, glass and light. The room you use first and last every day.</p>
-                </div>
-              </article>
-              <article className="panel wide" id="flexmarble">
-                <div className="plate">
-                  <img src="/assets/flexmarble-peony-panel.jpg" alt="Backlit peony printed across a FlexMarble wall" />
-                </div>
-                <div className="cap">
-                  <h2>Statement Walls</h2>
-                  <p>FlexMarble, SPC stone panels, and more. Truly unique products for one-off custom designs.</p>
-                </div>
-              </article>
-              <article className="panel" id="outdoors">
-                <div className="plate">
-                  <img src="/assets/outdoors.jpg" alt="Modern backyard shed with a black window" />
-                </div>
-                <div className="cap">
-                  <h2>Outdoors</h2>
-                  <p>Patios, pergolas, outdoor bars and the structures that make a yard a room.</p>
-                </div>
-              </article>
-              <article className="panel wide" id="painting">
-                <a className="plate" href="/painting" aria-label="Painting, all photographs">
-                  <img src="/assets/painting.jpg" alt="An arched niche in white-painted brick with a walnut ledge and brass pulls" />
-                </a>
-                <div className="cap">
-                  <h2><a href="/painting">Painting</a></h2>
-                  <p>Prep done properly, finish done by hand. Interior and exterior.</p>
-                </div>
-              </article>
-            </div>
-            <div className="strip-progress" aria-hidden="true">
-              <span />
-            </div>
+            <h1 className="cyc" aria-label="Work worth coming home to"><span className="a">Work worth</span><span className="b">coming home to.</span></h1>
+          </div>
+          <div className="cell r">
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/build-poster.jpg" aria-label="A restaurant booth built from bare framing to finished">
+              <source src="/video/build.webm" type="video/webm" />
+              <source src="/video/build.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div className="cell k">
+            <p>EC Home Improvement is the custom interiors specialist for Philadelphia and the surrounding counties. Unique spaces, built one at a time. Nothing off a shelf.</p>
+            <a className="pill4" href="/work"><b></b>View our work</a>
           </div>
         </section>
 
-        {/* FLEXMARBLE */}
-        <section className="sec light" id="fm">
-          <div className="two">
-            <h2 className="h-l">Walls people remember.</h2>
-            <p className="p on-light">
-              We source the materials nobody expects, and produce any look you want.
-            </p>
-          </div>
-          <div className="fm-grid">
-            <figure>
-              <img src="/assets/flexmarble-peony.jpg" alt="A backlit peony printed across a full FlexMarble showroom wall" />
-              <figcaption>Custom image on FlexMarble</figcaption>
-            </figure>
-            <figure className="tall">
-              <img src="/assets/flexmarble-geometric.jpg" alt="Geometric FlexMarble panels with moss and trailing florals" />
-              <figcaption>Marble veins on FlexMarble</figcaption>
-            </figure>
-          </div>
-          <div className="fm-materials">
-            <p className="fm-list">
-              FlexMarble, SPC panels, stainless steel fabrics, bio composites, and more.
-            </p>
-            <p className="fm-note">
-              Cutting-edge materials for executing one-of-a-kind visions.
-            </p>
-          </div>
+        {/* STATEMENT */}
+        <section className="stmt4">
+          <p className="big">Kitchens, bathrooms, whole interiors, outdoor rooms and the walls nobody else around here can do <span className="chip4">Philadelphia · Bucks · Montgomery · Delaware</span>. Drawn to your vision, built by the people who drew it, and walked with you before we call it done.</p>
+        </section>
+
+        {/* WHAT WE BUILD: five full-screen panels that stack as you scroll */}
+        <section className="svcs4" id="work" aria-label="What we build">
+          <article className="pnl ink" id="kitchens">
+            <div className="pin">
+              <div className="copy">
+                <span className="idx">01 <i>/ 05</i> &nbsp; Kitchens</span>
+                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'Kitchens to the<br />last cabinet pull.' }} />
+                <p className="one">From the layout drawing to the hardware. Custom to your specific vision, built to be lived in.</p>
+                <div className="tags"><span>Layout and cabinetry</span><span>Stone, tile, lighting</span><span>Farmhouse to matte black</span></div>
+                <a className="btn4" href="/kitchens">See the kitchens <span className="ar">→</span></a>
+              </div>
+              <div className="art plate4">
+                <img className="bloom" src="/assets/kitchens.jpg" alt="" aria-hidden="true" />
+                <img className="shot" src="/assets/kitchens.jpg" alt="Farmhouse sink under the kitchen window, brass faucet, white counter running out to the sill, navy cabinets below" loading="lazy" />
+              </div>
+            </div>
+          </article>
+          <article className="pnl plaster" id="bathrooms">
+            <div className="pin">
+              <div className="copy">
+                <span className="idx">02 <i>/ 05</i> &nbsp; Bathrooms</span>
+                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'The room you use<br />first and last.' }} />
+                <p className="one">Tile, stone, glass and light. Vanities, showers and the details that make a small room feel considered.</p>
+                <div className="tags"><span>Showers and wet rooms</span><span>Vanities and stone</span><span>Tile laid by hand</span></div>
+                <a className="btn4" href="/bathrooms">See the bathrooms <span className="ar">→</span></a>
+              </div>
+              <div className="art plate4">
+                <img className="bloom" src="/assets/bathrooms.jpg" alt="" aria-hidden="true" />
+                <img className="shot" src="/assets/bathrooms.jpg" alt="Bathroom with striped wallpaper, walnut vanity and brass sconces" loading="lazy" />
+              </div>
+            </div>
+          </article>
+          <article className="pnl ink" id="flexmarble">
+            <div className="pin">
+              <div className="copy">
+                <span className="idx">03 <i>/ 05</i> &nbsp; Statement Walls</span>
+                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'Walls people<br />remember.' }} />
+                <p className="one">We source the materials nobody expects, and produce any look you want. Cutting-edge materials for executing one-of-a-kind visions.</p>
+                <div className="tags"><span>FlexMarble</span><span>SPC panels</span><span>Stainless steel fabrics</span><span>Bio composites</span></div>
+              </div>
+              <div className="art plate4">
+                <img className="bloom" src="/assets/flexmarble-peony-panel.jpg" alt="" aria-hidden="true" />
+                <img className="shot" src="/assets/flexmarble-peony-panel.jpg" alt="Backlit peony printed across a FlexMarble wall" loading="lazy" />
+              </div>
+            </div>
+          </article>
+          <article className="pnl plaster" id="outdoors">
+            <div className="pin">
+              <div className="copy">
+                <span className="idx">04 <i>/ 05</i> &nbsp; Outdoors</span>
+                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'A yard that<br />works like a room.' }} />
+                <p className="one">Patios, pergolas, outdoor bars and the structures that make the outside part of the house.</p>
+                <div className="tags"><span>Patios and pergolas</span><span>Outdoor bars</span><span>Sheds and structures</span></div>
+              </div>
+              <div className="art plate4">
+                <img className="bloom" src="/assets/outdoors.jpg" alt="" aria-hidden="true" />
+                <img className="shot" src="/assets/outdoors.jpg" alt="Modern backyard shed with a black window" loading="lazy" />
+              </div>
+            </div>
+          </article>
+          <article className="pnl ink" id="painting">
+            <div className="pin">
+              <div className="copy">
+                <span className="idx">05 <i>/ 05</i> &nbsp; Painting</span>
+                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'Prep done properly.<br />Finish done by hand.' }} />
+                <p className="one">Interior and exterior. The prep is where the job is won, and it is the part you never see.</p>
+                <div className="tags"><span>Interior and exterior</span><span>Cabinets and trim</span><span>Pre-sale refresh</span></div>
+                <a className="btn4" href="/painting">See the painting <span className="ar">→</span></a>
+              </div>
+              <div className="art plate4">
+                <img className="bloom" src="/assets/painting.jpg" alt="" aria-hidden="true" />
+                <img className="shot" src="/assets/painting.jpg" alt="An arched niche in white-painted brick with a walnut ledge and brass pulls" loading="lazy" />
+              </div>
+            </div>
+          </article>
         </section>
 
         {/* THE BREATH: one full-bleed image between chapters */}
         <figure className="band">
           <img src="/assets/band-kitchen.jpg" alt="A matte black kitchen, its hex-tile backsplash lit from under the cabinets" />
-          {/* On a phone the photograph is a dark strip of something, so the band shows the same
-              backsplash drawn instead: a hairline honeycomb, with a soft light passing over the
-              tile the way the under-cabinet light does in the photo. Phones only. */}
           <div className="band-hex" aria-hidden="true"><div className="band-lines" /><div className="band-lit"><div className="pool" /></div></div>
           <div className="veil" />
           <div className="grain" />
           <figcaption>Matte black, hex tile, veined stone.</figcaption>
         </figure>
+
+        {/* OUR WORK: the names, huge; a photograph floats beside the one under the cursor */}
+        <section className="wl4" id="photos">
+          <div className="lab4"><span>Our work</span><i /><span>Hover a name</span></div>
+          <ul className="wl">
+            <li><a href="/kitchens" data-img="/assets/kitchens.jpg"><span className="nm">Kitchens</span><span className="ds">14 photographs</span></a></li>
+            <li><a href="/bathrooms" data-img="/assets/bathrooms.jpg"><span className="nm">Bathrooms</span><span className="ds">9 photographs</span></a></li>
+            <li><a href="/painting" data-img="/assets/painting.jpg"><span className="nm">Painting</span><span className="ds">9 photographs</span></a></li>
+            <li><a href="/work" data-img="/assets/flexmarble-peony.jpg"><span className="nm">Every job</span><span className="ds">137 photographs, on a globe</span></a></li>
+          </ul>
+          <div className="wl-prev" aria-hidden="true"><img alt="" /></div>
+        </section>
 
         {/* MANIFESTO */}
         <section className="sec rule-draw" id="how">
@@ -217,7 +218,20 @@ export default function Home() {
           </div>
         </section>
 
-        <ContactBand />
+        {/* CONTACT: the black block, then the band */}
+        <section className="ft4" id="contact">
+          <div className="ftg">
+            <div>
+              <h2>Book a walkthrough.</h2>
+              <p className="ftp">Tell us the room and the rough idea. We&rsquo;ll come see it.</p>
+              <a className="tel4" href="tel:+12159026636">215 902 6636</a>
+              <p className="ftp"><a href="mailto:eric@ec-homes.com">eric@ec-homes.com</a></p>
+              <p className="ftp small">Serving Philadelphia, Bucks County, Montgomery County, Delaware County and the surrounding areas.</p>
+            </div>
+            <nav className="ftn"><a href="#kitchens">Kitchens</a><a href="#bathrooms">Bathrooms</a><a href="#flexmarble">Statement Walls</a><a href="#outdoors">Outdoors</a><a href="#painting">Painting</a><a href="#how">How we work</a><a href="#agents">Agents</a></nav>
+          </div>
+          <a className="talk" href="tel:+12159026636" aria-label="Book a walkthrough"><div className="run"><span>Book a walkthrough <i>↗</i></span><span>Book a walkthrough <i>↗</i></span><span>Book a walkthrough <i>↗</i></span><span>Book a walkthrough <i>↗</i></span></div></a>
+        </section>
       </main>
 
       <footer className="ftr">
@@ -244,6 +258,7 @@ export default function Home() {
         <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania.<a className="by" href="https://ecwd1.com" rel="noopener">Web design and powered by ecwd1.com</a></p>
       </footer>
 
+      <Script src="/home.js" strategy="afterInteractive" />
       <Script src="/motion.js" strategy="afterInteractive" />
     </>
   )

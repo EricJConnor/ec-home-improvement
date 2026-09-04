@@ -658,6 +658,36 @@ Note his own site is blocked by this environment's egress proxy; the skills came
   live. (This repo's default branch accepts pushes from the Claude environment; ecwd1's does
   not.)
 
+## v5 landing (Sep 4 2026, night): the ecwd1 theories, this site's material
+
+Eric, after the ecwd1 rebuild: "the changes you made in ecwd1 are so good i want to change ec homes
+as well, using the same design theories, but you can use all the info/pics/etc that's already on
+that page." So the landing page is recomposed, nothing else on the site touched:
+
+- **The grid.** `.rails` hairlines at the page padding each side and down the centre, over
+  everything (white at 10%, under the header). Every block below cuts on them.
+- **The hero** (`.hero4`): the sky footage in the left cell with `.cyc` cycling pairs over it
+  ("Work worth / coming home to." first, then Kitchens / Bathrooms / Walls / Outdoors lines), the
+  **booth build as a film** in the right cell (`public/video/build.*`, the ten `build-N.jpg`
+  frames with a slow push-in and crossfades, made with ffmpeg zoompan, 640x854), and the black
+  block with the one sentence and a "View our work" pill to `/work`. The old pinned hero, its
+  handoff and the reel are gone from the page; `motion.js` keeps that code but every hook is
+  guarded, and it still runs the booth reel and the plumb line in How we work.
+- **Statement** (`.stmt4`) with a chip of the counties.
+- **Five panels** (`.svcs4 .pnl`, ids kitchens / bathrooms / flexmarble / outdoors / painting so
+  the nav and footer links still land): full-screen, sticky, stacking, ink and plaster
+  alternating, the copy left and the photograph right **as a plate on a bloom of itself**
+  (`.art .bloom` is the same file blurred 60px behind `.art .shot`, which is capped at its own
+  width and never upscaled: the files are 480x640). The Statement Walls panel carries Eric's own
+  materials copy. The panel underneath recedes as the next covers it (`public/home.js`).
+- **The band** kept as the breath, then **Our work as giant names** (`.wl`: Kitchens, Bathrooms,
+  Painting to the photo pages, Every job to the globe) with a photograph that follows the cursor.
+- **How we work and Agents kept verbatim.** Then `.ft4`: the contact block (phone huge, email,
+  service line, the section links) and a plaster **"Book a walkthrough ↗" marquee** that dials
+  the phone. `ContactBand` is no longer imported on the landing; it still exists for other pages.
+- Bricolage at 300, ink and plaster, no accent: the theories transferred, the palette did not.
+- The FlexMarble section (`#fm`) is off the page; its two photos still exist in `public/assets`.
+
 ## Standing asks (not yet done)
 
 1. **The contact form is off the page.** Eric pulled it (Sep 2026) after a long round of
