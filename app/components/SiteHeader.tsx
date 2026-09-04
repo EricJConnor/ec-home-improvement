@@ -13,7 +13,7 @@ export default function SiteHeader({ base = '' }: { base?: string }) {
       <header className="hdr">
         <a className="mark" href={base || '#top'} aria-label="EC Home Improvement, home">
           <Logo />
-          <span className="mark-text">EC<b>Home Improvement</b></span>
+          <span className="mark-text">Home Improvement</span>
         </a>
         <nav className="nav" aria-label="Primary">
           {nav.map(([id, label]) => (

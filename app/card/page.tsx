@@ -28,9 +28,7 @@ export default function Card() {
       <div className="card-inner">
         <Link href="/" className="card-mark">
           <Logo />
-          <span className="mark-text">
-            EC<b>Home Improvement</b>
-          </span>
+          <span className="mark-text">Home Improvement</span>
         </Link>
 
         <div className="card-who">
