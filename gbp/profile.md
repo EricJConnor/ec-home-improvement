@@ -100,7 +100,7 @@ If Eric wants different hours, say so and both get changed.
 
 Google ranks listings with more photos higher and people click them far more. Upload in this order.
 
-Logo: https://ec-homes.com/icon.svg (Google wants PNG/JPG; a 720x720 PNG of the mark on ink is in `gbp/logo.png`)
+Logo: https://ec-homes.com/gbp-logo.png — **option A, chosen by Eric 4 Sep 2026**: EC in Bricolage 300 under the frame's top rail, plumb hanging off the rail's end beside the C. Source `gbp/logo-a.html`, rendered at 720px to `gbp/logo.png` and `public/gbp-logo.png`. Two rejected alternatives (drawn hairline letters; heavier EC with the plumb inside the C) are in the session's logo-options artifact. The site's own mark is unchanged; Eric has not asked for it to follow.
 Cover: https://ec-homes.com/og.jpg
 
 Kitchens (finished work; the sharp 1344px ones are painting jobs and say so in the caption):
