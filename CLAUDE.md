@@ -681,6 +681,9 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   The booth film is deleted; the ten frames are still in `public/assets` for the How we work
   reel. Mixkit restricted-tier IDs in this category, do not use: 1440, 1442, 1443 were free but
   people-on-phones; everything else on the construction/contractor pages checked free.
+- **Video encoding rule:** every mp4 must be `-pix_fmt yuv420p -profile:v high`; ffmpeg's xfade
+  chain drifts to yuv444p, which iPhones cannot decode (the craft film shipped that way once and
+  was blank on Eric's phone). mp4 `<source>` before webm. Check with ffprobe.
 - **Statement** (`.stmt4`) with a chip of the counties.
 - **Five panels** (`.svcs4 .pnl`, ids kitchens / bathrooms / flexmarble / outdoors / painting so
   the nav and footer links still land): full-screen, sticky, stacking, ink and plaster
