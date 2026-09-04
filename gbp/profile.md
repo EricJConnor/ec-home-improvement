@@ -1,5 +1,20 @@
 # Google Business Profile — EC Home Improvement
 
+**Status (4 Sep 2026): claimed, verified instantly, and filled.** Eric created it under
+7echome@gmail.com; it is connected to Windsor.ai under his ejc1273@gmail.com Windsor login
+(username eric77) with write actions on. Pushed through the `google_my_business` connector:
+description, hours, all nine categories, eleven services, text-message and appointment links,
+cover, eighteen gallery photos, and the first post. Place ID `ChIJc7WKB_P8ayIRhKWvJ89fn4E`,
+location `locations/14849499194649271730`, Maps `https://maps.google.com/maps?cid=9340289495518389636`.
+Google's own "processing your verification, up to 5 days" notice was showing on the dashboard
+at the time; the listing is not public until that clears.
+
+Still to do: the fourteen extra towns in the service area (Windsor needs a Google place ID per
+town, which this environment cannot look up — add them in the dashboard under Edit profile →
+Service area), the logo (`gbp/logo.png` needs a public URL; upload it in the dashboard), the
+Q&A (not exposed by the connector; paste from section 11), posts two to four on a weekly
+cadence, and the PA HIC number in the description.
+
 Everything below is ready to paste. Where a line says **push**, it can be sent to the listing
 directly through Windsor.ai once the profile is connected there, so Eric never has to type it.
 

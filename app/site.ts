@@ -14,16 +14,14 @@ export const BIZ = {
   country: 'US',
 }
 
-/* The Google Business Profile. Everything here is empty until Eric has claimed and verified
-   the listing; the site degrades to a Google search for the business name until then.
-   - GBP_PLACE_ID: the Place ID Google assigns the listing (Business Profile → the listing's
-     Maps URL, or https://developers.google.com/maps/documentation/places/web-service/place-id).
-     It drives the "leave a review" link, which opens the review box directly.
-   - GBP_MAPS_URL: the listing's share link, for sameAs in the structured data.
-   Set both as NEXT_PUBLIC_* in Vercel; nothing else needs to change. */
+/* The Google Business Profile, claimed and verified 4 Sep 2026 under 7echome@gmail.com.
+   The Place ID and Maps link are what Google assigned the listing (read back through
+   Windsor.ai), so they are committed here rather than left to Vercel. The env vars still
+   win if set, in case the listing is ever recreated. The Place ID drives /review, which
+   opens Google's review box directly; the Maps URL is sameAs in the structured data. */
 export const GBP = {
-  placeId: process.env.NEXT_PUBLIC_GBP_PLACE_ID ?? '',
-  mapsUrl: process.env.NEXT_PUBLIC_GBP_MAPS_URL ?? '',
+  placeId: process.env.NEXT_PUBLIC_GBP_PLACE_ID ?? 'ChIJc7WKB_P8ayIRhKWvJ89fn4E',
+  mapsUrl: process.env.NEXT_PUBLIC_GBP_MAPS_URL ?? 'https://maps.google.com/maps?cid=9340289495518389636',
   facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? '',
 }
 
