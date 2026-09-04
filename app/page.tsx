@@ -16,16 +16,16 @@ export default function Home() {
         <section className="hero4" aria-label="Introduction">
           <div className="cell l">
             <video autoPlay muted loop playsInline preload="auto" poster="/video/craft-poster.jpg" aria-label="Hands at work: marking, sanding, cutting and measuring lumber, and a room being framed">
-              <source src="/video/craft.webm" type="video/webm" />
               <source src="/video/craft.mp4" type="video/mp4" />
+              <source src="/video/craft.webm" type="video/webm" />
             </video>
             <div className="scrim" aria-hidden="true" />
             <h1 className="cyc" aria-label="Work worth coming home to"><span className="a">Work worth</span><span className="b">coming home to.</span></h1>
           </div>
           <div className="cell r">
             <video autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.jpg">
-              <source src="/video/hero.webm" type="video/webm" />
               <source src="/video/hero.mp4" type="video/mp4" />
+              <source src="/video/hero.webm" type="video/webm" />
             </video>
           </div>
           <div className="cell k">
