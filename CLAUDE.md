@@ -684,6 +684,19 @@ that page." So the landing page is recomposed, nothing else on the site touched:
 - **Video encoding rule:** every mp4 must be `-pix_fmt yuv420p -profile:v high`; ffmpeg's xfade
   chain drifts to yuv444p, which iPhones cannot decode (the craft film shipped that way once and
   was blank on Eric's phone). mp4 `<source>` before webm. Check with ffprobe.
+- **Hero, third cut (Eric: "we're not understanding each other with the top of that page").**
+  No cycling phrases: he rarely builds outside, so "Outdoors / built to stay" was wrong, and
+  catch phrases over rough framing did not fit a finished-interiors company. The line is fixed:
+  **"Work worth coming home to."** (`.line4`), which he loves. Under it, a **daytime**
+  Philadelphia aerial (`public/video/philly-day.*`, three passes from the Wikimedia Commons
+  Art Museum / Water Works clip by Mark Williams, CC BY 3.0, credited in the footer's legal
+  line: keep that credit). The dusk sky stays in the right cell so the two match. The craft
+  film is deleted. Statement rewritten to what is true: kitchens, bathrooms, statement walls
+  and painting, the counties chip, "built one at a time", and his own line "The job isn't
+  done until we walk it together." Panel titles: "Kitchens." and "Custom backyard
+  experiences." (his wording).
+- **The globe**: Eric is "rethinking" it and says the sphere on the phone looks great. Not
+  resolved; ask before touching `/work`.
 - **Statement** (`.stmt4`) with a chip of the counties.
 - **Five panels** (`.svcs4 .pnl`, ids kitchens / bathrooms / flexmarble / outdoors / painting so
   the nav and footer links still land): full-screen, sticky, stacking, ink and plaster

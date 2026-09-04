@@ -15,12 +15,12 @@ export default function Home() {
             the booth build on the right, one sentence in the black block. */}
         <section className="hero4" aria-label="Introduction">
           <div className="cell l">
-            <video autoPlay muted loop playsInline preload="auto" poster="/video/craft-poster.jpg" aria-label="Hands at work: marking, sanding, cutting and measuring lumber, and a room being framed">
-              <source src="/video/craft.mp4" type="video/mp4" />
-              <source src="/video/craft.webm" type="video/webm" />
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/philly-day-poster.jpg" aria-label="Philadelphia from the air on a clear day: the Art Museum, the Water Works and the skyline">
+              <source src="/video/philly-day.mp4" type="video/mp4" />
+              <source src="/video/philly-day.webm" type="video/webm" />
             </video>
             <div className="scrim" aria-hidden="true" />
-            <h1 className="cyc" aria-label="Work worth coming home to"><span className="a">Work worth</span><span className="b">coming home to.</span></h1>
+            <h1 className="line4">Work worth<br />coming home to.</h1>
           </div>
           <div className="cell r">
             <video autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.jpg">
@@ -36,7 +36,7 @@ export default function Home() {
 
         {/* STATEMENT */}
         <section className="stmt4">
-          <p className="big">Kitchens, bathrooms, whole interiors, outdoor rooms and the walls nobody else around here can do <span className="chip4">Philadelphia · Bucks · Montgomery · Delaware</span>. Drawn to your vision, built by the people who drew it, and walked with you before we call it done.</p>
+          <p className="big">Kitchens, bathrooms, statement walls and painting for Philadelphia and the counties around it <span className="chip4">Bucks · Montgomery · Delaware</span>. Custom to your vision, built one at a time. The job isn&rsquo;t done until we walk it together.</p>
         </section>
 
         {/* WHAT WE BUILD: five full-screen panels that stack as you scroll */}
@@ -45,7 +45,7 @@ export default function Home() {
             <div className="pin">
               <div className="copy">
                 <span className="idx">01 <i>/ 05</i> &nbsp; Kitchens</span>
-                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'Kitchens to the<br />last cabinet pull.' }} />
+                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'Kitchens.' }} />
                 <p className="one">From the layout drawing to the hardware. Custom to your specific vision, built to be lived in.</p>
                 <div className="tags"><span>Layout and cabinetry</span><span>Stone, tile, lighting</span><span>Farmhouse to matte black</span></div>
                 <a className="btn4" href="/kitchens">See the kitchens <span className="ar">→</span></a>
@@ -89,8 +89,8 @@ export default function Home() {
             <div className="pin">
               <div className="copy">
                 <span className="idx">04 <i>/ 05</i> &nbsp; Outdoors</span>
-                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'A yard that<br />works like a room.' }} />
-                <p className="one">Patios, pergolas, outdoor bars and the structures that make the outside part of the house.</p>
+                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'Custom backyard<br />experiences.' }} />
+                <p className="one">Patios, pergolas, outdoor bars and the structures that make the outside part of the house. Built the way we build inside.</p>
                 <div className="tags"><span>Patios and pergolas</span><span>Outdoor bars</span><span>Sheds and structures</span></div>
               </div>
               <div className="art plate4">
@@ -256,7 +256,7 @@ export default function Home() {
             <a href="mailto:eric@ec-homes.com">eric@ec-homes.com</a>
           </div>
         </div>
-        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania.<a className="by" href="https://ecwd1.com" rel="noopener">Web design and powered by ecwd1.com</a></p>
+        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania. Aerial Philadelphia footage by Mark Williams, CC BY 3.0.<a className="by" href="https://ecwd1.com" rel="noopener">Web design and powered by ecwd1.com</a></p>
       </footer>
 
       <Script src="/home.js" strategy="afterInteractive" />
