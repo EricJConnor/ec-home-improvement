@@ -15,16 +15,17 @@ export default function Home() {
             the booth build on the right, one sentence in the black block. */}
         <section className="hero4" aria-label="Introduction">
           <div className="cell l">
-            <video autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.jpg">
-              <source src="/video/hero.webm" type="video/webm" />
-              <source src="/video/hero.mp4" type="video/mp4" />
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/craft-poster.jpg" aria-label="Hands at work: marking, sanding, cutting and measuring lumber, and a room being framed">
+              <source src="/video/craft.webm" type="video/webm" />
+              <source src="/video/craft.mp4" type="video/mp4" />
             </video>
+            <div className="scrim" aria-hidden="true" />
             <h1 className="cyc" aria-label="Work worth coming home to"><span className="a">Work worth</span><span className="b">coming home to.</span></h1>
           </div>
           <div className="cell r">
-            <video autoPlay muted loop playsInline preload="auto" poster="/video/build-poster.jpg" aria-label="A restaurant booth built from bare framing to finished">
-              <source src="/video/build.webm" type="video/webm" />
-              <source src="/video/build.mp4" type="video/mp4" />
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.jpg">
+              <source src="/video/hero.webm" type="video/webm" />
+              <source src="/video/hero.mp4" type="video/mp4" />
             </video>
           </div>
           <div className="cell k">

@@ -673,6 +673,14 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   block with the one sentence and a "View our work" pill to `/work`. The old pinned hero, its
   handoff and the reel are gone from the page; `motion.js` keeps that code but every hook is
   guarded, and it still runs the booth reel and the plumb line in How we work.
+- **Hero films, second cut (Eric's note: the booth frames were "literally shaky" and the line got
+  lost).** The left cell under the words is now `public/video/craft.*`: six Mixkit free-tier
+  clips of hands at work (1446 marking a board, 1455 pencil on a stud, 776 sanding, 1444 mitre
+  saw, 1445 measuring, 1459 a room being framed), 720x960, darkened a touch, with a bottom
+  scrim (`.hero4 .l .scrim`) so the paper type reads. The sky footage moved to the right cell.
+  The booth film is deleted; the ten frames are still in `public/assets` for the How we work
+  reel. Mixkit restricted-tier IDs in this category, do not use: 1440, 1442, 1443 were free but
+  people-on-phones; everything else on the construction/contractor pages checked free.
 - **Statement** (`.stmt4`) with a chip of the counties.
 - **Five panels** (`.svcs4 .pnl`, ids kitchens / bathrooms / flexmarble / outdoors / painting so
   the nav and footer links still land): full-screen, sticky, stacking, ink and plaster
