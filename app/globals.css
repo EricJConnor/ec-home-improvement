@@ -1,12 +1,12 @@
 :root{
-  --ink:#141414;
-  --ink-2:#1b1b1b;
+  --ink:#242424;
+  --ink-2:#2c2c2c;
   --plaster:#ECEBE7;
   --paper:#F3F2EF;
   --mute:#9C9B97;
   --mute-dark:#6A6965;
   --line:rgba(255,255,255,.14);
-  --line-dark:rgba(20,20,20,.16);
+  --line-dark:rgba(36,36,36,.16);
   --pad:clamp(20px,5vw,72px);
   --font:var(--font-bricolage),system-ui,-apple-system,sans-serif;
 
@@ -29,7 +29,7 @@ body{
 }
 a{color:inherit;text-decoration:none}
 img,video{display:block;max-width:100%}
-::selection{background:#E9C9B4;color:#141414}
+::selection{background:#E9C9B4;color:var(--ink)}
 
 /* ---------- type scale ---------- */
 .h-xl{
@@ -97,14 +97,14 @@ img,video{display:block;max-width:100%}
 
 /* ---------- hero ---------- */
 .hero-wrap{height:190vh;position:relative}
-.hero{position:sticky;top:0;height:100vh;overflow:hidden;background:#0d0f13}
+.hero{position:sticky;top:0;height:100vh;overflow:hidden;background:#1b1d23}
 .hero video,.hero .poster{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   object-position:50% 62%;
   filter:contrast(1.08) saturate(1.12);transform:scale(1.02);
 }
-.hero .poster{background:radial-gradient(120% 90% at 50% 100%,#3b3f52 0%,#1a1c24 55%,#0d0f13 100%)}
-.hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,15,19,.32) 0%,rgba(13,15,19,0) 35%,rgba(13,15,19,.55) 100%)}
+.hero .poster{background:radial-gradient(120% 90% at 50% 100%,#454a5e 0%,#262932 55%,#1b1d23 100%)}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(27,29,35,.32) 0%,rgba(27,29,35,0) 35%,rgba(27,29,35,.55) 100%)}
 .hero .dim{position:absolute;inset:0;background:var(--ink);opacity:0;pointer-events:none}
 .hero .grain,.band .grain{position:absolute;inset:-50%;opacity:.05;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -166,7 +166,7 @@ img,video{display:block;max-width:100%}
 /* a considered hang, not a grid: alternate plates sit slightly low */
 .panel:nth-child(even){transform:translateY(clamp(14px,3vh,40px))}
 
-.plate{position:relative;overflow:hidden;aspect-ratio:3/4;background:#1b1b1b}
+.plate{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--ink-2)}
 .panel.wide .plate{aspect-ratio:4/3}
 /* the image is wider than its frame so it can travel inside it as the reel moves */
 /* max-width:none is load-bearing: the global img{max-width:100%} reset was capping this
@@ -245,7 +245,7 @@ img,video{display:block;max-width:100%}
 .mani-text{max-width:42ch}
 .mani-row:nth-child(even) .mani-text{justify-self:end}
 .mani-row:nth-child(even) .mani-plate{order:2;justify-self:end}
-.mani-plate{position:relative;width:min(100%,380px);aspect-ratio:4/5;overflow:hidden;background:#1b1b1b}
+.mani-plate{position:relative;width:min(100%,380px);aspect-ratio:4/5;overflow:hidden;background:var(--ink-2)}
 .mani-plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .mani h3{font-weight:300;font-size:clamp(24px,2.7vw,38px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
 .mani p{color:var(--mute);font-size:15px;max-width:40ch}
@@ -259,11 +259,11 @@ img,video{display:block;max-width:100%}
    A 640px photo can't be a subject at this size, so it is used as ground:
    darkened hard, veiled and grained, the way the hero treats its footage.
    One image between the light FlexMarble section and the manifesto.  */
-.band{position:relative;height:clamp(360px,68vh,720px);overflow:hidden;background:#0d0f13}
+.band{position:relative;height:clamp(360px,68vh,720px);overflow:hidden;background:#1b1d23}
 .band img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;
   filter:brightness(.58) saturate(.94) contrast(1.04);will-change:transform}
 .band .veil{position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(20,20,20,.5) 0%,rgba(20,20,20,.08) 42%,rgba(20,20,20,.62) 100%)}
+  background:linear-gradient(180deg,rgba(36,36,36,.5) 0%,rgba(36,36,36,.08) 42%,rgba(36,36,36,.62) 100%)}
 .band figcaption{position:absolute;left:var(--pad);bottom:clamp(24px,4vh,44px);
   color:rgba(243,242,239,.72);font-size:13px;letter-spacing:.01em}
 
@@ -408,7 +408,7 @@ main{position:relative;z-index:1}
   animation:field2 71s ease-in-out infinite alternate}
 /* pull it back down so it stays a field and never competes with the work */
 .bg::after{content:"";position:absolute;inset:0;
-  background:radial-gradient(115% 85% at 50% 42%,rgba(20,20,20,.28) 0%,rgba(20,20,20,.66) 55%,rgba(20,20,20,.93) 100%)}
+  background:radial-gradient(115% 85% at 50% 42%,rgba(36,36,36,.28) 0%,rgba(36,36,36,.66) 55%,rgba(36,36,36,.93) 100%)}
 .bg-grain{position:absolute;inset:-50%;opacity:.05;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain 1.6s steps(6) infinite}
@@ -440,7 +440,7 @@ main{position:relative;z-index:1}
   width:var(--s,96px);height:var(--s,96px);
   /* the back of the sphere culls itself — no depth sorting, no shader */
   backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  background:#1b1b1b;overflow:hidden;cursor:pointer;
+  background:var(--ink-2);overflow:hidden;cursor:pointer;
   /* Same feather as the closer look, so a photo does not change character when it flies
      out of the globe. It masks the tile rather than the image inside it: the tile carries
      its own dark background, and masking only the image would leave that showing through
@@ -511,7 +511,7 @@ main{position:relative;z-index:1}
 /* ---------- the closer look ---------- */
 #ov{position:fixed;inset:0;z-index:80;display:grid;place-items:center;
   padding:clamp(24px,6vw,72px);cursor:zoom-out;
-  background:rgba(20,20,20,.20);
+  background:rgba(36,36,36,.20);
   -webkit-backdrop-filter:blur(8px) saturate(1.25);backdrop-filter:blur(8px) saturate(1.25);
   opacity:0;transition:opacity .34s ease}
 #ov.in{opacity:1}
@@ -631,8 +631,8 @@ main{position:relative;z-index:1}
 }
 .dust-ring::after{content:"";position:absolute;left:50%;top:50%;width:3px;height:3px;
   margin:-1.5px 0 0 -1.5px;border-radius:999px;background:rgba(243,242,239,.9)}
-.dust-ring.on-light{border-color:rgba(20,20,20,.6)}
-.dust-ring.on-light::after{background:rgba(20,20,20,.8)}
+.dust-ring.on-light{border-color:rgba(36,36,36,.6)}
+.dust-ring.on-light::after{background:rgba(36,36,36,.8)}
 .dust-ring.press{width:16px;height:16px}
 /* over something clickable it opens up and thins out — the affordance the hand used to give */
 /* over the globe: wider and thinner, a thing you can push */
@@ -642,7 +642,7 @@ main{position:relative;z-index:1}
 .dust-ring.grabbing{width:15px;height:15px;border-color:rgba(243,242,239,.85)}
 .dust-ring.grabbing::after{width:2px;height:2px;margin:-1px 0 0 -1px}
 .dust-ring.big{width:38px;height:38px;border-color:rgba(243,242,239,.5)}
-.dust-ring.big.on-light{border-color:rgba(20,20,20,.42)}
+.dust-ring.big.on-light{border-color:rgba(36,36,36,.42)}
 .dust-ring.big::after{width:4px;height:4px;margin:-2px 0 0 -2px}
 .dust-ring.hide{opacity:0}
 
@@ -750,7 +750,7 @@ main{position:relative;z-index:1}
 @media(max-width:1100px){.gal-grid{grid-template-columns:repeat(3,1fr)}}
 .gal-grid figure{margin:0;width:100%;justify-self:start}
 .gal-grid figure.wide{grid-column:span 2}
-.gal-plate{display:block;position:relative;overflow:hidden;background:#1b1b1b;width:100%}
+.gal-plate{display:block;position:relative;overflow:hidden;background:var(--ink-2);width:100%}
 .gal-plate img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(1.02);
   transition:transform var(--t-panel) var(--ease-out)}
 @media(hover:hover) and (pointer:fine){.gal-plate:hover img{transform:scale(1.025)}}
