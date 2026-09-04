@@ -643,6 +643,21 @@ Note his own site is blocked by this environment's egress proxy; the skills came
 - `next dev` appends an agent-rules block to this file; `agentRules: false` in `next.config.mjs`
   stops it. Strip it if it ever reappears.
 
+## Sep 4 2026 (evening): lighter ink, and the hero hands off to the reel
+
+- **Ink lifted.** `--ink` #141414 → #242424, `--ink-2` → #2c2c2c, and every hard-coded dark
+  (hero and band base, poster gradient, veils, the globe field scrim, the closer-look backdrop,
+  plate backings, favicon ground, theme-color) moved with it. Paper, plaster, mute untouched.
+  Eric asked for it lighter across the whole site; this is the whole site.
+- **No more black between the hero and the reel.** The reel's pin overlaps the hero by 48vh
+  (`.strip{margin-top:-48vh;z-index:2}`), and the footage scales back into the ink as it does
+  (`--hs`, set in `motion.js` from the hero progress, ease-out 1.02 → .92), so the hero leaves as
+  one more receding plate while the reel's plates rise. The dim tops out at .9. Eric had asked
+  for "a flip or an image" there; this was the answer and he accepted it.
+- Both pushed straight to the deploy branch `claude/clone-ec-homes-repo-t915hn`, so they are
+  live. (This repo's default branch accepts pushes from the Claude environment; ecwd1's does
+  not.)
+
 ## Standing asks (not yet done)
 
 1. **The contact form is off the page.** Eric pulled it (Sep 2026) after a long round of
