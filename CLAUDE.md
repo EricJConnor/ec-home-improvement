@@ -303,6 +303,34 @@ Eric's original logo (`IMG_1149` in the archive) is his own work and he asked fo
 cohesive with the site instead. The open-frame idea came from it; the pendant bells did not
 survive, as they read as clip art next to this typography.
 
+### The mark, second version (Sep 2026)
+
+Eric saw the old open-frame mark at the 40px Google shows a logo and said it should read as
+EC. It now does, everywhere: `Logo.tsx` is EC set as real text in the display face at weight
+300 under the frame's top rail, with the plumb hanging off the rail's end beside the C. He
+chose it from three drawn at Google's sizes (the others: hairline-drawn letters with the plumb
+inside the C; a heavier EC with the plumb cradled in the C). Because the mark carries EC, the
+lockup text beside it is only the tracked-out "Home Improvement", stacked beneath. The letters
+are `<text>` so they inherit the font and `currentColor`, which is what keeps the difference
+blend working. `app/icon.svg` draws the same mark with the letters as paths (no webfont in a
+favicon). The Google listing carries it as `public/gbp-logo.png`, 720px on ink, rendered from
+`gbp/logo-a.html` with the real face. `public/og.jpg` still shows the old lockup; regenerate it
+with `scripts/og/` when convenient.
+
+## The photo pages (`/kitchens`, `/bathrooms`, `/painting`)
+
+Eric asked for the kitchen, bathroom and painting plates on the landing to link to a photo page
+each. `app/components/Gallery.tsx` is the one page; `app/galleries.ts` picks the photos: every
+tile in `work-manifest.json` for that chapter **that also has a file in `public/full`**. That is
+14, 9 and 9. The other hundred-odd photos exist on the site only as 200px globe tiles, and a
+tile blown up to a page reads as cheap, so they are left out until Eric supplies originals —
+tell him this is why a page looks short. Plates hang in four columns (three under 1100px),
+landscape files span two, each figure is capped at its file's own width, and the order deals
+one wide then two tall so rows stay full and the wide MLS shots do not stack into a column of
+huge photographs (they sort first in the archive and did exactly that on the first pass). The
+reel's plate and title are the links (`a.plate`); Statement Walls and Outdoors are not linked
+because he did not ask and they have two and zero page-fit photographs respectively.
+
 ## The one piece of colour
 
 The footer credit — **"Web design and powered by ecwd1.com"**, linking to ecwd1.com — is in an oxide
@@ -634,7 +662,15 @@ Note his own site is blocked by this environment's egress proxy; the skills came
    `eric@ec-homes.com`. If Resend never finished verifying `ec-homes.com`, point `RESEND_FROM` at
    `levelworks.org`, which is already verified, and it will send immediately.
 2. **Claim the Google Business Profile.** The single biggest lever for local search, free, and
-   nothing in the code substitutes for it. Raised more than once; still not done.
+   nothing in the code substitutes for it. **The whole listing is drafted in `gbp/profile.md`**
+   (categories, service area, 750-char description, services, hours, photo URLs, first four
+   posts, review scripts, Q&A) and Eric's Windsor.ai account can push all of it through the
+   `google_my_business` connector once he has claimed and connected the listing. Site side is
+   done: `/review` redirects to Google's review box (needs `NEXT_PUBLIC_GBP_PLACE_ID` in Vercel;
+   falls back to a Google search until then), the card page carries "Leave a review", and the
+   structured data states hours (`HOURS` in `site.ts`, must match the listing) and `sameAs`
+   links (`NEXT_PUBLIC_GBP_MAPS_URL`, `NEXT_PUBLIC_FACEBOOK_URL`). Left to Eric: claim, verify
+   by video, connect to Windsor, set the three env vars, add his PA HIC number to the description.
 3. **Get the MLS permission in writing.** Eric has it by phone. An email trail costs nothing.
 4. **Put a portfolio clause in his contracts** so future jobs come with photo rights attached.
 5. **Statement Walls still has only two photographs.** Thinnest section on the site. Eric is

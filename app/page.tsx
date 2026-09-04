@@ -44,20 +44,20 @@ export default function Home() {
           <div className="strip-pin">
             <div className="strip-track">
               <article className="panel" id="kitchens">
-                <div className="plate">
+                <a className="plate" href="/kitchens" aria-label="Kitchens, all photographs">
                   <img src="/assets/kitchens.jpg" alt="Farmhouse sink under the kitchen window, brass faucet, white counter running out to the sill, navy cabinets below" />
-                </div>
+                </a>
                 <div className="cap">
-                  <h2>Kitchens</h2>
+                  <h2><a href="/kitchens">Kitchens</a></h2>
                   <p>From the layout drawing to the last cabinet pull. Custom to your specific vision.</p>
                 </div>
               </article>
               <article className="panel" id="bathrooms">
-                <div className="plate">
+                <a className="plate" href="/bathrooms" aria-label="Bathrooms, all photographs">
                   <img src="/assets/bathrooms.jpg" alt="Bathroom with striped wallpaper, walnut vanity and brass sconces" />
-                </div>
+                </a>
                 <div className="cap">
-                  <h2>Bathrooms</h2>
+                  <h2><a href="/bathrooms">Bathrooms</a></h2>
                   <p>Tile, stone, glass and light. The room you use first and last every day.</p>
                 </div>
               </article>
@@ -80,11 +80,11 @@ export default function Home() {
                 </div>
               </article>
               <article className="panel wide" id="painting">
-                <div className="plate">
+                <a className="plate" href="/painting" aria-label="Painting, all photographs">
                   <img src="/assets/painting.jpg" alt="An arched niche in white-painted brick with a walnut ledge and brass pulls" />
-                </div>
+                </a>
                 <div className="cap">
-                  <h2>Painting</h2>
+                  <h2><a href="/painting">Painting</a></h2>
                   <p>Prep done properly, finish done by hand. Interior and exterior.</p>
                 </div>
               </article>
@@ -221,7 +221,7 @@ export default function Home() {
       </main>
 
       <footer className="ftr">
-        <a className="mark" href="#top"><Logo /><span className="mark-text">EC<b>Home Improvement</b></span></a>
+        <a className="mark" href="#top"><Logo /><span className="mark-text">Home Improvement</span></a>
         <div className="links">
           <div>
             <b>Work</b>

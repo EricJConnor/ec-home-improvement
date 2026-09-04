@@ -1,11 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="44" height="44">
   <rect width="44" height="44" fill="#141414"/>
-  <g fill="none" stroke="#F3F2EF" stroke-width="2.6" stroke-linecap="square">
-    <path d="M8 10 H36"/>
-    <path d="M8 10 V34"/>
-    <path d="M8 34 H16"/>
-    <path d="M36 10 V21"/>
-    <path d="M19 10 V25.5"/>
+  <g fill="none" stroke="#F3F2EF" stroke-width="2.2" stroke-linecap="square">
+    <path d="M9 11 H34"/>
+    <path d="M34 11 V21"/>
   </g>
-  <circle cx="19" cy="28.4" r="3.4" fill="#F3F2EF"/>
+  <circle cx="34" cy="23.6" r="1.9" fill="#F3F2EF"/>
+  <!-- EC drawn as paths (the favicon has no webfont): a light grotesque E and C -->
+  <g fill="none" stroke="#F3F2EF" stroke-width="2" stroke-linecap="butt">
+    <path d="M9.5 21.5 V34 H18"/><path d="M9.5 21.5 H18"/><path d="M9.5 27.5 H16.5"/>
+    <path d="M31 24 A5.4 6.2 0 1 0 31 31.6"/>
+  </g>
 </svg>
