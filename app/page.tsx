@@ -116,7 +116,7 @@ export default function Home() {
               </div>
               <div className="art plate4">
                 <img className="bloom" src="/assets/outdoors.jpg" alt="" aria-hidden="true" />
-                <img className="shot" src="/assets/outdoors.jpg" alt="Modern backyard shed with a black window" loading="lazy" />
+                <img className="shot" src="/assets/outdoors.jpg" alt="Covered outdoor bar in stone and timber" loading="lazy" />
               </div>
             </div>
           </article>
@@ -135,10 +135,10 @@ export default function Home() {
         <section className="wl4" id="photos">
           <div className="lab4"><span>Our work</span><i /><span>Hover a name</span></div>
           <ul className="wl">
-            <li><a href="/kitchens" data-img="/assets/kitchens.jpg"><span className="nm">Kitchens</span><span className="ds">22 photographs</span></a></li>
-            <li><a href="/bathrooms" data-img="/assets/bathrooms.jpg"><span className="nm">Bathrooms</span><span className="ds">28 photographs</span></a></li>
-            <li><a href="/painting" data-img="/assets/painting.jpg"><span className="nm">Painting</span><span className="ds">29 photographs</span></a></li>
-            <li><a href="/work" data-img="/assets/flexmarble-peony.jpg"><span className="nm">Every job</span><span className="ds">14 jobs at full size, and the house</span></a></li>
+            <li><a href="/kitchens" data-img="/assets/kitchens.jpg"><span className="nm">Kitchens</span><span className="ds">21 photographs</span></a></li>
+            <li><a href="/bathrooms" data-img="/assets/bathrooms.jpg"><span className="nm">Bathrooms</span><span className="ds">25 photographs</span></a></li>
+            <li><a href="/painting" data-img="/assets/painting.jpg"><span className="nm">Painting</span><span className="ds">27 photographs</span></a></li>
+            <li><a href="/work" data-img="/assets/flexmarble-peony.jpg"><span className="nm">Every job</span><span className="ds">13 jobs at full size, and the house</span></a></li>
           </ul>
           <div className="wl-prev" aria-hidden="true"><img alt="" /></div>
         </section>
