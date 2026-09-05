@@ -35,9 +35,8 @@
     lv.load(); var pr = lv.play(); if (pr && pr.catch) pr.catch(function () {});
   }
 
-  /* the panels only stack (and recede) on screens wider than a phone; under 820px they flow */
   var pnls = [].slice.call(document.querySelectorAll('.pnl'));
-  if (pnls.length && !reduce && !matchMedia('(max-width:820px)').matches) {
+  if (pnls.length && !reduce) {
     var pn = function () {
       for (var i = 0; i < pnls.length - 1; i++) {
         var nt = pnls[i + 1].getBoundingClientRect().top;
