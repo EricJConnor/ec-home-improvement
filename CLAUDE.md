@@ -738,6 +738,20 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   share of the 137 (an empty near roof let the far roof show through and read as a cluster
   floating above the house), and the roof rise is 0.17 of the stage, flatter than a real
   house, because the default tilt foreshortens it. The phone drum is untouched.
+- **`/work` v6: the jobs (Sep 5).** Eric: "i'm still struggling with the 'our work' page". The
+  diagnosis he agreed with: the page was built to show 137 photos at once, so every photo was a
+  postage stamp, and nobody hires off a mosaic. Now the house (laptop) / drum (phone) is the
+  accent at the top, smaller, and under it `app/work/jobs.ts` lists **eleven jobs**, each with
+  the photographs of it that exist in `public/full`, hung as `.job-row`: a wrapping flex row
+  at one height (`--rh`, 42svh capped 420px) where each plate starts at height x proportion,
+  grows to fill its row, and is capped at 1.3x that and its own file width so nothing upscales
+  and a last row alone is never three huge photos. Odd blocks hang from the right. Name in
+  the left cell, the line in the right, plates across both. On phones a two-column dense grid,
+  landscapes spanning. The index on the left is the eleven jobs with anchors. The job is the
+  unit, not the category: `p2379` (dining room) sits with the shiplap house it was shot in.
+  Adding photos: put a full-size file in `public/full` (and its manifest), then the slug in a
+  job. The other hundred photos stay on the house only until Eric supplies originals: twenty of
+  his best from his phone would change this page more than any design.
 - **`/work` on a laptop** (Eric: keep the phone version, rethink the laptop one, "just the
   spinning globe on a blank page" did not fit): now `.work4`, the page on the same grid as the
   landing. Left column: "Every job, on one globe.", the one-liner with the photo count, the

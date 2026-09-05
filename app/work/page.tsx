@@ -7,6 +7,7 @@ import Logo from '../components/Logo'
 import Backdrop from '../components/Backdrop'
 import manifest from '../work-manifest.json'
 import atlas from '../work-atlas.json'
+import { JOBS, photo } from './jobs'
 
 export const metadata: Metadata = {
   title: 'Our work — EC Home Improvement',
@@ -37,25 +38,17 @@ export default function Work() {
         <div className="work-grid">
           <section className="work-copy">
             <span className="idx4">Our work</span>
-            <h1 className="ttl4">Every job,<br />in one house.</h1>
+            <h1 className="ttl4">Every job,<br />at full size.</h1>
             <p className="one4">
               Kitchens, bathrooms, painted interiors, statement walls, outdoor rooms and one
-              restaurant, across Philadelphia and the counties around it. {tiles.length} photographs.
+              restaurant, across Philadelphia and the counties around it. {JOBS.length} jobs below,
+              photograph by photograph. All {tiles.length} on the house.
             </p>
-            <p className="hint"><span className="fine">Drag to turn it. Click any one to look closer.</span><span className="coarse">Swipe to turn it. Tap any one to look closer.</span></p>
-            <ul className="cats">
-              {[
-                ['Kitchens', 'kitchens', '/kitchens'],
-                ['Painting', 'painting', '/painting'],
-                ['Bathrooms', 'bathrooms', '/bathrooms'],
-                ['Commercial', 'commercial', null],
-                ['Outdoors', 'outdoors', null],
-                ['Statement walls', 'walls', null],
-              ].map(([name, ch, href]) => {
-                const n = tiles.filter((t) => t.ch === ch).length
-                const inner = <><span className="cn">{name}</span><span className="cc">{n} photograph{n === 1 ? '' : 's'}</span>{href && <span className="ca">↗</span>}</>
-                return <li key={ch as string}>{href ? <a href={href as string}>{inner}</a> : <span className="static">{inner}</span>}</li>
-              })}
+            <p className="hint"><span className="fine">Drag the house to turn it. Click any one to look closer.</span><span className="coarse">Swipe to turn it. Tap any one to look closer.</span></p>
+            <ul className="cats jobs-index">
+              {JOBS.map((j) => (
+                <li key={j.id}><a href={`#${j.id}`}><span className="cn">{j.name}</span><span className="cc">{j.photos.length} photograph{j.photos.length === 1 ? '' : 's'}</span><span className="ca">↓</span></a></li>
+              ))}
             </ul>
           </section>
 
@@ -98,6 +91,35 @@ export default function Work() {
             <p className="globe-cap" id="globe-cap" aria-live="polite" />
           </section>
         </div>
+
+        {/* THE JOBS: one project at a time, its photographs at their real size, hung in a row
+            that wraps. Each block cuts on the rails: name in the left cell, the line in the
+            right, the photographs across both. Alternate blocks hang from the right so the
+            page reads composed rather than gridded. */}
+        <section className="jobs" aria-label="The jobs">
+          {JOBS.map((j, i) => (
+            <article className={'job' + (i % 2 ? ' alt' : '')} id={j.id} key={j.id}>
+              <header className="job-head">
+                <h2>{j.name}</h2>
+                <p>{j.line}</p>
+              </header>
+              <div className="job-row">
+                {j.photos.map((slug) => {
+                  const f = photo(slug)
+                  const alt = tiles.find((t) => t.slug === slug)?.alt ?? ''
+                  return (
+                    <figure key={slug} style={{ '--ar': (f.w / f.h).toFixed(4), '--fw': f.w } as CSSProperties}>
+                      <a href={`/full/${slug}.jpg`} className="job-plate">
+                        <img src={`/full/${slug}.jpg`} width={f.w} height={f.h} alt={alt} loading="lazy" decoding="async" />
+                      </a>
+                      <figcaption>{alt}</figcaption>
+                    </figure>
+                  )
+                })}
+              </div>
+            </article>
+          ))}
+        </section>
 
         <section className="ft4" id="contact">
           <div className="ftg">
