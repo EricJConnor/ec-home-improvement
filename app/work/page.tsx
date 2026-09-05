@@ -7,7 +7,7 @@ import Logo from '../components/Logo'
 import Backdrop from '../components/Backdrop'
 import manifest from '../work-manifest.json'
 import atlas from '../work-atlas.json'
-import { JOBS, photo } from './jobs'
+import { JOBS, EXTRA, photo } from './jobs'
 
 export const metadata: Metadata = {
   title: 'Our work — EC Home Improvement',
@@ -106,7 +106,7 @@ export default function Work() {
               <div className="job-row">
                 {j.photos.map((slug) => {
                   const f = photo(slug)
-                  const alt = tiles.find((t) => t.slug === slug)?.alt ?? ''
+                  const alt = tiles.find((t) => t.slug === slug)?.alt ?? EXTRA[slug] ?? ''
                   return (
                     <figure key={slug} style={{ '--ar': (f.w / f.h).toFixed(4), '--fw': f.w } as CSSProperties}>
                       <a href={`/full/${slug}.jpg`} className="job-plate">
