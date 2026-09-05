@@ -687,10 +687,17 @@ that page." So the landing page is recomposed, nothing else on the site touched:
 - **Hero, third cut (Eric: "we're not understanding each other with the top of that page").**
   No cycling phrases: he rarely builds outside, so "Outdoors / built to stay" was wrong, and
   catch phrases over rough framing did not fit a finished-interiors company. The line is fixed:
-  **"Work worth coming home to."** (`.line4`), which he loves. Under it, a **daytime**
-  Philadelphia aerial (`public/video/philly-day.*`, three passes from the Wikimedia Commons
-  Art Museum / Water Works clip by Mark Williams, CC BY 3.0, credited in the footer's legal
-  line: keep that credit). The dusk sky stays in the right cell so the two match. The craft
+  **"Work worth coming home to."** (`.line4`), which he loves. Under it, first a daytime
+  pass of the Art Museum clip, then (Eric: "the video on the main page is exactly what's on the
+  main page of ecwd1, ec homes needs its own video") **its own two films, neither on ecwd1**:
+  left `public/video/skyline.*`, the Center City skyline timelapse from Logan Square by Chuck
+  Homler, Wikimedia Commons, **CC BY-SA 4.0**, 22s with a slow push-in; right
+  `public/video/river.*`, three passes from Chris Cafiero's drone flight along the Schuylkill at
+  Conshohocken (Montgomery County, his service area), Commons, **CC BY 3.0**. Both credited in
+  the footer's legal line: keep that credit. Eric's own dusk clip (`hero.*`) is still in the repo
+  but off the page. Commons rate-limits hard: send a User-Agent, and download big files with
+  `curl --retry 6 --retry-delay 90 --retry-all-errors`; ffmpeg reading Commons URLs directly
+  segfaults through the proxy, so download first. The craft
   film is deleted. Statement rewritten to what is true: kitchens, bathrooms, statement walls
   and painting, the counties chip, "built one at a time", and his own line "The job isn't
   done until we walk it together." Panel titles: "Kitchens." and "Custom backyard

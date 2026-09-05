@@ -15,17 +15,17 @@ export default function Home() {
             the booth build on the right, one sentence in the black block. */}
         <section className="hero4" aria-label="Introduction">
           <div className="cell l">
-            <video autoPlay muted loop playsInline preload="auto" poster="/video/philly-day-poster.jpg" aria-label="Philadelphia from the air on a clear day: the Art Museum, the Water Works and the skyline">
-              <source src="/video/philly-day.mp4" type="video/mp4" />
-              <source src="/video/philly-day.webm" type="video/webm" />
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/skyline-poster.jpg" aria-label="The Center City Philadelphia skyline from Logan Square, day turning to dusk">
+              <source src="/video/skyline.mp4" type="video/mp4" />
+              <source src="/video/skyline.webm" type="video/webm" />
             </video>
             <div className="scrim" aria-hidden="true" />
             <h1 className="line4">Work worth<br />coming home to.</h1>
           </div>
           <div className="cell r">
-            <video autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.jpg">
-              <source src="/video/hero.mp4" type="video/mp4" />
-              <source src="/video/hero.webm" type="video/webm" />
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/river-poster.jpg" aria-label="A drone flight along the Schuylkill River at Conshohocken">
+              <source src="/video/river.mp4" type="video/mp4" />
+              <source src="/video/river.webm" type="video/webm" />
             </video>
           </div>
           <div className="cell k">
@@ -256,7 +256,7 @@ export default function Home() {
             <a href="mailto:eric@ec-homes.com">eric@ec-homes.com</a>
           </div>
         </div>
-        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania. Aerial Philadelphia footage by Mark Williams, CC BY 3.0.<a className="by" href="https://ecwd1.com" rel="noopener">Web design and powered by ecwd1.com</a></p>
+        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania. Philadelphia footage: Chuck Homler (CC BY-SA 4.0), Chris Cafiero (CC BY 3.0).<a className="by" href="https://ecwd1.com" rel="noopener">Web design and powered by ecwd1.com</a></p>
       </footer>
 
       <Script src="/home.js" strategy="afterInteractive" />
