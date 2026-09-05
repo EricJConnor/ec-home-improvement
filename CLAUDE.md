@@ -695,8 +695,14 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   and painting, the counties chip, "built one at a time", and his own line "The job isn't
   done until we walk it together." Panel titles: "Kitchens." and "Custom backyard
   experiences." (his wording).
-- **The globe**: Eric is "rethinking" it and says the sphere on the phone looks great. Not
-  resolved; ask before touching `/work`.
+- **`/work` on a laptop** (Eric: keep the phone version, rethink the laptop one, "just the
+  spinning globe on a blank page" did not fit): now `.work4`, the page on the same grid as the
+  landing. Left column: "Every job, on one globe.", the one-liner with the photo count, the
+  hint, and a hairline list of the six chapters with counts (Kitchens / Painting / Bathrooms
+  link to the photo pages; Commercial / Outdoors / Statement walls are static). Right column:
+  `#globe` in a bounded cell (border-left on the centre rail, full height, globe.js sizes the
+  sphere from the cell). Then the same `.ft4` contact block and Book-a-walkthrough band as the
+  landing. The phone drum is untouched: under 820px the grid collapses and the old sizes apply.
 - **Statement** (`.stmt4`) with a chip of the counties.
 - **Five panels** (`.svcs4 .pnl`, ids kitchens / bathrooms / flexmarble / outdoors / painting so
   the nav and footer links still land): full-screen, sticky, stacking, ink and plaster

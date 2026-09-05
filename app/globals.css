@@ -889,3 +889,31 @@ a.plate{display:block}
 @keyframes run4{to{transform:translateX(-50%)}}
 .talk:hover .run{animation-play-state:paused}
 @media(prefers-reduced-motion:reduce){.talk .run{animation:none}.pnl{position:relative;min-height:0}.cyc .w{transition:none}}
+
+/* ================= /work on a laptop: the globe in a cell on the grid, the words beside it =================
+   Eric: "just the spinning globe on a blank page" did not fit. The phone drum is untouched. */
+.work4 .work-grid{display:grid;grid-template-columns:1fr 1fr;padding:0 var(--rail);min-height:100svh}
+.work4 .work-copy{align-self:center;padding:clamp(96px,13vh,130px) clamp(24px,4vw,64px) clamp(40px,6vh,72px) 0}
+.work4 .idx4{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.work4 .ttl4{margin-top:26px;font-size:clamp(44px,6vw,96px);line-height:.94;letter-spacing:-.04em;font-weight:300;font-variation-settings:'opsz' 96;max-width:11ch}
+.work4 .one4{margin-top:26px;font-size:clamp(16px,1.3vw,19px);line-height:1.5;max-width:42ch;color:var(--paper);opacity:.8;font-weight:300}
+.work4 .hint{margin-top:14px}
+.work4 .cats{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid var(--line);max-width:520px}
+.work4 .cats li{border-bottom:1px solid var(--line)}
+.work4 .cats a,.work4 .cats .static{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:baseline;padding:11px 0;transition:padding-left .5s var(--ease-out),opacity .3s}
+.work4 .cats .cn{font-size:clamp(20px,1.8vw,26px);letter-spacing:-.02em;font-weight:300}
+.work4 .cats .cc{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
+.work4 .cats .ca{font-size:18px;color:var(--mute);transition:transform .5s var(--ease-out)}
+.work4 .cats .static{opacity:.7}
+@media(hover:hover){.work4 .cats a:hover{padding-left:12px}.work4 .cats a:hover .ca{transform:translate(4px,-4px);color:var(--paper)}}
+.work4 .work-cell{position:relative;border-left:1px solid var(--line);min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:72px}
+.work4 #globe{margin:0;height:min(80svh,900px);min-height:480px}
+.work4 .globe-cap{position:absolute;left:clamp(16px,2vw,32px);bottom:clamp(16px,2vw,32px);margin:0}
+@media(max-width:820px){
+  .work4 .work-grid{grid-template-columns:1fr;padding:0;min-height:0}
+  .work4 .work-copy{padding:clamp(84px,11vh,110px) var(--pad) 24px}
+  .work4 .cats{max-width:none;margin-top:24px}
+  .work4 .work-cell{border-left:0;min-height:0;padding-top:0;display:block}
+  .work4 #globe{height:min(76svh,640px);min-height:420px;margin:0}
+  .work4 .globe-cap{position:static;padding:12px var(--pad) 0}
+}

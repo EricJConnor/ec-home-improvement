@@ -3,7 +3,6 @@ import type { CSSProperties } from 'react'
 import { preload } from 'react-dom'
 import Script from 'next/script'
 import SiteHeader from '../components/SiteHeader'
-import ContactBand from '../components/ContactBand'
 import Logo from '../components/Logo'
 import Backdrop from '../components/Backdrop'
 import manifest from '../work-manifest.json'
@@ -33,56 +32,86 @@ export default function Work() {
 
       <Backdrop />
 
-      <main id="top" className="work">
-        <section className="work-head">
-          <h1 className="h-xl">Our work.</h1>
-          <div className="work-head-side">
-            <p className="p">
-              Kitchens, bathrooms, whole interiors, outdoor rooms and one restaurant, across
-              Philadelphia and the counties around it.
+      <main id="top" className="work work4">
+        <div className="rails" aria-hidden="true"><i /><i /><i /></div>
+        <div className="work-grid">
+          <section className="work-copy">
+            <span className="idx4">Our work</span>
+            <h1 className="ttl4">Every job,<br />on one globe.</h1>
+            <p className="one4">
+              Kitchens, bathrooms, painted interiors, statement walls, outdoor rooms and one
+              restaurant, across Philadelphia and the counties around it. {tiles.length} photographs.
             </p>
             <p className="hint"><span className="fine">Drag to turn it. Click any one to look closer.</span><span className="coarse">Swipe to turn it. Tap any one to look closer.</span></p>
-          </div>
-        </section>
+            <ul className="cats">
+              {[
+                ['Kitchens', 'kitchens', '/kitchens'],
+                ['Painting', 'painting', '/painting'],
+                ['Bathrooms', 'bathrooms', '/bathrooms'],
+                ['Commercial', 'commercial', null],
+                ['Outdoors', 'outdoors', null],
+                ['Statement walls', 'walls', null],
+              ].map(([name, ch, href]) => {
+                const n = tiles.filter((t) => t.ch === ch).length
+                const inner = <><span className="cn">{name}</span><span className="cc">{n} photograph{n === 1 ? '' : 's'}</span>{href && <span className="ca">↗</span>}</>
+                return <li key={ch as string}>{href ? <a href={href as string}>{inner}</a> : <span className="static">{inner}</span>}</li>
+              })}
+            </ul>
+          </section>
 
-        {/* The images are real: they render without JS or WebGL, carry the alt text,
-            and are the texture source for the globe. Each one is a window onto the shared
-            sheet — one request instead of 137, and a progressive JPEG, so the whole sphere
-            appears at once and sharpens rather than filling in a square at a time. */}
-        <div
-          id="globe"
-          aria-label="Photographs of our work"
-          style={{ '--AW': sheet.w, '--AH': sheet.h } as CSSProperties}
-        >
-          <div className="sphere">
-            {tiles.map((t) => {
-              const a = sheet.tiles[t.slug]
-              return (
-                <figure
-                  className="tile"
-                  key={t.slug}
-                  data-ar={(t.w / t.h).toFixed(4)}
-                  data-fw={a.fw}
-                  data-fh={a.fh}
-                  style={{ '--ax': a.x, '--ay': a.y, '--aw': a.w, '--ah': a.h, '--ar': (t.w / t.h).toFixed(4) } as CSSProperties}
-                >
-                  <img
-                    src={sheet.file}
-                    srcSet={srcSet}
-                    sizes="100vw"
-                    data-full={`/full/${t.slug}.jpg`}
-                    alt={t.alt}
-                    decoding="async"
-                    draggable={false}
-                  />
-                </figure>
-              )
-            })}
-          </div>
+          <section className="work-cell" aria-label="The globe">
+            {/* The images are real: they render without JS or WebGL, carry the alt text,
+                and are the texture source for the globe. Each one is a window onto the shared
+                sheet — one request instead of 137, and a progressive JPEG, so the whole sphere
+                appears at once and sharpens rather than filling in a square at a time. */}
+            <div
+              id="globe"
+              aria-label="Photographs of our work"
+              style={{ '--AW': sheet.w, '--AH': sheet.h } as CSSProperties}
+            >
+              <div className="sphere">
+                {tiles.map((t) => {
+                  const a = sheet.tiles[t.slug]
+                  return (
+                    <figure
+                      className="tile"
+                      key={t.slug}
+                      data-ar={(t.w / t.h).toFixed(4)}
+                      data-fw={a.fw}
+                      data-fh={a.fh}
+                      style={{ '--ax': a.x, '--ay': a.y, '--aw': a.w, '--ah': a.h, '--ar': (t.w / t.h).toFixed(4) } as CSSProperties}
+                    >
+                      <img
+                        src={sheet.file}
+                        srcSet={srcSet}
+                        sizes="100vw"
+                        data-full={`/full/${t.slug}.jpg`}
+                        alt={t.alt}
+                        decoding="async"
+                        draggable={false}
+                      />
+                    </figure>
+                  )
+                })}
+              </div>
+            </div>
+            <p className="globe-cap" id="globe-cap" aria-live="polite" />
+          </section>
         </div>
-        <p className="globe-cap" id="globe-cap" aria-live="polite" />
 
-        <ContactBand />
+        <section className="ft4" id="contact">
+          <div className="ftg">
+            <div>
+              <h2>Book a walkthrough.</h2>
+              <p className="ftp">Tell us the room and the rough idea. We&rsquo;ll come see it.</p>
+              <a className="tel4" href="tel:+12159026636">215 902 6636</a>
+              <p className="ftp"><a href="mailto:eric@ec-homes.com">eric@ec-homes.com</a></p>
+              <p className="ftp small">Serving Philadelphia, Bucks County, Montgomery County, Delaware County and the surrounding areas.</p>
+            </div>
+            <nav className="ftn"><a href="/#kitchens">Kitchens</a><a href="/#bathrooms">Bathrooms</a><a href="/#flexmarble">Statement Walls</a><a href="/#outdoors">Outdoors</a><a href="/#painting">Painting</a><a href="/#how">How we work</a><a href="/#agents">Agents</a></nav>
+          </div>
+          <a className="talk" href="tel:+12159026636" aria-label="Book a walkthrough"><div className="run"><span>Book a walkthrough <i>↗</i></span><span>Book a walkthrough <i>↗</i></span><span>Book a walkthrough <i>↗</i></span><span>Book a walkthrough <i>↗</i></span></div></a>
+        </section>
       </main>
 
       <div id="ov" hidden>
