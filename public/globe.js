@@ -61,15 +61,76 @@
       }
       return;
     }
-    R = Math.max(140, Math.min(b.width, b.height) * 0.44);
-    S = Math.round(R * 0.265);               /* just under touching, so tiles don't clip */
+    /* On a laptop the same tiles are laid on a house: an architectural drawing in hairlines,
+       every wall and both roof planes surfaced with the photographs. Eric's ask, after the
+       sphere alone on the page did not fit. Same turning, dragging and closer look. */
+    house(b);
+  }
+
+  function house(b) {
+    var U = Math.min(b.width, b.height);
+    var W = U * 0.74, D = U * 0.5, H = U * 0.36, RH = U * 0.17;     /* width, depth, wall height, roof rise */
+    R = U * 0.44;
+    var slope = Math.sqrt(RH * RH + (W / 2) * (W / 2));
+    /* faces: [width along u, height along v, transform prefix]; u runs left-right on the face */
+    var alpha = Math.atan2(-W / 2, RH) * 180 / Math.PI;               /* right roof normal, y down */
+    var dist = (RH * W / 4 + (W / 2) * (H / 2 + RH / 2)) / slope;     /* origin to roof plane */
+    var faces = [
+      { w: W, h: H, t: function (u, v) { return 'translate3d(' + u + 'px,' + v + 'px,' + (D / 2) + 'px)'; } },
+      { w: W, h: H, t: function (u, v) { return 'rotateY(180deg) translate3d(' + u + 'px,' + v + 'px,' + (D / 2) + 'px)'; } },
+      { w: D, h: H, t: function (u, v) { return 'rotateY(90deg) translate3d(' + u + 'px,' + v + 'px,' + (W / 2) + 'px)'; } },
+      { w: D, h: H, t: function (u, v) { return 'rotateY(-90deg) translate3d(' + u + 'px,' + v + 'px,' + (W / 2) + 'px)'; } },
+      { w: D, h: slope, t: function (u, v) { return 'rotateZ(' + alpha + 'deg) rotateY(90deg) translate3d(' + u + 'px,' + v + 'px,' + dist + 'px)'; } },
+      { w: D, h: slope, t: function (u, v) { return 'rotateZ(' + (-alpha) + 'deg) rotateY(-90deg) translate3d(' + u + 'px,' + v + 'px,' + dist + 'px)'; } }
+    ];
+    var area = 0; faces.forEach(function (f) { area += f.w * f.h; });
+    /* the grid pitch is the largest that lets every face take its full share of the 137,
+       so no wall or roof plane is left short (an empty near roof let the far one show
+       through and read as a cluster floating above the house) */
+    var pitch = Math.sqrt(area / N) * 0.8, need;
+    do {
+      need = 0;
+      faces.forEach(function (f) { need += Math.max(1, Math.round(f.w / pitch)) * Math.max(1, Math.round(f.h / pitch)); });
+      if (need > N) pitch *= 1.02;
+    } while (need > N && pitch < area);
+    S = Math.round(pitch / 1.08);
     stage.style.setProperty('--r', R + 'px');
     stage.style.setProperty('--s', S + 'px');
-    for (var n = 0; n < N; n++) {
-      var yy = 1 - (n / Math.max(1, N - 1)) * 2, r = Math.sqrt(Math.max(0, 1 - yy * yy)), th = GOLD * n;
-      var lat = Math.asin(yy) * 180 / Math.PI, lon = Math.atan2(Math.cos(th) * r, Math.sin(th) * r) * 180 / Math.PI;
-      place(n, 'rotateY(' + lon + 'deg) rotateX(' + (-lat) + 'deg) translateZ(' + R + 'px)');
-    }
+    /* deal the tiles across the faces in a stride so one job does not fill one wall */
+    var order = []; for (var q = 0; q < N; q++) order.push((q * 53) % N);
+    var k = 0;
+    faces.forEach(function (f) {
+      var cols = Math.max(1, Math.round(f.w / pitch)), rows = Math.max(1, Math.round(f.h / pitch));
+      var cw = f.w / cols, ch = f.h / rows;
+      for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
+        if (k >= N) return;
+        var u = (c + 0.5) * cw - f.w / 2, v = (r + 0.5) * ch - f.h / 2;
+        place(order[k++], f.t(u.toFixed(1), v.toFixed(1)));
+      }
+    });
+    /* any left over go on the roof again, offset, so nothing is hidden */
+    while (k < N) { var f2 = faces[4 + (k % 2)]; place(order[k], f2.t(((k % 5) - 2) * pitch * 0.5, ((k % 3) - 1) * pitch * 0.5)); k++; }
+    /* the drawing: hairline edges of the box and the roof, as 3D lines */
+    var old = sphere.querySelector('.lines'); if (old) old.remove();
+    var L = document.createElement('div'); L.className = 'lines'; L.setAttribute('aria-hidden', 'true');
+    function edge(len, transform) { var e = document.createElement('i'); e.style.height = len + 'px'; e.style.transform = transform + ' translate(-0.5px,-50%)'; L.appendChild(e); }
+    var hx = W / 2, hz = D / 2, top = -H / 2, bot = H / 2, ridge = -H / 2 - RH;
+    [[hx, hz], [-hx, hz], [hx, -hz], [-hx, -hz]].forEach(function (p) { edge(H, 'translate3d(' + p[0] + 'px,0px,' + p[1] + 'px)'); });
+    [top, bot].forEach(function (y) {
+      edge(W, 'translate3d(0px,' + y + 'px,' + hz + 'px) rotateZ(90deg)'); edge(W, 'translate3d(0px,' + y + 'px,' + (-hz) + 'px) rotateZ(90deg)');
+      edge(D, 'translate3d(' + hx + 'px,' + y + 'px,0px) rotateX(90deg)'); edge(D, 'translate3d(' + (-hx) + 'px,' + y + 'px,0px) rotateX(90deg)');
+    });
+    edge(D, 'translate3d(0px,' + ridge + 'px,0px) rotateX(90deg)');                                   /* the ridge */
+    var ra = Math.atan2(RH, W / 2) * 180 / Math.PI;
+    [hz, -hz].forEach(function (z) {
+      edge(slope, 'translate3d(' + (hx / 2) + 'px,' + (top - RH / 2) + 'px,' + z + 'px) rotateZ(' + (90 - ra) + 'deg)');
+      edge(slope, 'translate3d(' + (-hx / 2) + 'px,' + (top - RH / 2) + 'px,' + z + 'px) rotateZ(' + (-(90 - ra)) + 'deg)');
+    });
+    /* the plan on the ground, a little wider than the house */
+    var gy = bot + U * 0.02, gx = hx + U * 0.06, gz = hz + U * 0.06;
+    edge(gx * 2, 'translate3d(0px,' + gy + 'px,' + gz + 'px) rotateZ(90deg)'); edge(gx * 2, 'translate3d(0px,' + gy + 'px,' + (-gz) + 'px) rotateZ(90deg)');
+    edge(gz * 2, 'translate3d(' + gx + 'px,' + gy + 'px,0px) rotateX(90deg)'); edge(gz * 2, 'translate3d(' + (-gx) + 'px,' + gy + 'px,0px) rotateX(90deg)');
+    sphere.appendChild(L);
   }
   addEventListener('resize', layout);
   layout();
@@ -82,10 +143,10 @@
   function tick() {
     if (!drag) {
       ry += vy; rx += vx;
-      var idle = reduce ? 0 : (hovering ? 0.012 : (drum ? 0.06 : 0.09));
+      var idle = reduce ? 0 : (hovering ? 0.012 : (drum ? 0.06 : 0.05));
       vy += (idle - vy) * 0.045;                     /* eases toward the idle drift */
       vx *= 0.93;
-      rx += ((drum ? -6 : -12) - rx) * 0.01;         /* and settle back to the level */
+      rx += ((drum ? -6 : -18) - rx) * 0.01;         /* and settle back to the level */
     }
     rx = Math.max(-62, Math.min(62, rx));
     apply();

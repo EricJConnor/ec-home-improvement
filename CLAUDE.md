@@ -695,6 +695,16 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   and painting, the counties chip, "built one at a time", and his own line "The job isn't
   done until we walk it together." Panel titles: "Kitchens." and "Custom backyard
   experiences." (his wording).
+- **The house (Sep 4, late).** Eric: "i like the idea and operation of the globe, but it just isn't
+  working on the laptop, what if we made like an architectural drawing that was made up of the
+  pictures." So on a laptop `globe.js` lays the same 137 tiles on a **gabled house** instead of a
+  sphere (`house()` in globe.js): four walls and two roof planes, each surfaced with a grid of
+  tiles, and the drawing itself as hairline edges in 3D (`.sphere .lines i`: box, ridge, gable
+  slopes, and a plan outline on the ground). Turning, dragging, hover and the closer look are
+  unchanged. Two things learned: the grid pitch has to be searched so every face takes its full
+  share of the 137 (an empty near roof let the far roof show through and read as a cluster
+  floating above the house), and the roof rise is 0.17 of the stage, flatter than a real
+  house, because the default tilt foreshortens it. The phone drum is untouched.
 - **`/work` on a laptop** (Eric: keep the phone version, rethink the laptop one, "just the
   spinning globe on a blank page" did not fit): now `.work4`, the page on the same grid as the
   landing. Left column: "Every job, on one globe.", the one-liner with the photo count, the

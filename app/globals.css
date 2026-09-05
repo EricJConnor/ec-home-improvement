@@ -917,3 +917,6 @@ a.plate{display:block}
   .work4 #globe{height:min(76svh,640px);min-height:420px;margin:0}
   .work4 .globe-cap{position:static;padding:12px var(--pad) 0}
 }
+/* the house's hairlines: 3D lines inside the same preserve-3d subtree as the tiles */
+.sphere .lines{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;pointer-events:none}
+.sphere .lines i{position:absolute;left:0;top:0;width:1px;background:rgba(243,242,239,.42);transform-origin:50% 50%;display:block}

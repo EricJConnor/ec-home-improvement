@@ -37,7 +37,7 @@ export default function Work() {
         <div className="work-grid">
           <section className="work-copy">
             <span className="idx4">Our work</span>
-            <h1 className="ttl4">Every job,<br />on one globe.</h1>
+            <h1 className="ttl4">Every job,<br />in one house.</h1>
             <p className="one4">
               Kitchens, bathrooms, painted interiors, statement walls, outdoor rooms and one
               restaurant, across Philadelphia and the counties around it. {tiles.length} photographs.
@@ -59,7 +59,7 @@ export default function Work() {
             </ul>
           </section>
 
-          <section className="work-cell" aria-label="The globe">
+          <section className="work-cell" aria-label="The house">
             {/* The images are real: they render without JS or WebGL, carry the alt text,
                 and are the texture source for the globe. Each one is a window onto the shared
                 sheet — one request instead of 137, and a progressive JPEG, so the whole sphere
