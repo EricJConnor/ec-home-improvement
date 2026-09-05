@@ -716,6 +716,14 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   experiences." (his wording). **Painting sits before Outdoors** (Sep 5, Eric's ask), so the
   panel grounds run kitchens ink, bathrooms plaster, statement walls ink, painting plaster,
   outdoors ink.
+- **The Kitchens panel is a cluster (Sep 5).** Eric asked for a few kitchens "maybe overlapping
+  a little": `.stack3` hangs three plates over each other in the art cell, the beamed navy island
+  (`kitchens-beams.jpg`, which is MLS shot `p2627` from the painting archive; he chose it for
+  here knowingly, watermark left on), the farmhouse sink in front, and the black kitchen
+  (`kitchens-black.jpg`, `p3220`) low. Selectors carry `.pnl .art` because the single-plate
+  `.pnl .art .shot` rule outranks a bare `.stack3 .shot` and the first pass rendered as three
+  full-width photos stacked. The hero films also got contrast 1.14 / saturate 1.12 in CSS at
+  his ask. The other panels are still one plate each.
 - **The house (Sep 4, late).** Eric: "i like the idea and operation of the globe, but it just isn't
   working on the laptop, what if we made like an architectural drawing that was made up of the
   pictures." So on a laptop `globe.js` lays the same 137 tiles on a **gabled house** instead of a

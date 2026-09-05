@@ -52,7 +52,13 @@ export default function Home() {
               </div>
               <div className="art plate4">
                 <img className="bloom" src="/assets/kitchens.jpg" alt="" aria-hidden="true" />
-                <img className="shot" src="/assets/kitchens.jpg" alt="Farmhouse sink under the kitchen window, brass faucet, white counter running out to the sill, navy cabinets below" loading="lazy" />
+                {/* three kitchens hung as one cluster, overlapping (Eric, Sep 5): the beamed
+                    navy island from the painting archive, the farmhouse sink, the black kitchen */}
+                <div className="stack3">
+                  <img className="shot s1" src="/assets/kitchens-beams.jpg" alt="Beamed ceiling over a navy kitchen island" loading="lazy" />
+                  <img className="shot s2" src="/assets/kitchens.jpg" alt="Farmhouse sink under the kitchen window, brass faucet, white counter running out to the sill, navy cabinets below" loading="lazy" />
+                  <img className="shot s3" src="/assets/kitchens-black.jpg" alt="Black kitchen with a waterfall island and acacia floors" loading="lazy" />
+                </div>
               </div>
             </div>
           </article>
