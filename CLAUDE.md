@@ -720,10 +720,14 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   a little": `.stack3` hangs three plates over each other in the art cell, the beamed navy island
   (`kitchens-beams.jpg`, which is MLS shot `p2627` from the painting archive; he chose it for
   here knowingly, watermark left on), the farmhouse sink in front, and the black kitchen
-  (`kitchens-black.jpg`, `p3220`) low. Selectors carry `.pnl .art` because the single-plate
+  (`kitchens-black.jpg`, now `p3202`, the matte black run with the fridge and range, Eric's
+  pick over the waterfall island) low. Selectors carry `.pnl .art` because the single-plate
   `.pnl .art .shot` rule outranks a bare `.stack3 .shot` and the first pass rendered as three
   full-width photos stacked. The hero films also got contrast 1.14 / saturate 1.12 in CSS at
   his ask. The other panels are still one plate each.
+- **`p2379` (the dining room under the black chandelier) is filed under Painting**, not Kitchens
+  (Eric, Sep 5): /kitchens has 13 photographs, /painting 10, and the work-list counts on the
+  landing say so. The atlas is keyed by slug so it did not need rebuilding.
 - **The house (Sep 4, late).** Eric: "i like the idea and operation of the globe, but it just isn't
   working on the laptop, what if we made like an architectural drawing that was made up of the
   pictures." So on a laptop `globe.js` lays the same 137 tiles on a **gabled house** instead of a

@@ -57,7 +57,7 @@ export default function Home() {
                 <div className="stack3">
                   <img className="shot s1" src="/assets/kitchens-beams.jpg" alt="Beamed ceiling over a navy kitchen island" loading="lazy" />
                   <img className="shot s2" src="/assets/kitchens.jpg" alt="Farmhouse sink under the kitchen window, brass faucet, white counter running out to the sill, navy cabinets below" loading="lazy" />
-                  <img className="shot s3" src="/assets/kitchens-black.jpg" alt="Black kitchen with a waterfall island and acacia floors" loading="lazy" />
+                  <img className="shot s3" src="/assets/kitchens-black.jpg" alt="Black fridge and slide-in range in a matte black run" loading="lazy" />
                 </div>
               </div>
             </div>
@@ -135,9 +135,9 @@ export default function Home() {
         <section className="wl4" id="photos">
           <div className="lab4"><span>Our work</span><i /><span>Hover a name</span></div>
           <ul className="wl">
-            <li><a href="/kitchens" data-img="/assets/kitchens.jpg"><span className="nm">Kitchens</span><span className="ds">14 photographs</span></a></li>
+            <li><a href="/kitchens" data-img="/assets/kitchens.jpg"><span className="nm">Kitchens</span><span className="ds">13 photographs</span></a></li>
             <li><a href="/bathrooms" data-img="/assets/bathrooms.jpg"><span className="nm">Bathrooms</span><span className="ds">9 photographs</span></a></li>
-            <li><a href="/painting" data-img="/assets/painting.jpg"><span className="nm">Painting</span><span className="ds">9 photographs</span></a></li>
+            <li><a href="/painting" data-img="/assets/painting.jpg"><span className="nm">Painting</span><span className="ds">10 photographs</span></a></li>
             <li><a href="/work" data-img="/assets/flexmarble-peony.jpg"><span className="nm">Every job</span><span className="ds">137 photographs, in one house</span></a></li>
           </ul>
           <div className="wl-prev" aria-hidden="true"><img alt="" /></div>
