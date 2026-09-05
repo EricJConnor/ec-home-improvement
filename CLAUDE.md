@@ -687,21 +687,35 @@ that page." So the landing page is recomposed, nothing else on the site touched:
 - **Hero, third cut (Eric: "we're not understanding each other with the top of that page").**
   No cycling phrases: he rarely builds outside, so "Outdoors / built to stay" was wrong, and
   catch phrases over rough framing did not fit a finished-interiors company. The line is fixed:
-  **"Work worth coming home to."** (`.line4`), which he loves. Under it, first a daytime
-  pass of the Art Museum clip, then (Eric: "the video on the main page is exactly what's on the
-  main page of ecwd1, ec homes needs its own video") **its own two films, neither on ecwd1**:
-  left `public/video/skyline.*`, the Center City skyline timelapse from Logan Square by Chuck
-  Homler, Wikimedia Commons, **CC BY-SA 4.0**, 22s with a slow push-in; right
-  `public/video/river.*`, three passes from Chris Cafiero's drone flight along the Schuylkill at
-  Conshohocken (Montgomery County, his service area), Commons, **CC BY 3.0**. Both credited in
-  the footer's legal line: keep that credit. Eric's own dusk clip (`hero.*`) is still in the repo
-  but off the page. Commons rate-limits hard: send a User-Agent, and download big files with
+  **"Work worth coming home to."** (`.line4`), which he loves. Under it, **two daytime drone
+  approaches into the city** (Sep 5; Eric: "i like the drone shots coming into the city, similar
+  to the first one we had just daytime. try a couple different ones"): left
+  `public/video/bridge.*`, a push over the Ben Franklin Bridge into the Center City skyline
+  (Pexels 37196332, 4K landscape, centre 3:4 crop); right `public/video/tower.*`, the portrait
+  sweep past the bridge tower toward the towers (Pexels 37258721). Both **Pexels licence, no
+  credit required**, so the footer's footage credit line is gone. Two more are cut and sitting
+  in the session scratchpad only: `street` (37261867, down a street toward the skyline) and
+  `hall` (37196466, over City Hall and the glass towers); the other downloaded ids (37166114
+  Schuylkill and Cira, 37165732/37165650 rooftops, 37180937 dusk, 37165833 Schuylkill Yards
+  glass) are framed in `stock/px/*-sheet.jpg`. **Getting Pexels files:** the search and item
+  pages sit behind a Cloudflare wall (curl and Chromium both get "Just a moment"), and the
+  `videos.pexels.com/video-files/<id>/<id>-<size>.mp4` pattern does not hold for newer ids.
+  What works is `https://www.pexels.com/download/video/<id>/` with a browser User-Agent: it
+  302s to the real file (`<file-id>_3840_2160_24fps.mp4`), and that URL downloads at full
+  speed. Ids come from a web search of pexels.com for "Philadelphia drone". Each film is
+  720x960, ~2.5MB, and its last second is crossfaded into its first (`cut.sh` in the
+  scratchpad: xfade needs `fps=24` on both trimmed branches or it refuses) so the loop has no
+  jump. The films that were here before (Logan Square timelapse, Conshohocken river, both
+  Commons) are deleted; Eric's own dusk clip (`hero.*`) is still in the repo but off the page.
+  Commons rate-limits hard: send a User-Agent, and download big files with
   `curl --retry 6 --retry-delay 90 --retry-all-errors`; ffmpeg reading Commons URLs directly
   segfaults through the proxy, so download first. The craft
   film is deleted. Statement rewritten to what is true: kitchens, bathrooms, statement walls
   and painting, the counties chip, "built one at a time", and his own line "The job isn't
   done until we walk it together." Panel titles: "Kitchens." and "Custom backyard
-  experiences." (his wording).
+  experiences." (his wording). **Painting sits before Outdoors** (Sep 5, Eric's ask), so the
+  panel grounds run kitchens ink, bathrooms plaster, statement walls ink, painting plaster,
+  outdoors ink.
 - **The house (Sep 4, late).** Eric: "i like the idea and operation of the globe, but it just isn't
   working on the laptop, what if we made like an architectural drawing that was made up of the
   pictures." So on a laptop `globe.js` lays the same 137 tiles on a **gabled house** instead of a

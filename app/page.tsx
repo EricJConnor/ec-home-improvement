@@ -11,21 +11,21 @@ export default function Home() {
       <div className="rails" aria-hidden="true"><i /><i /><i /></div>
 
       <main id="top">
-        {/* HERO: two cells cut on the grid. The sky on the left with the words cycling over it,
-            the booth build on the right, one sentence in the black block. */}
+        {/* HERO: two cells cut on the grid. Two daytime drone approaches into the city (Pexels, no
+            credit required), the line over the left one, one sentence in the black block. */}
         <section className="hero4" aria-label="Introduction">
           <div className="cell l">
-            <video autoPlay muted loop playsInline preload="auto" poster="/video/skyline-poster.jpg" aria-label="The Center City Philadelphia skyline from Logan Square, day turning to dusk">
-              <source src="/video/skyline.mp4" type="video/mp4" />
-              <source src="/video/skyline.webm" type="video/webm" />
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/bridge-poster.jpg" aria-label="A daytime drone flight over the Ben Franklin Bridge into the Center City Philadelphia skyline">
+              <source src="/video/bridge.mp4" type="video/mp4" />
+              <source src="/video/bridge.webm" type="video/webm" />
             </video>
             <div className="scrim" aria-hidden="true" />
             <h1 className="line4">Work worth<br />coming home to.</h1>
           </div>
           <div className="cell r">
-            <video autoPlay muted loop playsInline preload="auto" poster="/video/river-poster.jpg" aria-label="A drone flight along the Schuylkill River at Conshohocken">
-              <source src="/video/river.mp4" type="video/mp4" />
-              <source src="/video/river.webm" type="video/webm" />
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/tower-poster.jpg" aria-label="A drone flight past the Ben Franklin Bridge tower toward Center City Philadelphia">
+              <source src="/video/tower.mp4" type="video/mp4" />
+              <source src="/video/tower.webm" type="video/webm" />
             </video>
           </div>
           <div className="cell k">
@@ -85,24 +85,10 @@ export default function Home() {
               </div>
             </div>
           </article>
-          <article className="pnl plaster" id="outdoors">
+          <article className="pnl plaster" id="painting">
             <div className="pin">
               <div className="copy">
-                <span className="idx">04 <i>/ 05</i> &nbsp; Outdoors</span>
-                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'Custom backyard<br />experiences.' }} />
-                <p className="one">Patios, pergolas, outdoor bars and the structures that make the outside part of the house. Built the way we build inside.</p>
-                <div className="tags"><span>Patios and pergolas</span><span>Outdoor bars</span><span>Sheds and structures</span></div>
-              </div>
-              <div className="art plate4">
-                <img className="bloom" src="/assets/outdoors.jpg" alt="" aria-hidden="true" />
-                <img className="shot" src="/assets/outdoors.jpg" alt="Modern backyard shed with a black window" loading="lazy" />
-              </div>
-            </div>
-          </article>
-          <article className="pnl ink" id="painting">
-            <div className="pin">
-              <div className="copy">
-                <span className="idx">05 <i>/ 05</i> &nbsp; Painting</span>
+                <span className="idx">04 <i>/ 05</i> &nbsp; Painting</span>
                 <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'Prep done properly.<br />Finish done by hand.' }} />
                 <p className="one">Interior and exterior. The prep is where the job is won, and it is the part you never see.</p>
                 <div className="tags"><span>Interior and exterior</span><span>Cabinets and trim</span><span>Pre-sale refresh</span></div>
@@ -111,6 +97,20 @@ export default function Home() {
               <div className="art plate4">
                 <img className="bloom" src="/assets/painting.jpg" alt="" aria-hidden="true" />
                 <img className="shot" src="/assets/painting.jpg" alt="An arched niche in white-painted brick with a walnut ledge and brass pulls" loading="lazy" />
+              </div>
+            </div>
+          </article>
+          <article className="pnl ink" id="outdoors">
+            <div className="pin">
+              <div className="copy">
+                <span className="idx">05 <i>/ 05</i> &nbsp; Outdoors</span>
+                <h2 className="ttl" dangerouslySetInnerHTML={{ __html: 'Custom backyard<br />experiences.' }} />
+                <p className="one">Patios, pergolas, outdoor bars and the structures that make the outside part of the house. Built the way we build inside.</p>
+                <div className="tags"><span>Patios and pergolas</span><span>Outdoor bars</span><span>Sheds and structures</span></div>
+              </div>
+              <div className="art plate4">
+                <img className="bloom" src="/assets/outdoors.jpg" alt="" aria-hidden="true" />
+                <img className="shot" src="/assets/outdoors.jpg" alt="Modern backyard shed with a black window" loading="lazy" />
               </div>
             </div>
           </article>
@@ -256,7 +256,7 @@ export default function Home() {
             <a href="mailto:eric@ec-homes.com">eric@ec-homes.com</a>
           </div>
         </div>
-        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania. Philadelphia footage: Chuck Homler (CC BY-SA 4.0), Chris Cafiero (CC BY 3.0).<a className="by" href="https://ecwd1.com" rel="noopener">Web design and powered by ecwd1.com</a></p>
+        <p className="legal">© 2026 EC Home Improvement. Wyncote, Pennsylvania.<a className="by" href="https://ecwd1.com" rel="noopener">Web design and powered by ecwd1.com</a></p>
       </footer>
 
       <Script src="/home.js" strategy="afterInteractive" />
