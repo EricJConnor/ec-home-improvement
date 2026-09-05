@@ -38,7 +38,7 @@ export default function Work() {
         <div className="work-grid">
           <section className="work-copy">
             <span className="idx4">Our work</span>
-            <h1 className="ttl4">Every job,<br />at full size.</h1>
+            <h1 className="ttl4">A selection<br />of our work.</h1>
             <p className="one4">
               Kitchens, bathrooms, painted interiors, statement walls, outdoor rooms and one
               restaurant, across Philadelphia and the counties around it. {JOBS.length} jobs below,

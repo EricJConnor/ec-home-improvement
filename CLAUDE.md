@@ -716,6 +716,11 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   experiences." (his wording). **Painting sits before Outdoors** (Sep 5, Eric's ask), so the
   panel grounds run kitchens ink, bathrooms plaster, statement walls ink, painting plaster,
   outdoors ink.
+- **The line is in the sky (Sep 5).** `.line4` is `top:21%` (24% on phones) at
+  `clamp(44px,5.3vw,90px)`, so its second line just touches the tower tops; the scrim is
+  darker at the top now instead of the bottom. The pill is 17x30 padding at 16px. `/work` is
+  titled **"A selection of our work."** (Eric: not "every job, at full size"; he asked for a
+  better word than sample).
 - **The Kitchens panel is a cluster (Sep 5).** Eric asked for a few kitchens "maybe overlapping
   a little": `.stack3` hangs three plates over each other in the art cell, the beamed navy island
   (`kitchens-beams.jpg`, which is MLS shot `p2627` from the painting archive; he chose it for
