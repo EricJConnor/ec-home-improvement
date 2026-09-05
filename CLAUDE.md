@@ -721,6 +721,13 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   darker at the top now instead of the bottom. The pill is 17x30 padding at 16px. `/work` is
   titled **"A selection of our work."** (Eric: not "every job, at full size"; he asked for a
   better word than sample).
+- **Phones (Sep 5, Eric's pass on his phone).** One film only: the left cell swaps its sources
+  to the tower sweep (`data-phone` on the video, swapped in `home.js` before play; Eric picked
+  it for the movement) and the right cell is `display:none`. **The panels are not sticky on a
+  phone**: a panel taller than the screen pinned at `top:0` never showed its photograph
+  before the next panel slid over it, and menu links landed short for the same reason; under
+  820px they flow (`position:relative`) and `home.js` skips the recede. Anchors land exactly
+  now. The kitchens cluster is 1/1.12 there with slightly larger plates.
 - **The Kitchens panel is a cluster (Sep 5).** Eric asked for a few kitchens "maybe overlapping
   a little": `.stack3` hangs three plates over each other in the art cell, the beamed navy island
   (`kitchens-beams.jpg`, which is MLS shot `p2627` from the painting archive; he chose it for

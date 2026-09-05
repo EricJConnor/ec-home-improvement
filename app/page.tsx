@@ -15,7 +15,7 @@ export default function Home() {
             credit required), the line over the left one, one sentence in the black block. */}
         <section className="hero4" aria-label="Introduction">
           <div className="cell l">
-            <video autoPlay muted loop playsInline preload="auto" poster="/video/bridge-poster.jpg" aria-label="A daytime drone flight over the Ben Franklin Bridge into the Center City Philadelphia skyline">
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/bridge-poster.jpg" data-phone="/video/tower" aria-label="A daytime drone flight over the Ben Franklin Bridge into the Center City Philadelphia skyline">
               <source src="/video/bridge.mp4" type="video/mp4" />
               <source src="/video/bridge.webm" type="video/webm" />
             </video>
