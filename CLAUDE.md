@@ -726,8 +726,7 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   full-width photos stacked. The hero films also got contrast 1.14 / saturate 1.12 in CSS at
   his ask. The other panels are still one plate each.
 - **`p2379` (the dining room under the black chandelier) is filed under Painting**, not Kitchens
-  (Eric, Sep 5): /kitchens has 13 photographs, /painting 10, and the work-list counts on the
-  landing say so. The atlas is keyed by slug so it did not need rebuilding.
+  (Eric, Sep 5). The atlas is keyed by slug so refiling never needs a rebuild.
 - **The house (Sep 4, late).** Eric: "i like the idea and operation of the globe, but it just isn't
   working on the laptop, what if we made like an architectural drawing that was made up of the
   pictures." So on a laptop `globe.js` lays the same 137 tiles on a **gabled house** instead of a
@@ -749,9 +748,19 @@ that page." So the landing page is recomposed, nothing else on the site touched:
   the left cell, the line in the right, plates across both. On phones a two-column dense grid,
   landscapes spanning. The index on the left is the eleven jobs with anchors. The job is the
   unit, not the category: `p2379` (dining room) sits with the shiplap house it was shot in.
-  Adding photos: put a full-size file in `public/full` (and its manifest), then the slug in a
-  job. The other hundred photos stay on the house only until Eric supplies originals: twenty of
-  his best from his phone would change this page more than any design.
+  **Every one of the 137 files exists in `public/full` at its real size** (mostly 480x640; the
+  MLS ones 700 to 1344 wide); only 49 were listed in `full/manifest.json`, which is what the
+  pages read, so the sub pages and the jobs looked thin (Eric: "we're missing photos as
+  well... more bathrooms, more painting"). The manifest now lists 122: everything except
+  process shots and near-duplicates (`skip` set in the session script: p3179, p3181 the
+  tilted hex, p3190, p3197, p3207, p3209, p3221, p2815, p3672, p3946, p2639, p2641, p2643,
+  p2647, p2649). Fourteen jobs, 117 photographs. Refiled in `work-manifest.json`: the black
+  house's baths (p3192/3194/3195/3200/3211/3212/3207) to bathrooms, its black entry, stair
+  and accent wall (p3201/3204/3196/3209/3197) plus the grey door and white landing
+  (p2456/2447) to painting, the two restaurant shots that were under bathrooms (p1002/1003)
+  and the reception counter (p4427) to commercial, the terrazzo bath (p9472) to bathrooms.
+  Every "finished work" placeholder caption is written. Counts on the landing work list are
+  hand-typed: 22 kitchens, 28 bathrooms, 29 painting; keep them in step.
 - **`/work` on a laptop** (Eric: keep the phone version, rethink the laptop one, "just the
   spinning globe on a blank page" did not fit): now `.work4`, the page on the same grid as the
   landing. Left column: "Every job, on one globe.", the one-liner with the photo count, the

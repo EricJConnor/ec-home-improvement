@@ -135,10 +135,10 @@ export default function Home() {
         <section className="wl4" id="photos">
           <div className="lab4"><span>Our work</span><i /><span>Hover a name</span></div>
           <ul className="wl">
-            <li><a href="/kitchens" data-img="/assets/kitchens.jpg"><span className="nm">Kitchens</span><span className="ds">13 photographs</span></a></li>
-            <li><a href="/bathrooms" data-img="/assets/bathrooms.jpg"><span className="nm">Bathrooms</span><span className="ds">9 photographs</span></a></li>
-            <li><a href="/painting" data-img="/assets/painting.jpg"><span className="nm">Painting</span><span className="ds">10 photographs</span></a></li>
-            <li><a href="/work" data-img="/assets/flexmarble-peony.jpg"><span className="nm">Every job</span><span className="ds">11 jobs at full size, and the house</span></a></li>
+            <li><a href="/kitchens" data-img="/assets/kitchens.jpg"><span className="nm">Kitchens</span><span className="ds">22 photographs</span></a></li>
+            <li><a href="/bathrooms" data-img="/assets/bathrooms.jpg"><span className="nm">Bathrooms</span><span className="ds">28 photographs</span></a></li>
+            <li><a href="/painting" data-img="/assets/painting.jpg"><span className="nm">Painting</span><span className="ds">29 photographs</span></a></li>
+            <li><a href="/work" data-img="/assets/flexmarble-peony.jpg"><span className="nm">Every job</span><span className="ds">14 jobs at full size, and the house</span></a></li>
           </ul>
           <div className="wl-prev" aria-hidden="true"><img alt="" /></div>
         </section>

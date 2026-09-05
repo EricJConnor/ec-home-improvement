@@ -1,10 +1,10 @@
 /* The three photo pages off the reel: /kitchens, /bathrooms, /painting. Each shows every
-   photograph of its kind that exists on the site at a size fit for a page — the ones in
-   public/full. The other hundred-odd photos in the archive are only here as 200px globe
-   tiles, and a tile blown up to a page reads as cheap, so they are left out until Eric
-   supplies originals. Chapters and captions come from work-manifest.json, which carries
-   the corrections (p2379-2383 are a kitchen remodel, not painting); sizes come from
-   full/manifest.json so nothing is ever drawn past native. */
+   photograph of its kind in public/full/manifest.json (Sep 5: that is now nearly the whole
+   archive, 122 of 137, the rest being process shots and near-duplicates; every file exists at
+   page size). Chapters and captions come from work-manifest.json, which carries the
+   corrections (p2379-2383 are a kitchen remodel; the black house's baths are bathrooms and its
+   black entry, stair and wall are painting); sizes come from full/manifest.json so nothing is
+   ever drawn past native. */
 import work from './work-manifest.json'
 import full from '../public/full/manifest.json'
 
