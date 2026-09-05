@@ -314,8 +314,11 @@ lockup text beside it is only the tracked-out "Home Improvement", stacked beneat
 are `<text>` so they inherit the font and `currentColor`, which is what keeps the difference
 blend working. `app/icon.svg` draws the same mark with the letters as paths (no webfont in a
 favicon). The Google listing carries it as `public/gbp-logo.png`, 720px on ink, rendered from
-`gbp/logo-a.html` with the real face. `public/og.jpg` still shows the old lockup; regenerate it
-with `scripts/og/` when convenient.
+`gbp/logo-a.html` with the real face. `public/og.jpg` was regenerated Sep 5 with this mark over
+the bridge poster (`scripts/og/og.html` + `shoot.js`; the font url points at the `-s.p.` woff2
+under `.next/dev/static/media`, which needs `next dev` to have run once). Eric spotted it when
+he texted the link and the card still carried the old lockup. Note iMessage caches a link's
+card per URL, so a resend can show the old one for a while.
 
 ## The photo pages (`/kitchens`, `/bathrooms`, `/painting`)
 
