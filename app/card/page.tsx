@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   title: 'Eric Connor — EC Home Improvement',
   description: `Save Eric Connor's contact details. ${BIZ.telDisplay} · ${BIZ.email}`,
   alternates: { canonical: '/card' },
+  /* Added to a home screen this has to be its own thing, not a fourth identical
+     square: the mark inverted onto paper, and a name short enough to survive
+     iOS's truncation under the icon. */
+  icons: { apple: '/icon-card.png' },
+  appleWebApp: { capable: true, title: 'EC Home', statusBarStyle: 'default' },
   openGraph: { title: 'Eric Connor — EC Home Improvement', description: 'Kitchens, bathrooms, statement walls and outdoor rooms across Greater Philadelphia.' },
 }
 
