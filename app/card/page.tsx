@@ -50,9 +50,14 @@ export default function Card() {
           <a href={SITE}>{SITE.replace(/^https?:\/\//, '')}</a>
         </div>
 
-        <a className="card-save" href="/vcard" download="eric-connor.vcf">
+        {/* No `download` attribute: it forces a save. See the route's headers. */}
+        <a className="card-save" href="/vcard" type="text/vcard">
           Save to contacts
         </a>
+        <p className="card-tip">
+          Opens your contacts. On some Android phones it saves first — tap the downloaded file
+          to add it.
+        </p>
 
         <div className="card-links">
           <Link href="/work">See the work</Link>

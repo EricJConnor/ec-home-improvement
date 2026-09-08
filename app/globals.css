@@ -589,6 +589,9 @@ main{position:relative;z-index:1}
   transition:background .3s,color .3s,transform var(--t-press) var(--ease-out)}
 .card-save:hover,.card-save:focus-visible{background:#fff;color:var(--ink)}
 .card-save:active{transform:scale(.98)}
+/* One line for the Android case, where the phone may save the vCard before
+   offering to import it — nobody should be left staring at a downloaded file. */
+.card-tip{margin-top:10px;color:var(--mute);font-size:12px;line-height:1.45;max-width:32ch;margin-left:auto;margin-right:auto}
 
 .card-links{margin-top:22px;display:flex;gap:26px;font-size:14px;color:var(--mute)}
 .card-links a:hover{color:#fff}

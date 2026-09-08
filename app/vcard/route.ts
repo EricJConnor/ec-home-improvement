@@ -22,7 +22,11 @@ export async function GET() {
   return new Response(vcf, {
     headers: {
       'Content-Type': 'text/vcard; charset=utf-8',
-      'Content-Disposition': 'attachment; filename="eric-connor.vcf"',
+      /* inline, NOT attachment: `attachment` tells the phone to save the file,
+         which is what put the card in Downloads instead of opening the contact
+         sheet when this was tested on real phones. Inline, the phone opens the
+         vCard and offers to add it. */
+      'Content-Disposition': 'inline; filename="eric-connor.vcf"',
       'Cache-Control': 'public, max-age=3600',
     },
   })
